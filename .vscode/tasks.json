@@ -1,0 +1,18 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Clean .scadbak backups",
+      "detail": "Delete every scadformat backup file under the workspace",
+      "type": "shell",
+      "command": "find '${workspaceFolder}' -type f -name '*.scadbak' -print -delete | wc -l | xargs -I{} echo 'removed {} .scadbak file(s)'",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true,
+        "close": false
+      }
+    }
+  ]
+}

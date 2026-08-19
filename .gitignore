@@ -1,4 +1,7 @@
 # scadformat writes a timestamped backup next to every file it formats
 *.scadbak
 
+# Mesh exports are build output — regenerate from .scad, publish via Releases
+*.stl
+
 .DS_Store
