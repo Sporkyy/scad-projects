@@ -17,6 +17,15 @@ It also reads stdin and writes stdout if you need a diff without touching the
 file. Installed at `~/.local/bin/scadformat` (v0.10, not managed by Homebrew);
 use that absolute path if it isn't on `$PATH`.
 
+Every run drops a timestamped `.scadbak` backup beside the file, with no flag to
+disable it. These are gitignored — leave them alone, and don't commit one.
+
+The formatter is opinionated and lossy: two-space indent, no column alignment,
+and it collapses wrapped expressions onto one long line. Don't fight it. Write a
+comment that needs to span lines as its own block *above* the statement, not as
+a trailing continuation — trailing comment lines get de-indented to column 0 and
+end up looking orphaned.
+
 VS Code formats `.scad` on save via the `vaaski.scadformat` extension, so a file
 the user has open may already be formatted. Re-run it anyway — it's idempotent.
 

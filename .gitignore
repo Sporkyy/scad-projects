@@ -1,0 +1,4 @@
+# scadformat writes a timestamped backup next to every file it formats
+*.scadbak
+
+.DS_Store
