@@ -38,7 +38,7 @@ tube_od = 30; // Outer diameter of the vertical tube post (mm) — outside jaws 
 spacing_mode = "gap";
 
 // "gap" mode
-tube_gap = 8; // Clear space between the facing outer surfaces of the two tubes (mm)
+tube_gap = 40; // Clear space between the facing outer surfaces of the two tubes (mm)
 
 // "edges" mode
 left_tube_to_edge = 20; // Left tube's outer surface to the left unit's right-hand edge (mm)
