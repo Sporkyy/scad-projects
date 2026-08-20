@@ -44,14 +44,15 @@ Render after changing geometry and confirm the output says `manifold` and
 /Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD -o out.stl -D 'tube_od=25' part.scad
 ```
 
-Write test renders to a scratch directory, not the repo. `.stl` is build output
-and is gitignored — never commit one. Meshes for other people go on a GitHub
-Release, not into the tree.
+Write test renders to a scratch directory, not the repo. `.stl` and `.3mf` are
+both gitignored — never commit either, and never `git add -f` one. Meshes for
+other people go on a GitHub Release, not into the tree.
 
-`.3mf` files here are Bambu Studio *project* files, not mesh exports. They carry
-plate layout, orientation, supports, and filament choices that no `.scad` edit
-can reproduce, so they are tracked as source. Only the user re-exports them: if a
-source change makes one stale, say so and stop — never re-slice.
+The `.3mf` is a Bambu Studio project rather than a mesh export, but these are
+single-material prints, so it holds only seam and infill preferences — taste
+that reasonable people disagree about, not a recipe worth versioning. Slicing is
+the user's job either way: if a source change makes an export stale, say so and
+stop.
 
 ## Design conventions
 
