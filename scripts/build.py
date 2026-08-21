@@ -1,5 +1,6 @@
 import argparse
 import os
+import re
 import platform
 import shutil
 import subprocess
@@ -11,6 +12,10 @@ MACOS_OPENSCAD = Path("/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD")
 PREVIEW_SIZE = "1200,900"
 PREVIEW_CAMERA = "0,0,0,55,0,25,0"
 PREVIEW_COLORSCHEME = "Tomorrow"
+
+# OpenSCAD reports both on success; matched as one phrase so an unrelated
+# "NoError" elsewhere in the output can't stand in for the status line
+MANIFOLD_RESULT = re.compile(r"\(manifold\):\s*\n\s*Status:\s*NoError")
 
 
 class BuildError(RuntimeError):
@@ -57,12 +62,18 @@ def find_openscad():
     failures = []
 
     for command in command_candidates():
-        result = subprocess.run(
-            [*command, "--version"],
-            capture_output=True,
-            check=False,
-            text=True,
-        )
+        try:
+            result = subprocess.run(
+                [*command, "--version"],
+                capture_output=True,
+                check=False,
+                text=True,
+            )
+        except OSError:
+            # Candidate isn't runnable — a stale OPENSCAD value, or a path that
+            # existed at discovery and doesn't now. Try the next one
+            failures.append(" ".join(command))
+            continue
         if result.returncode == 0:
             version = (result.stdout or result.stderr).strip()
             print(f"Using {version}")
@@ -109,11 +120,7 @@ def run_export(command, label):
         print(result.stdout, end="")
     if result.returncode != 0:
         raise BuildError(f"{label} failed with exit code {result.returncode}")
-    if (
-        "(manifold)" not in result.stdout
-        or "Status:" not in result.stdout
-        or "NoError" not in result.stdout
-    ):
+    if not MANIFOLD_RESULT.search(result.stdout):
         raise BuildError(f"{label} did not report a manifold NoError result")
 
 
