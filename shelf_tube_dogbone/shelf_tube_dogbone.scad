@@ -12,10 +12,11 @@
 // gripping two posts on each unit locks the two together.
 //
 // So this plate takes all four posts at one level — both units,
-// front and back. Whole, it is about 260 mm long and will not
-// fit a 256 mm bed, hence the bolted lap at mid-depth. It is
-// one rigid body once assembled, which is all the geometry
-// cares about.
+// front and back. Whole, it is about 226 mm long on the
+// measured 200 mm post_span, which does fit a 256 mm bed; the
+// bolted lap at mid-depth is what keeps it printable on deeper
+// units and on smaller beds. It is one rigid body once
+// assembled, which is all the geometry cares about.
 //
 // FOUR ROUND HOLES WOULD NOT GO ON. Four holes on four posts
 // dictates the front-to-back post spacing of BOTH units at
@@ -57,17 +58,13 @@ tube_to_edge = 20;
 left_tube_to_edge = tube_to_edge;
 right_tube_to_edge = tube_to_edge;
 
-// Shelf board depth, front edge to back edge (mm). Only used to guess
-// post_span below; measure that directly and this stops mattering
-shelf_depth = 289.6;
-
 // Front-to-back span across one unit's two posts, outer face to outer face
-// (mm). Lay a tape along the side of the unit at any shelf level. The default
-// assumes the posts are inset from the long edges by the same amount they are
-// from the short ones. Unlike the brace, this one does not have to be right —
-// the back slots absorb slot_travel worth of error either way. It only needs
-// to be close enough to keep the real span inside that window
-post_span = shelf_depth - 2 * tube_to_edge;
+// (mm). Lay a tape along the side of the unit at any shelf level. Measured at
+// 200.3 on these shelves and recorded as 200 even. Unlike the brace, this one
+// does not have to be right — the back slots absorb slot_travel worth of
+// error either way. It only needs to be close enough to keep the real span
+// inside that window
+post_span = 200;
 
 // ===== DECIDE THIS =====
 // Gap between the two units' facing shelf edges (mm). Must match what the

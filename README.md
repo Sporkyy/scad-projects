@@ -92,9 +92,8 @@ stiffness.
 | `tube_to_edge` | A tube's outer surface out to the facing edge of its own shelf — must match what the couplers were printed with |
 | `post_span` | Tape along the side of one unit, outer face of the front tube to outer face of the back tube |
 
-`post_span` defaults to `shelf_depth - 2 * tube_to_edge`, which assumes the posts
-are inset from the long edges by the same amount as from the short ones. Confirm
-that before printing: the brace has no slot to take up error, and its hole
+`post_span` ships as 200, measured off these shelves at 200.3. Take a tape to
+your own before printing: the brace has no slot to take up error, and its hole
 spacing tracks this number nearly one for one. If the two units differ or do not
 sit flush at the front, skip both and set `brace_span` — the diagonal measured
 straight off the assembled pair, one unit's front tube to the other's back tube,
@@ -126,10 +125,11 @@ instead of triangulating. A plate pinned to two posts on a unit cannot rotate
 relative to it, so a plate holding two posts on each unit locks the pair
 together.
 
-Whole, that plate is about 275 mm long and will not fit a 256 mm bed, so it
-prints as two halves that bolt together at mid-depth with two M4 bolts. Both
-halves come out of one source and one `.stl`, because every dimension they share
-has to match for them to assemble.
+Whole, that plate is about 226 mm long on the measured 200 mm `post_span`, which
+would fit a 256 mm bed; it still prints as two halves bolted together at
+mid-depth with two M4 bolts, which is what keeps deeper units and smaller beds
+printable. Both halves come out of one source and one `.stl`, because every
+dimension they share has to match for them to assemble.
 
 **Four round holes would not go on.** Four holes on four posts dictates the
 front-to-back post spacing of both units simultaneously, and two units that
@@ -151,8 +151,8 @@ render echoes the window of `post_span` it covers.
 | `tube_to_edge` | A tube's outer surface out to the facing edge of its own shelf — must match what the couplers were printed with |
 | `post_span` | Tape along the side of one unit, outer face of the front tube to outer face of the back tube |
 
-`post_span` only has to land inside the slot window, so the default derived from
-`shelf_depth` is usually good enough to print on.
+`post_span` only has to land inside the slot window, so a tape measurement to
+the nearest millimetre is plenty — the shipped 200 came off a 200.3 span.
 
 **Printing.** PETG, no supports. Both halves print flat with the lap face down —
 the step down to the lap is a drop in height, not an overhang. The two bodies are

@@ -50,16 +50,12 @@ tube_to_edge = 20;
 left_tube_to_edge = tube_to_edge;
 right_tube_to_edge = tube_to_edge;
 
-// Shelf board depth, front edge to back edge (mm). Only used to guess
-// post_span below; measure that directly and this stops mattering
-shelf_depth = 289.6;
-
 // Front-to-back span across one unit's two posts, outer face to outer face
 // (mm). Lay a tape along the side of the unit at any shelf level — both faces
-// are exposed. The default assumes the posts are inset from the long edges by
-// the same amount they are from the short ones, which is worth confirming
-// before printing: this number sets the brace length almost one-for-one
-post_span = shelf_depth - 2 * tube_to_edge;
+// are exposed. Measured at 200.3 on these shelves and recorded as 200 even.
+// Re-measure it for other units rather than deriving it from the board depth:
+// this number sets the brace length almost one-for-one
+post_span = 200;
 
 // Ground truth, if you would rather not trust the two spans agreeing. Measure
 // diagonally across the assembled pair, outer face of one unit's front tube to
