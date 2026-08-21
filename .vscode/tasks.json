@@ -13,6 +13,19 @@
         "clear": true,
         "close": false
       }
+    },
+    {
+      "label": "Clean 3D printer exports",
+      "detail": "Delete every .stl and .3mf export under the workspace",
+      "type": "shell",
+      "command": "find '${workspaceFolder}' -type f \\( -name '*.stl' -o -name '*.3mf' \\) -print -delete | wc -l | xargs -I{} echo 'removed {} printer file(s)'",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true,
+        "close": false
+      }
     }
   ]
 }

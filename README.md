@@ -79,7 +79,7 @@ It leaves a `.scadbak` beside each file it touches; the *Clean .scadbak backups*
 VS Code task clears them.
 
 Exported `.stl` and `.3mf` files are build output and are not tracked — render
-your own from source.
+your own from source. The *Clean 3D printer exports* VS Code task clears them.
 
 ## License
 
