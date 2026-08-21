@@ -2,8 +2,8 @@
 
 Parametric OpenSCAD models for 3D-printed parts, mostly one-off fixes for
 things around the house. Each project has its own directory, holding a
-self-contained `.scad` source per printable part with its `.stl` and preview
-image beside it. Measured dimensions are variables at the top of the source.
+self-contained `.scad` source with its `.stl` and preview image beside it.
+Measured dimensions are variables at the top of the source.
 
 Every model is written to be measured with **calipers**. Parameters are always
 things a caliper can physically reach — outside diameters, clear gaps,
@@ -110,6 +110,56 @@ enough that placement matters: the echoed bed placement gives the angle and the
 square it needs, and turning it 45° costs far less bed than laying it square on.
 `bed_size` and `bed_margin` drive an assertion, so a span too big for the printer
 fails the render rather than the print. One per pair of units.
+
+The dogbone below does the same job a different way. Prefer the brace when you
+want one part and no hardware, and can measure carefully; prefer the dogbone
+when you would rather not have the fit depend on a measurement at all.
+
+### Shelf tube dogbone
+
+[![Shelf tube dogbone preview](shelf_tube_dogbone/shelf_tube_dogbone.png)](shelf_tube_dogbone/shelf_tube_dogbone.stl)
+
+[View or download STL](shelf_tube_dogbone/shelf_tube_dogbone.stl) · [OpenSCAD source](shelf_tube_dogbone/shelf_tube_dogbone.scad)
+
+The same rigidity as the brace, reached by gripping all four posts at one level
+instead of triangulating. A plate pinned to two posts on a unit cannot rotate
+relative to it, so a plate holding two posts on each unit locks the pair
+together.
+
+Whole, that plate is about 275 mm long and will not fit a 256 mm bed, so it
+prints as two halves that bolt together at mid-depth with two M4 bolts. Both
+halves come out of one source and one `.stl`, because every dimension they share
+has to match for them to assemble.
+
+**Four round holes would not go on.** Four holes on four posts dictates the
+front-to-back post spacing of both units simultaneously, and two units that
+disagree would leave the plate bridging nothing. So the front pair locates and
+the back pair are slots running front to back. The round holes fix position, the
+slots absorb whatever the units disagree about, and rotation stays fully
+constrained because each slot is elongated along the line to its own round hole.
+Nothing is left to friction.
+
+That is also why this one tolerates a rough measurement where the brace does
+not. `slot_travel` is the whole tolerance budget, 30 mm by default, and the
+render echoes the window of `post_span` it covers.
+
+**Measuring.** The same three as the brace:
+
+| Parameter | Measure |
+| --- | --- |
+| `tube_od` | Outside jaws on a vertical tube post |
+| `tube_to_edge` | A tube's outer surface out to the facing edge of its own shelf — must match what the couplers were printed with |
+| `post_span` | Tape along the side of one unit, outer face of the front tube to outer face of the back tube |
+
+`post_span` only has to land inside the slot window, so the default derived from
+`shelf_depth` is usually good enough to print on.
+
+**Printing.** PETG, no supports. Both halves print flat with the lap face down —
+the step down to the lap is a drop in height, not an overhang. The two bodies are
+exported clear of each other; let the slicer arrange them. Assemble with two M4
+bolts, the front half as printed and **the back half turned over**, so its lap
+sits on top of the front's and the finished plate is one thickness throughout.
+One dogbone makes a pair of units rigid, whatever the stack height.
 
 ## Working with these
 

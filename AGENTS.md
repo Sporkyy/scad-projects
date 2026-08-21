@@ -1,10 +1,17 @@
 # AGENTS.md
 
 OpenSCAD source for 3D-printable parts. Each project has its own directory,
-holding a `.scad` file per printable part alongside that part's generated `.stl`
-and `.png` distribution files. Parts that are printed and used together belong in
-one directory; a part that stands alone gets its own. Measured dimensions are
+holding a `.scad` file per model alongside its generated `.stl` and `.png`
+distribution files. Parts that are printed and used together belong in one
+directory; a part that stands alone gets its own. Measured dimensions are
 top-level variables in the source.
+
+One `.scad` is normally one printable part. The exception is a model that is a
+single object split into pieces to fit the bed: its pieces share every parameter
+and have to agree with each other to assemble, so they stay in one source and
+export as separate bodies in one `.stl`. Splitting those across files would only
+invite them to drift apart. Emit the bodies clear of one another and leave the
+arrangement to the slicer.
 
 Every `.scad` stays self-contained — no `include` or `use` across files, even
 between parts sitting in the same directory. Duplicate the handful of lines
@@ -36,7 +43,8 @@ no flag to disable it. These are gitignored — leave them alone, and don't comm
 one.
 
 The formatter is opinionated and lossy: two-space indent, no column alignment,
-and it collapses wrapped expressions onto one long line. Don't fight it. Write a
+`for(` with the space closed up, and it collapses wrapped expressions onto one
+long line. Don't fight it. Write a
 comment that needs to span lines as its own block *above* the statement, not as
 a trailing continuation — trailing comment lines get de-indented to column 0 and
 end up looking orphaned.
