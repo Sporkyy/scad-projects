@@ -1,7 +1,8 @@
 # AGENTS.md
 
-OpenSCAD source for 3D-printable parts. One self-contained `.scad` file per part
-at the repo root, each with its measured dimensions as top-level variables.
+OpenSCAD source for 3D-printable parts. Each part has its own directory containing
+one self-contained `.scad` file and its generated `.stl` and `.png` distribution
+files. Measured dimensions are top-level variables in the source.
 
 ## Formatting
 
@@ -34,25 +35,30 @@ the user has open may already be formatted. Re-run it anyway — it's idempotent
 OpenSCAD has no CLI symlink; call the binary inside the app bundle:
 
 ```sh
-/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD -o out.stl part.scad
+/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD -o out.stl part/part.scad
 ```
 
 Render after changing geometry and confirm the output says `manifold` and
 `Status: NoError`. Override variables without editing the file using `-D`:
 
 ```sh
-/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD -o out.stl -D 'tube_od=25' part.scad
+/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD -o out.stl -D 'tube_od=25' part/part.scad
 ```
 
-Write test renders to a scratch directory, not the repo. `.stl` and `.3mf` are
-both gitignored — never commit either, and never `git add -f` one. Meshes for
-other people go on a GitHub Release, not into the tree.
+Write one-off test renders to a scratch directory, not the repo. The `.stl` and
+`.png` beside each source are generated distribution files: rebuild them with
+`python3 scripts/build.py`, inspect the preview, and commit them with every source
+change. Never edit either generated file by hand.
 
-The `.3mf` is a Bambu Studio project rather than a mesh export, but these are
-single-material prints, so it holds only seam and infill preferences — taste
-that reasonable people disagree about, not a recipe worth versioning. Slicing is
-the user's job either way: if a source change makes an export stale, say so and
-stop.
+The build must report `manifold` and `Status: NoError` before replacing tracked
+artifacts. It exports binary STL files and consistent fixed-view catalog
+previews. A failed build must leave the last known-good artifacts intact.
+
+The `.3mf` is a Bambu Studio project rather than a mesh export and remains
+gitignored. The models are single-material prints, so these files hold only seam
+and infill preferences — taste that reasonable people disagree about, not a
+recipe worth versioning. Slicing is the user's job either way: if a source change
+makes an export stale, say so and stop.
 
 Finished-part geometry belongs in OpenSCAD; build-plate placement and print
 orientation belong in the slicer. Do not change or flag source geometry merely
@@ -68,7 +74,8 @@ the requested design behavior clearly says otherwise.
 
 After every source change, make a dedicated documentation pass. Check the README,
 source comments, measuring instructions, tuning guidance, derived-value
-descriptions, and print notes for claims that need to follow the new code.
+descriptions, print notes, generated STL, and preview image for content that needs
+to follow the new code.
 
 ## Design conventions
 

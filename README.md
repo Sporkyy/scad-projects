@@ -1,8 +1,9 @@
 # scad-projects
 
 Parametric OpenSCAD models for 3D-printed parts, mostly one-off fixes for
-things around the house. Each project is a single self-contained `.scad` file
-at the repo root, with its measured dimensions as variables at the top.
+things around the house. Each project has its own directory containing a
+self-contained `.scad` source, a printable `.stl`, and a preview image. Measured
+dimensions are variables at the top of the source.
 
 Every model is written to be measured with **calipers**. Parameters are always
 things a caliper can physically reach — outside diameters, clear gaps,
@@ -11,7 +12,11 @@ hollow part. Anything like that gets derived instead.
 
 ## Projects
 
-### Shelf tube coupler — [`shelf_tube_coupler.scad`](shelf_tube_coupler.scad)
+### Shelf tube coupler
+
+[![Shelf tube coupler preview](shelf_tube_coupler/shelf_tube_coupler.png)](shelf_tube_coupler/shelf_tube_coupler.stl)
+
+[View or download STL](shelf_tube_coupler/shelf_tube_coupler.stl) · [OpenSCAD source](shelf_tube_coupler/shelf_tube_coupler.scad)
 
 A rigid collar that ties two adjacent Turn-N-Tube wire shelf units together at
 one tube height, replacing zip ties.
@@ -57,18 +62,22 @@ eight for a five-tier unit, since the top shelf has no tube above it.
 
 ## Working with these
 
-Render a mesh:
+Regenerate every tracked STL and preview image:
 
 ```sh
-/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD -o out.stl shelf_tube_coupler.scad
+python3 scripts/build.py
 ```
+
+The default VS Code build task, *Build all objects*, runs the same command. With
+an OpenSCAD source active, *Build current object* rebuilds only that object. Set
+`OPENSCAD` to the CLI executable path if the script cannot find the installation.
 
 Each model `echo`s its derived dimensions and `assert`s against interferences,
 so check the console output against the real part before committing to a print.
 Try a variant without editing the file using `-D`:
 
 ```sh
-/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD -o out.stl -D 'shelf_gap=12' shelf_tube_coupler.scad
+/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD -o /tmp/shelf_tube_coupler.stl -D 'shelf_gap=12' shelf_tube_coupler/shelf_tube_coupler.scad
 ```
 
 A failed assertion means the numbers don't make a printable part, not that
@@ -79,8 +88,10 @@ Source is formatted with [scadformat](https://github.com/hugheaves/scadformat).
 It leaves a `.scadbak` beside each file it touches; the *Clean .scadbak backups*
 VS Code task clears them.
 
-Exported `.stl` and `.3mf` files are build output and are not tracked — render
-your own from source. The *Clean 3D printer exports* VS Code task clears them.
+The OpenSCAD source is canonical. Its generated binary STL and PNG preview are
+tracked beside it so GitHub can display the object and offer the mesh for
+download. Bambu Studio `.3mf` projects contain slicer preferences, stay ignored,
+and are never generated or distributed by this project.
 
 ## License
 

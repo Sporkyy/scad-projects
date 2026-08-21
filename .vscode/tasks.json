@@ -2,6 +2,38 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Build all objects",
+      "detail": "Regenerate tracked STL and PNG files from every object source",
+      "type": "process",
+      "command": "python3",
+      "args": ["${workspaceFolder}/scripts/build.py"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true,
+        "close": false
+      }
+    },
+    {
+      "label": "Build current object",
+      "detail": "Regenerate tracked STL and PNG files for the active OpenSCAD source",
+      "type": "process",
+      "command": "python3",
+      "args": ["${workspaceFolder}/scripts/build.py", "${file}"],
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true,
+        "close": false
+      }
+    },
+    {
       "label": "Clean .scadbak backups",
       "detail": "Delete every scadformat backup file under the workspace",
       "type": "shell",
@@ -15,10 +47,10 @@
       }
     },
     {
-      "label": "Clean 3D printer exports",
-      "detail": "Delete every .stl and .3mf export under the workspace",
+      "label": "Clean Bambu Studio projects",
+      "detail": "Delete every ignored .3mf slicer project under the workspace",
       "type": "shell",
-      "command": "find '${workspaceFolder}' -type f \\( -name '*.stl' -o -name '*.3mf' \\) -print -delete | wc -l | xargs -I{} echo 'removed {} printer file(s)'",
+      "command": "find '${workspaceFolder}' -type f -name '*.3mf' -print -delete | wc -l | xargs -I{} echo 'removed {} .3mf file(s)'",
       "problemMatcher": [],
       "presentation": {
         "reveal": "always",

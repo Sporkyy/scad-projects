@@ -1,8 +1,15 @@
 # scadformat writes a timestamped backup next to every file it formats
 *.scadbak
 
-# Build output — regenerate from .scad, publish meshes via Releases
-*.stl
+# Scratch STL exports at the repository root
+/*.stl
+
+# Interrupted generated-artifact builds
+*.tmp.stl
+*.tmp.png
+__pycache__/
+
+# Slicer projects stay local
 *.3mf
 
 .DS_Store
