@@ -47,7 +47,7 @@ right_tube_to_edge = tube_to_edge;
 // Gap you want between the two units' facing shelf edges (mm).
 // This is a choice, not a measurement — the coupler holds the units here.
 // Some gap hides shelf-height mismatch between the units
-shelf_gap = 10;
+shelf_gap = 5;
 
 // ===== WALL =====
 // Solid wall hanging below the collar, filling the gap. Not structurally
@@ -62,8 +62,8 @@ wall_height = 15; // How far the wall drops below the collar (mm)
 // ===== TUNE THESE =====
 hole_clearance = 0.6; // Added to hole diameter for slip fit (mm) — increase if too tight
 wall_clearance = 0.4; // Shaved off the wall thickness so it drops in without a fight (mm)
-wall_meat = 7; // PETG thickness around each hole (mm)
-collar_height = 10; // Height of the main collar at the shelf level (mm)
+wall_meat = 5; // PETG thickness around each hole (mm)
+collar_height = 5; // Height of the main collar at the shelf level (mm)
 
 $fn = 100;
 
