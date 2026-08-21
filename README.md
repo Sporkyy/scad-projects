@@ -1,9 +1,9 @@
 # scad-projects
 
 Parametric OpenSCAD models for 3D-printed parts, mostly one-off fixes for
-things around the house. Each project has its own directory containing a
-self-contained `.scad` source, a printable `.stl`, and a preview image. Measured
-dimensions are variables at the top of the source.
+things around the house. Each project has its own directory, holding a
+self-contained `.scad` source per printable part with its `.stl` and preview
+image beside it. Measured dimensions are variables at the top of the source.
 
 Every model is written to be measured with **calipers**. Parameters are always
 things a caliper can physically reach — outside diameters, clear gaps,
@@ -46,9 +46,9 @@ shelf edges, and the hole spacing follows from it. A gap is worth having:
 adjacent units rarely have their shelves at matching heights, and a deliberate
 gap keeps that mismatch from reading as a misalignment.
 
-The wall is not structural — the hole spacing alone holds the gap, and two
-couplers per level already resist twist. It hides the gap and stops small items
-dropping through. Set `wall = false` to leave it off. `wall_height` is the only
+The wall is not structural, and nothing about it holds the units square — see
+the brace below for what does. It hides the gap and stops small items dropping
+through. Set `wall = false` to leave it off. `wall_height` is the only
 shape knob — how far it drops. Its nominal thickness is `shelf_gap`, reduced by
 `wall_clearance` so it fits without binding. Its front-to-back depth is the
 collar's own, so it runs flush with the collar sides.
@@ -59,6 +59,58 @@ build a variant per size if they differ.
 **Printing.** PETG, no supports. Print collar-axis vertical as modelled so the
 holes come out round and the tube slides through. Budget two per shelf level —
 eight for a five-tier unit, since the top shelf has no tube above it.
+
+### Shelf tube brace
+
+[![Shelf tube brace preview](shelf_tube_coupler/shelf_tube_brace.png)](shelf_tube_coupler/shelf_tube_brace.stl)
+
+[View or download STL](shelf_tube_coupler/shelf_tube_brace.stl) · [OpenSCAD source](shelf_tube_coupler/shelf_tube_brace.scad)
+
+The third link that makes a coupled pair of units rigid. It shares the coupler's
+directory because the two are one system.
+
+Couplers on their own do not hold the units still. Each is pinned at both ends by
+a round tube in a round hole, so a pair of them makes a four-bar linkage: one
+degree of freedom, whatever their stiffness and however far apart they sit. The
+units stay parallel and shear sideways. More couplers do not help, because they
+all run the same direction. The freedom is kinematic, which is why the coupler's
+wall cannot close it — friction is the only tool a wall has.
+
+Two rigid bodies have three degrees of freedom in plan and each link removes one,
+so three links lock them together. The brace is the third: a long flat bar
+running diagonally from one unit's **front** post to the other unit's **back**
+post, not parallel to the couplers and so removing what they leave behind.
+
+Three links is the entire requirement, so **one brace makes the pair rigid** no
+matter how many levels are coupled. Couplers elsewhere in the stack only add
+stiffness.
+
+**Measuring.** Three measurements, all reachable from outside:
+
+| Parameter | Measure |
+| --- | --- |
+| `tube_od` | Outside jaws on a vertical tube post |
+| `tube_to_edge` | A tube's outer surface out to the facing edge of its own shelf — must match what the couplers were printed with |
+| `post_span` | Tape along the side of one unit, outer face of the front tube to outer face of the back tube |
+
+`post_span` defaults to `shelf_depth - 2 * tube_to_edge`, which assumes the posts
+are inset from the long edges by the same amount as from the short ones. Confirm
+that before printing: the brace has no slot to take up error, and its hole
+spacing tracks this number nearly one for one. If the two units differ or do not
+sit flush at the front, skip both and set `brace_span` — the diagonal measured
+straight off the assembled pair, one unit's front tube to the other's back tube,
+outer face to outer face.
+
+`hole_clearance` is deliberately looser here than on the coupler, buying
+tolerance for a tape measurement at the cost of about half of it in residual
+sway.
+
+**Printing.** PETG, no supports, flat on the bed. Flat runs the perimeters along
+the load path, where on edge would load the bar across its layers. It is long
+enough that placement matters: the echoed bed placement gives the angle and the
+square it needs, and turning it 45° costs far less bed than laying it square on.
+`bed_size` and `bed_margin` drive an assertion, so a span too big for the printer
+fails the render rather than the print. One per pair of units.
 
 ## Working with these
 

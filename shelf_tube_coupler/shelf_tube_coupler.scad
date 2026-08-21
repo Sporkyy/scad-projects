@@ -50,10 +50,13 @@ right_tube_to_edge = tube_to_edge;
 shelf_gap = 5;
 
 // ===== WALL =====
-// Solid wall hanging below the collar, filling the gap. Not structurally
-// required — the hole spacing alone sets the gap, and two couplers per
-// level already resist twist. It hides the gap and keeps stray items
-// from dropping through
+// Solid wall hanging below the collar, filling the gap. It hides the gap and
+// keeps stray items from dropping through, and that is all it does — it is
+// not what holds the units square. Couplers cannot do that on their own:
+// each is pinned at both ends by a round tube in a round hole, and they all
+// run the same direction, so any number of them at any number of levels
+// still leaves the pair free to shear sideways. The wall can only fight that
+// with friction, and loses. shelf_tube_brace.scad removes the freedom itself
 wall = false;
 wall_height = 15; // How far the wall drops below the collar (mm)
 // Nominal thickness is shelf_gap, reduced slightly for fit tolerance, and

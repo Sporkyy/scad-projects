@@ -1,8 +1,14 @@
 # AGENTS.md
 
-OpenSCAD source for 3D-printable parts. Each part has its own directory containing
-one self-contained `.scad` file and its generated `.stl` and `.png` distribution
-files. Measured dimensions are top-level variables in the source.
+OpenSCAD source for 3D-printable parts. Each project has its own directory,
+holding a `.scad` file per printable part alongside that part's generated `.stl`
+and `.png` distribution files. Parts that are printed and used together belong in
+one directory; a part that stands alone gets its own. Measured dimensions are
+top-level variables in the source.
+
+Every `.scad` stays self-contained — no `include` or `use` across files, even
+between parts sitting in the same directory. Duplicate the handful of lines
+instead. Each source is meant to be downloaded on its own and render.
 
 ## Formatting
 
