@@ -21,11 +21,19 @@ scadformat path/to/file.scad   # Formats in place
 ```
 
 It also reads stdin and writes stdout if you need a diff without touching the
-file. Installed at `~/.local/bin/scadformat` (v0.10, not managed by Homebrew);
-use that absolute path if it isn't on `$PATH`.
+file — and that form drops no backup, so prefer it when you only want to check
+whether a file is already clean.
 
-Every run drops a timestamped `.scadbak` backup beside the file, with no flag to
-disable it. These are gitignored — leave them alone, and don't commit one.
+v0.10, not managed by Homebrew, so the path varies by machine: `~/.bin/scadformat`
+on the work MacBook Pro, `~/.local/bin/scadformat` elsewhere. Use whichever
+exists if it isn't on `$PATH`. It has no `--version`; `--log-level` is the only
+flag, and it prints its version banner on every run. A fresh download may still
+carry a quarantine attribute — `xattr -d com.apple.quarantine <path>` clears it,
+and the binary usually arrives already executable.
+
+Formatting in place drops a timestamped `.scadbak` backup beside the file, with
+no flag to disable it. These are gitignored — leave them alone, and don't commit
+one.
 
 The formatter is opinionated and lossy: two-space indent, no column alignment,
 and it collapses wrapped expressions onto one long line. Don't fight it. Write a
