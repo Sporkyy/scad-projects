@@ -44,8 +44,9 @@ gap keeps that mismatch from reading as a misalignment.
 The wall is not structural — the hole spacing alone holds the gap, and two
 couplers per level already resist twist. It hides the gap and stops small items
 dropping through. Set `wall = false` to leave it off. `wall_height` is the only
-knob — how far it drops. Its thickness is `shelf_gap` exactly, and its
-front-to-back depth is the collar's own, so it runs flush with the collar sides.
+shape knob — how far it drops. Its nominal thickness is `shelf_gap`, reduced by
+`wall_clearance` so it fits without binding. Its front-to-back depth is the
+collar's own, so it runs flush with the collar sides.
 
 Spacing can drift between levels if the unit tapers, so measure per shelf and
 build a variant per size if they differ.

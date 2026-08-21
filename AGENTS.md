@@ -54,6 +54,22 @@ that reasonable people disagree about, not a recipe worth versioning. Slicing is
 the user's job either way: if a source change makes an export stale, say so and
 stop.
 
+Finished-part geometry belongs in OpenSCAD; build-plate placement and print
+orientation belong in the slicer. Do not change or flag source geometry merely
+because a slicer may initially place it in an inconvenient orientation. Document
+an orientation when it is useful, but treat rotating the finished model for
+printing as a slicer concern.
+
+## Documentation
+
+The OpenSCAD source is canonical. Documentation follows the behavior and
+parameters defined by the code, so treat a mismatch as stale documentation unless
+the requested design behavior clearly says otherwise.
+
+After every source change, make a dedicated documentation pass. Check the README,
+source comments, measuring instructions, tuning guidance, derived-value
+descriptions, and print notes for claims that need to follow the new code.
+
 ## Design conventions
 
 - Measurements come from calipers, so parameters must be things a caliper can

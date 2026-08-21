@@ -56,8 +56,8 @@ shelf_gap = 10;
 // from dropping through
 wall = false;
 wall_height = 15; // How far the wall drops below the collar (mm)
-// Thickness is shelf_gap exactly — it is the gap, made solid — and depth
-// front-to-back is the collar's own depth, so both are derived below
+// Nominal thickness is shelf_gap, reduced slightly for fit tolerance, and
+// front-to-back depth is the collar's own depth, so both are derived below
 
 // ===== TUNE THESE =====
 hole_clearance = 0.6; // Added to hole diameter for slip fit (mm) — increase if too tight
@@ -92,7 +92,7 @@ echo(str("overall length = ", center_distance + 2 * collar_r, " mm"));
 echo(str("wall = ", wall_thickness, " x ", wall_depth, " mm at X offset ", wall_x, " mm"));
 
 assert(!wall || wall_thickness > 0, "wall_clearance has eaten the whole wall — raise shelf_gap, lower wall_clearance, or set wall = false");
-assert(abs(wall_x) + wall_thickness / 2 <= center_distance / 2 - hole_r, "wall overlaps a tube hole — check the tube-to-edge measurements");
+assert(!wall || abs(wall_x) + wall_thickness / 2 <= center_distance / 2 - hole_r, "wall overlaps a tube hole — check the tube-to-edge measurements");
 
 // 2D lozenge (stadium) shape: hull of two circles
 module lozenge_2d(r, cdist) {
