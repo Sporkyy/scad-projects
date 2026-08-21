@@ -22,9 +22,9 @@ A rigid collar that ties two adjacent Turn-N-Tube wire shelf units together at
 one tube height, replacing zip ties.
 
 The body is a lozenge that slips over both vertical tube posts, holding them a
-fixed distance apart. An optional wall on the underside hangs down into the gap
-between the two units' facing shelf edges. It rests on the shelf below, so one
-coupler per level only needs the wall on its bottom face.
+fixed distance apart. It rests on the shelf below and carries no other features
+— what it does is hold the spacing, and it does not hold the units square. The
+brace below is what does that.
 
 The coupler **defines** the spacing rather than fitting it. Nothing depends on
 how far apart the units happen to sit today, so there is no need to get calipers
@@ -37,21 +37,20 @@ between the tubes at all.
 | `tube_od` | Outside jaws on a vertical tube post |
 | `tube_to_edge` | A tube's outer surface out to the facing edge of its own shelf |
 
-Override `left_tube_to_edge` / `right_tube_to_edge` if the two units differ.
-That also offsets the wall, since an asymmetric pair puts the gap off the
-collar's centreline.
+Override `left_tube_to_edge` / `right_tube_to_edge` if the two units differ —
+a shelf that overhangs further on one side, or a post not set the same distance
+in.
 
 **Deciding.** `shelf_gap` is the gap you want between the two units' facing
 shelf edges, and the hole spacing follows from it. A gap is worth having:
 adjacent units rarely have their shelves at matching heights, and a deliberate
 gap keeps that mismatch from reading as a misalignment.
 
-The wall is not structural, and nothing about it holds the units square — see
-the brace below for what does. It hides the gap and stops small items dropping
-through. Set `wall = false` to leave it off. `wall_height` is the only
-shape knob — how far it drops. Its nominal thickness is `shelf_gap`, reduced by
-`wall_clearance` so it fits without binding. Its front-to-back depth is the
-collar's own, so it runs flush with the collar sides.
+Earlier versions could hang a wall below the collar to fill that gap. It is
+gone. It was sold as resisting twist and it does not — see the brace below for
+why no arrangement of couplers can — and covering the gap was never worth a
+part that also had to fit into it. Nothing replaces it: the gap stays open, and
+small items can drop through.
 
 Spacing can drift between levels if the unit tapers, so measure per shelf and
 build a variant per size if they differ.
@@ -74,7 +73,7 @@ a round tube in a round hole, so a pair of them makes a four-bar linkage: one
 degree of freedom, whatever their stiffness and however far apart they sit. The
 units stay parallel and shear sideways. More couplers do not help, because they
 all run the same direction. The freedom is kinematic, which is why the coupler's
-wall cannot close it — friction is the only tool a wall has.
+old gap-filling wall never closed it — friction was the only tool it had.
 
 Two rigid bodies have three degrees of freedom in plan and each link removes one,
 so three links lock them together. The brace is the third: a long flat bar
@@ -133,8 +132,9 @@ Try a variant without editing the file using `-D`:
 ```
 
 A failed assertion means the numbers don't make a printable part, not that
-something is broken — asking for a wall with `shelf_gap = 0`, for instance,
-leaves it nothing to fill. Adjust the flagged parameter and re-render.
+something is broken — a `post_span` measured between the posts instead of
+across them, for instance, describes a brace shorter than its own tube. Adjust
+the flagged parameter and re-render.
 
 Source is formatted with [scadformat](https://github.com/hugheaves/scadformat).
 It leaves a `.scadbak` beside each file it touches; the *Clean .scadbak backups*

@@ -2,9 +2,7 @@
 // Turn-N-Tube shelf coupler — rigid lozenge collar
 // Connects two adjacent shelf units at one tube height.
 // Replaces zip ties: a lozenge collar slips over both vertical
-// tube posts and holds them at a fixed spacing, with an
-// optional wall on the underside that fills the gap between
-// the two units' facing shelf edges.
+// tube posts and holds them at a fixed spacing.
 //
 // The coupler DEFINES the spacing — it does not have to fit
 // the units as they currently sit. Set the gap you want and
@@ -16,15 +14,25 @@
 // their shelves at the same height, and the gap keeps that
 // mismatch from reading as a misalignment.
 //
+// There is deliberately no gap-filling wall. An earlier version
+// hung one below the collar to stiffen the pair and it did
+// nothing: couplers are pinned at both ends by a round tube in
+// a round hole, and every one of them runs the same direction,
+// so the pair keeps a degree of freedom to shear sideways
+// however many are fitted. A wall can only fight that with
+// friction, and it lost. Printing it back would buy nothing —
+// shelf_tube_brace.scad is the diagonal link that removes the
+// freedom itself.
+//
 // PRINT NOTES:
-// - PETG, no supports needed (holes are round, the wall is
-//   solid down to a flat bottom).
+// - PETG, no supports needed — a flat plate with round holes.
 // - Print with the collar axis vertical (as modeled) so the
 //   holes print round and the tube slides through cleanly.
-// - Rests on the shelf below, so the wall only needs to be on
-//   the bottom face. Two per shelf level (front and back post
-//   pair), 8 total for a 5-tier unit — the top shelf has no
-//   tube above it.
+// - Rests on the shelf below. Two per shelf level (front and
+//   back post pair), 8 total for a 5-tier unit — the top shelf
+//   has no tube above it.
+// - These hold the spacing, not the squareness. Add one
+//   shelf_tube_brace per pair of units.
 // ============================================================
 
 // ===== MEASURE THESE ON YOUR ACTUAL SHELVES =====
@@ -49,22 +57,8 @@ right_tube_to_edge = tube_to_edge;
 // Some gap hides shelf-height mismatch between the units
 shelf_gap = 5;
 
-// ===== WALL =====
-// Solid wall hanging below the collar, filling the gap. It hides the gap and
-// keeps stray items from dropping through, and that is all it does — it is
-// not what holds the units square. Couplers cannot do that on their own:
-// each is pinned at both ends by a round tube in a round hole, and they all
-// run the same direction, so any number of them at any number of levels
-// still leaves the pair free to shear sideways. The wall can only fight that
-// with friction, and loses. shelf_tube_brace.scad removes the freedom itself
-wall = false;
-wall_height = 15; // How far the wall drops below the collar (mm)
-// Nominal thickness is shelf_gap, reduced slightly for fit tolerance, and
-// front-to-back depth is the collar's own depth, so both are derived below
-
 // ===== TUNE THESE =====
 hole_clearance = 0.6; // Added to hole diameter for slip fit (mm) — increase if too tight
-wall_clearance = 0.4; // Shaved off the wall thickness so it drops in without a fight (mm)
 wall_meat = 5; // PETG thickness around each hole (mm)
 collar_height = 5; // Height of the main collar at the shelf level (mm)
 
@@ -78,24 +72,15 @@ center_distance = tube_od + left_tube_to_edge + shelf_gap + right_tube_to_edge;
 hole_r = tube_od / 2 + hole_clearance / 2;
 collar_r = hole_r + wall_meat;
 
-// Midpoint of the gap. Zero when both units measure the same, and
-// offset toward the shorter run when they don't
-wall_x = (left_tube_to_edge - right_tube_to_edge) / 2;
-
-// The wall hangs under the waist of the lozenge, where the collar is a full
-// 2*collar_r deep, so it runs flush with the collar's sides
-wall_depth = 2 * collar_r;
-
-// Slop comes out of the wall, not out of the spacing — the hole positions
-// still hold the units shelf_gap apart
-wall_thickness = shelf_gap - wall_clearance;
+// Narrowest material across the waist, between the two holes. The collar is
+// only as strong as this, and it is what a very small shelf_gap eats into
+waist = center_distance - 2 * hole_r;
 
 echo(str("center-to-center hole spacing = ", center_distance, " mm"));
 echo(str("overall length = ", center_distance + 2 * collar_r, " mm"));
-echo(str("wall = ", wall_thickness, " x ", wall_depth, " mm at X offset ", wall_x, " mm"));
+echo(str("waist between the holes = ", waist, " mm"));
 
-assert(!wall || wall_thickness > 0, "wall_clearance has eaten the whole wall — raise shelf_gap, lower wall_clearance, or set wall = false");
-assert(!wall || abs(wall_x) + wall_thickness / 2 <= center_distance / 2 - hole_r, "wall overlaps a tube hole — check the tube-to-edge measurements");
+assert(waist > 0, "the two holes have run together — shelf_gap plus the tube-to-edge runs has to beat hole_clearance");
 
 // 2D lozenge (stadium) shape: hull of two circles
 module lozenge_2d(r, cdist) {
@@ -109,23 +94,14 @@ module lozenge_2d(r, cdist) {
 
 module coupler() {
   difference() {
-    union() {
-      // Main collar at shelf height
-      linear_extrude(height = collar_height)
-        lozenge_2d(collar_r, center_distance);
-
-      // Gap-filling wall, bottom face only, flush with the collar sides
-      if (wall)
-        translate([wall_x, 0, -wall_height])
-          linear_extrude(height = wall_height)
-            square([wall_thickness, wall_depth], center = true);
-    }
+    linear_extrude(height = collar_height)
+      lozenge_2d(collar_r, center_distance);
 
     // Through-holes for the two tube posts
-    translate([-center_distance / 2, 0, -wall_height - 1])
-      cylinder(r = hole_r, h = collar_height + wall_height + 2);
-    translate([center_distance / 2, 0, -wall_height - 1])
-      cylinder(r = hole_r, h = collar_height + wall_height + 2);
+    translate([-center_distance / 2, 0, -1])
+      cylinder(r = hole_r, h = collar_height + 2);
+    translate([center_distance / 2, 0, -1])
+      cylinder(r = hole_r, h = collar_height + 2);
   }
 }
 

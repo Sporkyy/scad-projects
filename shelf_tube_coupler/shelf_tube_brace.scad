@@ -7,8 +7,9 @@
 // the pair forms a four-bar linkage: one degree of freedom, no
 // matter how stiff the couplers are or how far apart they sit.
 // The units stay parallel and shear sideways. That is
-// kinematic, not a stiffness problem, which is why a
-// gap-filling wall cannot fix it — friction is all it has.
+// kinematic, not a stiffness problem, which is why the
+// coupler's old gap-filling wall never fixed it — friction was
+// all it had.
 //
 // Two rigid bodies have three degrees of freedom in plan and
 // each link removes one, so three links lock them together.
