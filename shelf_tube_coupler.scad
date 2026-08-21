@@ -1,99 +1,91 @@
 // ============================================================
 // Turn-N-Tube shelf coupler — rigid lozenge collar
 // Connects two adjacent shelf units at one tube height.
-// Replaces zip ties: wraps both tube posts, with a fin on the
-// underside that keys into the gap between the two units'
-// edges (perpendicular to the tube-to-tube line) to resist
-// rotation. Relies on gravity pressing down onto the shelf
-// below, so the fin only needs to be on the bottom face per
-// shelf level.
+// Replaces zip ties: a lozenge collar slips over both vertical
+// tube posts and holds them at a fixed spacing, with an
+// optional wall on the underside that fills the gap between
+// the two units' facing shelf edges.
 //
-// The fin wedges the two units apart to whatever fin_width is,
-// so the tube spacing you measure NOW is not the spacing the
-// part has to fit. The hole spacing below is derived for the
-// wedged-apart state — see fin_push.
+// The coupler DEFINES the spacing — it does not have to fit
+// the units as they currently sit. Set the gap you want and
+// the hole spacing follows from the tube and the tube-to-edge
+// run on each unit. Nothing here depends on how far apart the
+// units happen to be today.
+//
+// A deliberate gap is worth having: adjacent units rarely have
+// their shelves at the same height, and the gap keeps that
+// mismatch from reading as a misalignment.
 //
 // PRINT NOTES:
-// - PETG, no supports needed (holes are round, drop wall is
+// - PETG, no supports needed (holes are round, the wall is
 //   solid down to a flat bottom).
 // - Print with the collar axis vertical (as modeled) so the
 //   holes print round and the tube slides through cleanly.
-// - You'll want 2 of these per shelf level (one per photo's
-//   "figure 8" pair), 8 total for the 5-tier unit in the photo
-//   (top shelf has no tube, so no coupler there).
+// - Rests on the shelf below, so the wall only needs to be on
+//   the bottom face. Two per shelf level (front and back post
+//   pair), 8 total for a 5-tier unit — the top shelf has no
+//   tube above it.
 // ============================================================
 
 // ===== MEASURE THESE ON YOUR ACTUAL SHELVES =====
-// Everything here is an outside-the-solid measurement, so plain
-// calipers reach all of it
+// Both are outside-the-solid measurements, so plain calipers reach them
 
 tube_od = 30; // Outer diameter of the vertical tube post (mm) — outside jaws on the tube
 
-// How you measured the tube spacing:
-//   "gap"   - inside jaws opened across the clear space between the two tube
-//             posts, at roughly this collar's height
-//   "edges" - each tube's outer surface out to its own shelf's facing edge,
-//             for when the calipers won't fit between the tubes; also handles
-//             the case where the tubes aren't centered the same on each unit
-spacing_mode = "gap";
+// Tube's outer surface out to the facing edge of its own shelf (mm).
+// Measured on the side that faces the other unit
+tube_to_edge = 20;
 
-// "gap" mode
-tube_gap = 40; // Clear space between the facing outer surfaces of the two tubes (mm)
+// Override these only if the two units differ — a shelf that overhangs
+// further on one side, or a post that isn't set the same distance in
+left_tube_to_edge = tube_to_edge;
+right_tube_to_edge = tube_to_edge;
 
-// "edges" mode
-left_tube_to_edge = 20; // Left tube's outer surface to the left unit's right-hand edge (mm)
-right_tube_to_edge = 20; // Right tube's outer surface to the right unit's left-hand edge (mm)
+// ===== DECIDE THIS =====
+// Gap you want between the two units' facing shelf edges (mm).
+// This is a choice, not a measurement — the coupler holds the units here.
+// Some gap hides shelf-height mismatch between the units
+shelf_gap = 10;
 
-// Needed in BOTH modes — this is the slot the fin keys into
-// Clear space between the two units' facing shelf edges, as they sit now (mm)
-// Use 0 if the shelves are touching
-shelf_edge_gap = 2;
-
-drop_wall_height = 13; // How far the fin drops below the collar to key into the gap below (mm)
-
-// NOTE: spacing may differ slightly shelf-to-shelf if the unit tapers —
-// measure per shelf level and make one variant per size if needed
+// ===== WALL =====
+// Solid wall hanging below the collar, filling the gap. Not structurally
+// required — the hole spacing alone sets the gap, and two couplers per
+// level already resist twist. It hides the gap and keeps stray items
+// from dropping through
+wall = false;
+wall_height = 15; // How far the wall drops below the collar (mm)
+// Thickness is shelf_gap exactly — it is the gap, made solid — and depth
+// front-to-back is the collar's own depth, so both are derived below
 
 // ===== TUNE THESE =====
 hole_clearance = 0.6; // Added to hole diameter for slip fit (mm) — increase if too tight
 wall_meat = 7; // PETG thickness around each hole (mm)
 collar_height = 10; // Height of the main collar at the shelf level (mm)
 
-// The fin runs perpendicular to the tube-to-tube line (X axis), so it
-// slots into the gap between the two shelf units' edges instead of
-// running parallel to it
-fin_width = 10; // Thickness of the fin along X — the left-right gap it wedges into (mm)
-fin_depth = 40; // Length of the fin along Y, front-to-back (mm) — how deep it keys in
-
 $fn = 100;
 
 // ===== DERIVED =====
-// Clear span between the tubes as they sit now
-tube_gap_now = spacing_mode == "edges" ? left_tube_to_edge + shelf_edge_gap + right_tube_to_edge : tube_gap;
-
-// The fin can only be as thin as the slot it makes, so anything wider than
-// the current shelf-edge gap shoves the two units apart by the difference,
-// and the tubes travel with them
-fin_push = max(0, fin_width - shelf_edge_gap);
-
-// Hole spacing for the wedged-apart state, not the as-measured one
-center_distance = tube_od + tube_gap_now + fin_push;
+// Tube centre to tube centre: half a tube, the run out to each shelf
+// edge, and the gap between those edges
+center_distance = tube_od + left_tube_to_edge + shelf_gap + right_tube_to_edge;
 
 hole_r = tube_od / 2 + hole_clearance / 2;
 collar_r = hole_r + wall_meat;
 
-// Where the shelf-edge slot ends up once wedged — dead centre in "gap" mode,
-// biased toward whichever unit has the shorter tube-to-edge run in "edges" mode
-edge_left_x = -center_distance / 2 + tube_od / 2 + left_tube_to_edge;
-edge_right_x = center_distance / 2 - tube_od / 2 - right_tube_to_edge;
-fin_x = spacing_mode == "edges" ? (edge_left_x + edge_right_x) / 2 : 0;
+// Midpoint of the gap. Zero when both units measure the same, and
+// offset toward the shorter run when they don't
+wall_x = (left_tube_to_edge - right_tube_to_edge) / 2;
+
+// The wall hangs under the waist of the lozenge, where the collar is a full
+// 2*collar_r deep, so it runs flush with the collar's sides
+wall_depth = 2 * collar_r;
 
 echo(str("center-to-center hole spacing = ", center_distance, " mm"));
-echo(str("units get wedged apart by ", fin_push, " mm"));
-echo(str("fin X offset from collar centre = ", fin_x, " mm"));
+echo(str("overall length = ", center_distance + 2 * collar_r, " mm"));
+echo(str("wall = ", shelf_gap, " x ", wall_depth, " mm at X offset ", wall_x, " mm"));
 
-assert(fin_depth <= 2 * collar_r, "fin_depth exceeds the collar's width at the waist — the fin would overhang");
-assert(abs(fin_x) + fin_width / 2 <= center_distance / 2 - hole_r, "fin overlaps a tube hole — reduce fin_width or check the edge measurements");
+assert(!wall || shelf_gap > 0, "a wall needs a gap to fill — raise shelf_gap or set wall = false");
+assert(abs(wall_x) + shelf_gap / 2 <= center_distance / 2 - hole_r, "wall overlaps a tube hole — check the tube-to-edge measurements");
 
 // 2D lozenge (stadium) shape: hull of two circles
 module lozenge_2d(r, cdist) {
@@ -112,18 +104,18 @@ module coupler() {
       linear_extrude(height = collar_height)
         lozenge_2d(collar_r, center_distance);
 
-      // Anti-rotation fin, bottom face only, sitting under the waist of
-      // the lozenge where the collar is a full 2*collar_r wide
-      translate([fin_x, 0, -drop_wall_height])
-        linear_extrude(height = drop_wall_height)
-          square([fin_width, fin_depth], center = true);
+      // Gap-filling wall, bottom face only, flush with the collar sides
+      if (wall)
+        translate([wall_x, 0, -wall_height])
+          linear_extrude(height = wall_height)
+            square([shelf_gap, wall_depth], center = true);
     }
 
     // Through-holes for the two tube posts
-    translate([-center_distance / 2, 0, -drop_wall_height - 1])
-      cylinder(r = hole_r, h = collar_height + drop_wall_height + 2);
-    translate([center_distance / 2, 0, -drop_wall_height - 1])
-      cylinder(r = hole_r, h = collar_height + drop_wall_height + 2);
+    translate([-center_distance / 2, 0, -wall_height - 1])
+      cylinder(r = hole_r, h = collar_height + wall_height + 2);
+    translate([center_distance / 2, 0, -wall_height - 1])
+      cylinder(r = hole_r, h = collar_height + wall_height + 2);
   }
 }
 
