@@ -33,7 +33,9 @@
 tube_od = 30; // Outer diameter of the vertical tube post (mm) — outside jaws on the tube
 
 // Tube's outer surface out to the facing edge of its own shelf (mm).
-// Measured on the side that faces the other unit
+// Measured on the side that faces the other unit. Eyeball it if the calipers
+// won't reach — error here just shifts the gap you end up with by the same
+// amount, it never stops the part going onto the tubes
 tube_to_edge = 20;
 
 // Override these only if the two units differ — a shelf that overhangs
@@ -59,6 +61,7 @@ wall_height = 15; // How far the wall drops below the collar (mm)
 
 // ===== TUNE THESE =====
 hole_clearance = 0.6; // Added to hole diameter for slip fit (mm) — increase if too tight
+wall_clearance = 0.4; // Shaved off the wall thickness so it drops in without a fight (mm)
 wall_meat = 7; // PETG thickness around each hole (mm)
 collar_height = 10; // Height of the main collar at the shelf level (mm)
 
@@ -80,12 +83,16 @@ wall_x = (left_tube_to_edge - right_tube_to_edge) / 2;
 // 2*collar_r deep, so it runs flush with the collar's sides
 wall_depth = 2 * collar_r;
 
+// Slop comes out of the wall, not out of the spacing — the hole positions
+// still hold the units shelf_gap apart
+wall_thickness = shelf_gap - wall_clearance;
+
 echo(str("center-to-center hole spacing = ", center_distance, " mm"));
 echo(str("overall length = ", center_distance + 2 * collar_r, " mm"));
-echo(str("wall = ", shelf_gap, " x ", wall_depth, " mm at X offset ", wall_x, " mm"));
+echo(str("wall = ", wall_thickness, " x ", wall_depth, " mm at X offset ", wall_x, " mm"));
 
-assert(!wall || shelf_gap > 0, "a wall needs a gap to fill — raise shelf_gap or set wall = false");
-assert(abs(wall_x) + shelf_gap / 2 <= center_distance / 2 - hole_r, "wall overlaps a tube hole — check the tube-to-edge measurements");
+assert(!wall || wall_thickness > 0, "wall_clearance has eaten the whole wall — raise shelf_gap, lower wall_clearance, or set wall = false");
+assert(abs(wall_x) + wall_thickness / 2 <= center_distance / 2 - hole_r, "wall overlaps a tube hole — check the tube-to-edge measurements");
 
 // 2D lozenge (stadium) shape: hull of two circles
 module lozenge_2d(r, cdist) {
@@ -108,7 +115,7 @@ module coupler() {
       if (wall)
         translate([wall_x, 0, -wall_height])
           linear_extrude(height = wall_height)
-            square([shelf_gap, wall_depth], center = true);
+            square([wall_thickness, wall_depth], center = true);
     }
 
     // Through-holes for the two tube posts
