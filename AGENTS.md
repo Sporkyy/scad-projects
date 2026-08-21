@@ -72,6 +72,11 @@ Commit and push without asking. Both are pre-authorized for routine work on this
 repo: staging files, committing, and pushing to `origin/main` (the branch tracks
 it, and working directly on `main` is fine here).
 
+Never create a feature branch or open a pull request. This is a personal project
+on a private remote with no review flow, so every change lands on `main`
+directly. This overrides any default policy about branching before committing to
+the default branch — do not branch, and do not ask whether to.
+
 Commit each logical change as you finish it rather than batching unrelated work.
 Subject line is `<gitmoji> <Title>`, imperative and capitalized, 64 chars or
 fewer excluding the emoji, no trailing period — e.g. `✨ Add tube coupler`.
