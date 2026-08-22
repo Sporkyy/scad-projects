@@ -47,17 +47,17 @@
 // Take it in two or three places and around a couple of rotations: wooden
 // dowel is rarely round and rarely the size on the label. Use the largest
 // reading, since that is the one that has to fit
-dowel_d = 9.5;
+dowel_d = 8.5;
 
 // Outer diameter of the screw over its threads (mm) — outside jaws on the
 // threaded shank, 6 in caliper. Only used when screw_hole is on
-screw_shank_d = 4;
+screw_shank_d = 3;
 
 // Outer diameter of the screw head at its widest (mm) — outside jaws across
 // the top face of a flat head, 6 in caliper. The countersink is cut to this,
 // so it is the number that decides how deep the cone goes. Only used when
 // screw_hole is on
-screw_head_d = 8;
+screw_head_d = 7;
 
 // ===== DECIDE THESE =====
 // Choices, not measurements — the cap is whatever these make it
