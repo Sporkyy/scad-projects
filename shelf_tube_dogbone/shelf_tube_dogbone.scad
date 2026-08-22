@@ -12,11 +12,12 @@
 // gripping two posts on each unit locks the two together.
 //
 // So this plate takes all four posts at one level — both units,
-// front and back. Whole, it is about 226 mm long on the
-// measured 200 mm post_span, which does fit a 256 mm bed; the
-// bolted lap at mid-depth is what keeps it printable on deeper
-// units and on smaller beds. It is one rigid body once
-// assembled, which is all the geometry cares about.
+// front and back. Whole, it is about 286 mm long on the
+// measured 200 mm post_clear_gap, past what a 256 mm bed
+// takes; the bolted lap at mid-depth is what makes it
+// printable here at all, and what keeps it printable on deeper
+// units and smaller beds. It is one rigid body once assembled,
+// which is all the geometry cares about.
 //
 // FOUR ROUND HOLES WOULD NOT GO ON. Four holes on four posts
 // dictates the front-to-back post spacing of BOTH units at
@@ -46,7 +47,8 @@
 // ============================================================
 
 // ===== MEASURE THESE ON YOUR ACTUAL SHELVES =====
-// All of them are outside-the-solid measurements, so plain calipers reach them
+// Outside diameters, edge runs, and clear gaps between solids — every one of
+// them is a measurement calipers can physically reach
 
 tube_od = 30; // Outer diameter of the vertical tube post (mm) — outside jaws on the tube
 
@@ -58,13 +60,14 @@ tube_to_edge = 20;
 left_tube_to_edge = tube_to_edge;
 right_tube_to_edge = tube_to_edge;
 
-// Front-to-back span across one unit's two posts, outer face to outer face
-// (mm). Lay a tape along the side of the unit at any shelf level. Measured at
-// 200.3 on these shelves and recorded as 200 even. Unlike the brace, this one
-// does not have to be right — the back slots absorb slot_travel worth of
-// error either way. It only needs to be close enough to keep the real span
-// inside that window
-post_span = 200;
+// Front-to-back clear gap between one unit's two posts, inner face to inner
+// face (mm). Inside jaws into the open space between the front and back tube
+// at any shelf level, wiggled for the smallest reading. Measured at 200.3 on
+// these shelves and recorded as 200 even. Unlike the brace, this one does not
+// have to be right — the back slots absorb slot_travel worth of error either
+// way. It only needs to be close enough to keep the real gap inside that
+// window
+post_clear_gap = 200;
 
 // ===== DECIDE THIS =====
 // Gap between the two units' facing shelf edges (mm). Must match what the
@@ -75,7 +78,7 @@ shelf_gap = 5;
 hole_clearance = 0.6; // Added to hole diameter for slip fit (mm) — increase if too tight
 
 // Front-to-back travel in the two back slots (mm). This is the whole tolerance
-// budget: it covers error in post_span and any difference between the two
+// budget: it covers error in post_clear_gap and any difference between the two
 // units. The catalogue warns of half an inch of variation, so 30 is generous
 // rather than optimistic
 slot_travel = 30;
@@ -106,8 +109,9 @@ $fn = 60;
 // Identical to the coupler's hole spacing, by construction
 across_center_distance = tube_od + left_tube_to_edge + shelf_gap + right_tube_to_edge;
 
-// Front to back along one unit, centre to centre
-depth_center_distance = post_span - tube_od;
+// Front to back along one unit, centre to centre. The clear gap misses one
+// tube radius at each end, so a whole diameter goes back on
+depth_center_distance = post_clear_gap + tube_od;
 
 hole_r = tube_od / 2 + hole_clearance / 2;
 collar_r = hole_r + wall_meat;
@@ -138,9 +142,9 @@ echo(str("front-to-back hole spacing = ", depth_center_distance, " mm"));
 echo(str("assembled plate = ", assembled_length, " x ", half_width, " x ", plate_thickness, " mm"));
 echo(str("front half = ", front_half_length, " x ", half_width, " mm"));
 echo(str("back half = ", back_half_length, " x ", half_width, " mm, needs a ", bed_square, " mm square"));
-echo(str("post_span tolerated = ", post_span - slot_travel / 2, " to ", post_span + slot_travel / 2, " mm"));
+echo(str("post_clear_gap tolerated = ", post_clear_gap - slot_travel / 2, " to ", post_clear_gap + slot_travel / 2, " mm"));
 
-assert(depth_center_distance > 0, "post_span is smaller than a tube — that span is measured outer face to outer face across both posts, not between them");
+assert(post_clear_gap > 0, "post_clear_gap is the open space between the two posts, not a span across them — measure inner face to inner face");
 assert(across_center_distance > 2 * hole_r, "the two holes in a crossbar have run together — check shelf_gap and the tube-to-edge runs");
 assert(bolt_x + bolt_spacing / 2 <= tail_reach - bolt_edge, "the outer lap bolt has run off the end of the tail — raise lap_length or lower bolt_spacing");
 assert(bolt_x - bolt_spacing / 2 >= tail_reach - lap_length + bolt_edge, "the inner lap bolt has run past where the overlap starts — raise lap_length or lower bolt_spacing");

@@ -84,30 +84,38 @@ Three links is the entire requirement, so **one brace makes the pair rigid** no
 matter how many levels are coupled. Couplers elsewhere in the stack only add
 stiffness.
 
-**Measuring.** Three measurements, all reachable from outside:
+**Measuring.** Three measurements, all within reach of a caliper:
 
 | Parameter | Measure |
 | --- | --- |
 | `tube_od` | Outside jaws on a vertical tube post |
 | `tube_to_edge` | A tube's outer surface out to the facing edge of its own shelf — must match what the couplers were printed with |
-| `post_span` | Tape along the side of one unit, outer face of the front tube to outer face of the back tube |
+| `post_clear_gap` | Caliper inside jaws into the open space between one unit's front and back tube, at any shelf level |
 
-`post_span` ships as 200, measured off these shelves at 200.3. Take a tape to
-your own before printing: the brace has no slot to take up error, and its hole
-spacing tracks this number nearly one for one. If the two units differ or do not
-sit flush at the front, skip both and set `brace_span` — the diagonal measured
+`post_clear_gap` is a gap between the posts rather than a span across them
+because that is what a caliper can actually reach. The posts are round and the
+back one stands against a wall, so there is nothing to hook a tape on, while the
+open space between them takes inside jaws. Wiggle for the smallest reading — the
+minimum is the gap along the line of centres, and the derivation adds one tube
+diameter back on.
+
+It ships as 200, measured off these shelves at 200.3. Measure your own before
+printing: the brace has no slot to take up error, and its hole spacing tracks
+this number nearly one for one. If the two units differ or do not sit flush at
+the front, skip both and set `brace_clear_gap` — the diagonal clear gap measured
 straight off the assembled pair, one unit's front tube to the other's back tube,
-outer face to outer face.
+nearest faces. That one runs longer, past what an 8 inch caliper reaches on these
+shelves.
 
 `hole_clearance` is deliberately looser here than on the coupler, buying
-tolerance for a tape measurement at the cost of about half of it in residual
-sway.
+tolerance for a diagonal that is derived from two measurements rather than read
+off the shelves directly, at the cost of about half of it in residual sway.
 
 **Printing.** PETG, no supports, flat on the bed. Flat runs the perimeters along
 the load path, where on edge would load the bar across its layers. It is long
 enough that placement matters: the echoed bed placement gives the angle and the
 square it needs, and turning it 45° costs far less bed than laying it square on.
-`bed_size` and `bed_margin` drive an assertion, so a span too big for the printer
+`bed_size` and `bed_margin` drive an assertion, so a gap too big for the printer
 fails the render rather than the print. One per pair of units.
 
 The dogbone below does the same job a different way. Prefer the brace when you
@@ -125,10 +133,10 @@ instead of triangulating. A plate pinned to two posts on a unit cannot rotate
 relative to it, so a plate holding two posts on each unit locks the pair
 together.
 
-Whole, that plate is about 226 mm long on the measured 200 mm `post_span`, which
-would fit a 256 mm bed; it still prints as two halves bolted together at
+Whole, that plate is about 286 mm long on the measured 200 mm `post_clear_gap`,
+past what a 256 mm bed takes; it prints as two halves bolted together at
 mid-depth with two M4 bolts, which is what keeps deeper units and smaller beds
-printable. Both halves come out of one source and one `.stl`, because every
+printable too. Both halves come out of one source and one `.stl`, because every
 dimension they share has to match for them to assemble.
 
 **Four round holes would not go on.** Four holes on four posts dictates the
@@ -141,7 +149,7 @@ Nothing is left to friction.
 
 That is also why this one tolerates a rough measurement where the brace does
 not. `slot_travel` is the whole tolerance budget, 30 mm by default, and the
-render echoes the window of `post_span` it covers.
+render echoes the window of `post_clear_gap` it covers.
 
 **Measuring.** The same three as the brace:
 
@@ -149,10 +157,10 @@ render echoes the window of `post_span` it covers.
 | --- | --- |
 | `tube_od` | Outside jaws on a vertical tube post |
 | `tube_to_edge` | A tube's outer surface out to the facing edge of its own shelf — must match what the couplers were printed with |
-| `post_span` | Tape along the side of one unit, outer face of the front tube to outer face of the back tube |
+| `post_clear_gap` | Caliper inside jaws into the open space between one unit's front and back tube, at any shelf level |
 
-`post_span` only has to land inside the slot window, so a tape measurement to
-the nearest millimetre is plenty — the shipped 200 came off a 200.3 span.
+`post_clear_gap` only has to land inside the slot window, so a reading to the
+nearest millimetre is plenty — the shipped 200 came off a 200.3 gap.
 
 **Printing.** PETG, no supports. Both halves print flat with the lap face down —
 the step down to the lap is a drop in height, not an overhang. The two bodies are
@@ -182,9 +190,10 @@ Try a variant without editing the file using `-D`:
 ```
 
 A failed assertion means the numbers don't make a printable part, not that
-something is broken — a `post_span` measured between the posts instead of
-across them, for instance, describes a brace shorter than its own tube. Adjust
-the flagged parameter and re-render.
+something is broken — a `post_clear_gap` filled in with a span measured across
+the posts instead of between them, for instance, describes a brace two tube
+diameters too long, which on these shelves is enough to fail the print-bed check.
+Adjust the flagged parameter and re-render.
 
 Source is formatted with [scadformat](https://github.com/hugheaves/scadformat).
 It leaves a `.scadbak` beside each file it touches; the *Clean .scadbak backups*
