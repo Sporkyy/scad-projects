@@ -98,7 +98,7 @@ bolt_edge = 10; // Material kept beyond a bolt centre (mm)
 
 // ===== PRINTER =====
 bed_size = 256; // Print bed, short side (mm)
-bed_margin = 6; // Kept clear at the bed edges for brim and skirt (mm)
+bed_margin = 6; // Clearance at each bed edge for brim and skirt (mm)
 part_gap = 8; // Separation between the two exported bodies (mm)
 
 // Render the halves mated instead, to eyeball the lap and the slots
@@ -152,7 +152,7 @@ assert(bolt_x + bolt_spacing / 2 <= tail_reach - bolt_edge, "the outer lap bolt 
 assert(bolt_x - bolt_spacing / 2 >= tail_reach - lap_length + bolt_edge, "the inner lap bolt has run past where the overlap starts — raise lap_length or lower bolt_spacing");
 assert(spine_width >= bolt_d + 2 * bolt_edge, "the lap bolts have no material either side of them — widen spine_width");
 assert(spine_width > 2 * fillet, "fillet has eaten the spine — lower it or widen spine_width");
-assert(bed_square <= bed_size - bed_margin, "a half does not fit the print bed — see the echoed sizes");
+assert(bed_square <= bed_size - 2 * bed_margin, "a half does not fit the print bed — see the echoed sizes");
 
 // 2D lozenge (stadium) shape: hull of two circles, long axis along X.
 // Duplicated from the coupler rather than shared, because every source here

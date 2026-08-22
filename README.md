@@ -130,8 +130,8 @@ off the shelves directly, at the cost of about half of it in residual sway.
 the load path, where on edge would load the bar across its layers. It is long
 enough that placement matters: the echoed bed placement gives the angle and the
 square it needs, and turning it 45° costs far less bed than laying it square on.
-`bed_size` and `bed_margin` drive an assertion, so a gap too big for the printer
-fails the render rather than the print. One per pair of units.
+`bed_size` and the per-edge `bed_margin` drive an assertion, so a gap too big for
+the printer fails the render rather than the print. One per pair of units.
 
 The dogbone below does the same job a different way. Prefer the brace when you
 want one part and no hardware, and can measure carefully; prefer the dogbone
@@ -182,7 +182,8 @@ the step down to the lap is a drop in height, not an overhang. The two bodies ar
 exported clear of each other; let the slicer arrange them. Assemble with two M4
 bolts, the front half as printed and **the back half turned over**, so its lap
 sits on top of the front's and the finished plate is one thickness throughout.
-One dogbone makes a pair of units rigid, whatever the stack height.
+`bed_size` and the per-edge `bed_margin` reject a half that cannot fit. One
+dogbone makes a pair of units rigid, whatever the stack height.
 
 ### Dowel end cap
 

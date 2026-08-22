@@ -88,7 +88,7 @@ hole_clearance = 2;
 wall_meat = 5; // PETG thickness around each hole (mm)
 brace_height = 5; // Thickness of the bar (mm) — match the coupler so it stacks flat
 bed_size = 256; // Print bed, short side (mm)
-bed_margin = 6; // Kept clear at the bed edges for brim and skirt (mm)
+bed_margin = 6; // Clearance at each bed edge for brim and skirt (mm)
 
 $fn = 100;
 
@@ -126,7 +126,7 @@ echo(str("bed placement = ", bed_angle, " deg, needs a ", bed_square, " mm squar
 
 assert(post_clear_gap > 0, "post_clear_gap is the open space between the two posts, not a span across them — measure inner face to inner face");
 assert(brace_center_distance > 2 * hole_r, "the two holes overlap — check post_clear_gap and shelf_gap");
-assert(bed_square <= bed_size - bed_margin, "brace does not fit the print bed — see the echoed bed placement, and split it into two bolted halves if the units really are this deep");
+assert(bed_square <= bed_size - 2 * bed_margin, "brace does not fit the print bed — see the echoed bed placement, and split it into two bolted halves if the units really are this deep");
 
 // 2D lozenge (stadium) shape: hull of two circles. Duplicated from
 // shelf_tube_coupler.scad rather than shared, because every source here is
