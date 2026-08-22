@@ -7,6 +7,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import overhangs
+
 ROOT = Path(__file__).resolve().parents[1]
 MACOS_OPENSCAD = Path("/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD")
 PREVIEW_SIZE = "1200,900"
@@ -124,6 +126,32 @@ def run_export(command, label):
         raise BuildError(f"{label} did not report a manifold NoError result")
 
 
+def warn_about_overhangs(mesh, label):
+    """Warn if the mesh needs supports as modelled. Never fails the build.
+
+    A steep face is a design problem to go back and fix, not a reason to
+    withhold the artifact — the export is still correct, so it is written either
+    way and the reader decides. Anything that goes wrong reading the mesh is
+    reported and shrugged off for the same reason
+    """
+    try:
+        _, groups = overhangs.scan(mesh)
+        steep = overhangs.past_limit(groups)
+    except (overhangs.MeshError, OSError) as error:
+        print(f"warning: could not check {label} for overhangs: {error}")
+        return False
+
+    if not steep:
+        return False
+
+    print(f"warning: {label} needs supports as modelled — surfaces past "
+          f"{overhangs.LIMIT}° from vertical:")
+    for group in steep:
+        print(f"  {overhangs.describe(group)}")
+    print("  see Overhangs in AGENTS.md; python3 scripts/overhangs.py for the full picture")
+    return True
+
+
 def build_model(openscad, source):
     stem = source.stem
     stl = source.with_suffix(".stl")
@@ -171,6 +199,7 @@ def build_model(openscad, source):
             ],
             f"PNG export for {relative_source}",
         )
+        overhanging = warn_about_overhangs(temp_stl, relative_source)
         temp_stl.replace(stl)
         temp_preview.replace(preview)
     finally:
@@ -179,6 +208,7 @@ def build_model(openscad, source):
 
     print(f"Wrote {stl.relative_to(ROOT)}")
     print(f"Wrote {preview.relative_to(ROOT)}")
+    return overhanging
 
 
 def parse_args():
@@ -198,11 +228,17 @@ def main():
     try:
         sources = discover_sources(args.sources)
         openscad = find_openscad()
-        for source in sources:
-            build_model(openscad, source)
+        warned = [
+            source for source in sources if build_model(openscad, source)
+        ]
     except BuildError as error:
         print(f"error: {error}", file=sys.stderr)
         return 1
+
+    if warned:
+        print(f"\n{len(warned)} of {len(sources)} objects need supports as modelled:")
+        for source in warned:
+            print(f"  {source.relative_to(ROOT)}")
     return 0
 
 

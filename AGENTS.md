@@ -131,17 +131,26 @@ Model the part in its intended print orientation, choose that orientation to be
 the one needing no supports, and say so in the print notes. Then leave placement
 alone.
 
-**Verify against the mesh, not by eye.** After a geometry change, check the
-exported STL:
+**Verify against the mesh, not by eye.** A surface you reasoned was
+self-supporting and a surface that actually is are two different claims, and only
+the mesh settles which one is in the file. `scripts/build.py` checks every object
+it exports and prints a warning naming the steep faces and their heights, so a
+normal build already tells you. Read those warnings; do not build past them.
+
+The check only warns. A steep face is a design problem to go back and fix, not a
+reason to withhold a correct export, so the artifacts are still written and the
+build still exits zero. Nothing will stop you committing a part that needs
+supports except reading the output.
+
+To check a mesh on its own, or to see the shallow faces the build stays quiet
+about:
 
 ```sh
 python3 scripts/overhangs.py part/part.stl
 ```
 
 It groups the downward-facing facets by angle and height, ignores the first layer
-on the plate, and exits non-zero if anything is past 45°. A surface you reasoned
-was self-supporting and a surface that actually is are two different claims, and
-this settles which one is in the file.
+on the plate, and exits non-zero if anything is past 45°.
 
 **Assert what a knob can break.** If a parameter can drive a feature past the
 limit, or a large value can eat the bed adhesion out from under a tall part,

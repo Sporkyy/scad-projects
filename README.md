@@ -243,16 +243,20 @@ Each model `echo`s its derived dimensions and `assert`s against interferences,
 so check the console output against the real part before committing to a print.
 
 Every part is designed to print without supports, which is a constraint on the
-geometry rather than a slicer setting. Check an exported mesh against it:
+geometry rather than a slicer setting. The build checks each object it exports
+and warns about any surface hanging past 45° from vertical, naming the angle and
+the height it occurs at. It is only a warning — the export is still written, so
+the warning is there to be read rather than to stop anything.
+
+To check a mesh on its own, or to see the shallow surfaces the build stays quiet
+about:
 
 ```sh
 python3 scripts/overhangs.py dowel_endcap/dowel_endcap.stl
 ```
 
-It groups the downward-facing surfaces by angle and height and exits non-zero if
-any of them hangs past 45° from vertical. Chamfers and lead-ins are written with
-their run equal to their rise, so they sit exactly at 45° whatever value the knob
-is given.
+Chamfers and lead-ins are written with their run equal to their rise, so they sit
+at exactly 45° whatever value the knob is given.
 Try a variant without editing the file using `-D`:
 
 ```sh
