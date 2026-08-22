@@ -184,6 +184,49 @@ bolts, the front half as printed and **the back half turned over**, so its lap
 sits on top of the front's and the finished plate is one thickness throughout.
 One dogbone makes a pair of units rigid, whatever the stack height.
 
+### Dowel end cap
+
+[![Dowel end cap preview](dowel_endcap/dowel_endcap.png)](dowel_endcap/dowel_endcap.stl)
+
+[View or download STL](dowel_endcap/dowel_endcap.stl) · [OpenSCAD source](dowel_endcap/dowel_endcap.scad)
+
+A blind socket that closes off the end of a dowel. A plain cylinder with a
+cylindrical recess bored into one end: the dowel pushes in until it bottoms out,
+and the remaining material caps it.
+
+One measurement drives the whole part. The outside diameter and the overall
+length are not set directly — they fall out of the dowel diameter plus the meat
+you want around it, so `wall_meat` thickens the side and the end together.
+
+The recess is never measured. It is a dimension inside a hollow solid, which is
+exactly what a caliper cannot reach, so it is bored to the dowel diameter plus a
+clearance knob instead. Measure the dowel.
+
+**Measuring.** One measurement:
+
+| Parameter | Measure | Caliper |
+| --- | --- | --- |
+| `dowel_d` | Outside jaws on the dowel | 6 in |
+
+Take it in two or three places and at a couple of rotations. Wooden dowel is
+rarely round and rarely the size on the label, and it is the largest reading that
+has to fit.
+
+**Deciding.** `penetration_depth` is how far the dowel goes in; about one and a
+half dowel diameters is plenty, and deeper mostly buys resistance to being
+levered off sideways. `wall_meat` is the material around it, side and end both.
+
+`dowel_clearance` is the fit. It ships at 0.3 mm for a glue or friction fit —
+raise it if the cap will not seat, drop it toward zero for a press. Around 0.6 mm
+makes it a slip fit that comes off by hand. `chamfer` breaks both outer rims and
+`lead_in` funnels the mouth so the dowel starts square; both eat into the rim
+face at the mouth, and the render echoes what is left of it.
+
+**Printing.** PETG or PLA, no supports. Print as modelled, closed end down. That
+opens the bore upward so nothing bridges, and lays the one visible end face
+against the plate. Flipped, the roof of the bore has to bridge its full width —
+it works, but it leaves a rough ceiling for the dowel to bottom out against.
+
 ## Working with these
 
 Regenerate every tracked STL and preview image:
