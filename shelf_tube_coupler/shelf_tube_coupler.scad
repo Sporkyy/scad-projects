@@ -36,14 +36,16 @@
 // ============================================================
 
 // ===== MEASURE THESE ON YOUR ACTUAL SHELVES =====
-// Both are outside-the-solid measurements, so plain calipers reach them
+// Both are outside-the-solid measurements, so plain calipers reach them. Each
+// one names the caliper it needs, by the size printed on the tool: a 6 in
+// caliper stops at 150 mm, an 8 in at 200 mm, a 12 in at 300 mm
 
-tube_od = 30; // Outer diameter of the vertical tube post (mm) — outside jaws on the tube
+tube_od = 30; // Outer diameter of the vertical tube post (mm) — outside jaws on the tube, 6 in caliper
 
-// Tube's outer surface out to the facing edge of its own shelf (mm).
-// Measured on the side that faces the other unit. Eyeball it if the calipers
-// won't reach — error here just shifts the gap you end up with by the same
-// amount, it never stops the part going onto the tubes
+// Tube's outer surface out to the facing edge of its own shelf (mm), 6 in
+// caliper. Measured on the side that faces the other unit. Eyeball it if the
+// calipers won't reach — error here just shifts the gap you end up with by the
+// same amount, it never stops the part going onto the tubes
 tube_to_edge = 20;
 
 // Override these only if the two units differ — a shelf that overhangs

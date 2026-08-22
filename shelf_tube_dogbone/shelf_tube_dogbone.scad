@@ -48,12 +48,14 @@
 
 // ===== MEASURE THESE ON YOUR ACTUAL SHELVES =====
 // Outside diameters, edge runs, and clear gaps between solids — every one of
-// them is a measurement calipers can physically reach
+// them is a measurement calipers can physically reach. Each names the caliper
+// it needs, by the size printed on the tool: a 6 in caliper stops at 150 mm,
+// an 8 in at 200 mm, a 12 in at 300 mm. This one wants a 12 in
 
-tube_od = 30; // Outer diameter of the vertical tube post (mm) — outside jaws on the tube
+tube_od = 30; // Outer diameter of the vertical tube post (mm) — outside jaws on the tube, 6 in caliper
 
-// Tube's outer surface out to the facing edge of its own shelf (mm), measured
-// on the side that faces the other unit
+// Tube's outer surface out to the facing edge of its own shelf (mm), 6 in
+// caliper, measured on the side that faces the other unit
 tube_to_edge = 20;
 
 // Override these only if the two units differ
@@ -61,12 +63,12 @@ left_tube_to_edge = tube_to_edge;
 right_tube_to_edge = tube_to_edge;
 
 // Front-to-back clear gap between one unit's two posts, inner face to inner
-// face (mm). Inside jaws into the open space between the front and back tube
-// at any shelf level, wiggled for the smallest reading. Measured at 200.3 on
-// these shelves and recorded as 200 even. Unlike the brace, this one does not
-// have to be right — the back slots absorb slot_travel worth of error either
-// way. It only needs to be close enough to keep the real gap inside that
-// window
+// face (mm). 12 in caliper — 200.3 on these shelves is past where an 8 in one
+// stops. Inside jaws into the open space between the front and back tube at
+// any shelf level, wiggled for the smallest reading. Measured at 200.3 and
+// recorded as 200 even. Unlike the brace, this one does not have to be right —
+// the back slots absorb slot_travel worth of error either way. It only needs
+// to be close enough to keep the real gap inside that window
 post_clear_gap = 200;
 
 // ===== DECIDE THIS =====

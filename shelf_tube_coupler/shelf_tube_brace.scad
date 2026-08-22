@@ -38,13 +38,16 @@
 
 // ===== MEASURE THESE ON YOUR ACTUAL SHELVES =====
 // Outside diameters, edge runs, and clear gaps between solids — every one of
-// them is a measurement calipers can physically reach
+// them is a measurement calipers can physically reach. Each names the caliper
+// it needs, by the size printed on the tool: a 6 in caliper stops at 150 mm,
+// an 8 in at 200 mm, a 12 in at 300 mm. This one wants a 12 in
 
-tube_od = 30; // Outer diameter of the vertical tube post (mm) — outside jaws on the tube
+tube_od = 30; // Outer diameter of the vertical tube post (mm) — outside jaws on the tube, 6 in caliper
 
-// Tube's outer surface out to the facing edge of its own shelf (mm), measured
-// on the side that faces the other unit. Same measurement the coupler uses, and
-// it has to match — the two parts share the across-the-gap hole spacing
+// Tube's outer surface out to the facing edge of its own shelf (mm), 6 in
+// caliper, measured on the side that faces the other unit. Same measurement the
+// coupler uses, and it has to match — the two parts share the across-the-gap
+// hole spacing
 tube_to_edge = 20;
 
 // Override these only if the two units differ
@@ -52,19 +55,20 @@ left_tube_to_edge = tube_to_edge;
 right_tube_to_edge = tube_to_edge;
 
 // Front-to-back clear gap between one unit's two posts, inner face to inner
-// face (mm). Inside jaws into the open space between the front and back tube
-// at any shelf level, wiggled for the smallest reading — that minimum is the
-// gap along the line of centres, which is what this wants. Measured at 200.3
-// on these shelves and recorded as 200 even. Re-measure it for other units
-// rather than deriving it from the board depth: this number sets the brace
-// length almost one-for-one
+// face (mm). 12 in caliper — 200.3 on these shelves is past where an 8 in one
+// stops, and that is the whole reason this parameter is a gap and not a span.
+// Inside jaws into the open space between the front and back tube at any shelf
+// level, wiggled for the smallest reading — that minimum is the gap along the
+// line of centres, which is what this wants. Measured at 200.3 and recorded as
+// 200 even. Re-measure it for other units rather than deriving it from the
+// board depth: this number sets the brace length almost one-for-one
 post_clear_gap = 200;
 
 // Ground truth, if you would rather not trust the two spans agreeing. Measure
 // the diagonal clear gap across the assembled pair, one unit's front tube to
-// the other unit's back tube, nearest faces, and put it here. It runs longer
-// than post_clear_gap and can outreach an 8 inch caliper — leave it undef to
-// derive the diagonal instead
+// the other unit's back tube, nearest faces, and put it here. 12 in caliper: it
+// runs longer than post_clear_gap, about 212 on these shelves. Leave it undef
+// to derive the diagonal instead
 brace_clear_gap = undef;
 
 // ===== DECIDE THIS =====

@@ -105,6 +105,15 @@ to follow the new code.
   reach: outside diameters, clear gaps, edge-to-edge spans. Never ask for a
   center-to-center distance or any dimension inside a hollow solid — derive
   those instead.
+- Every measured parameter names the caliper that reaches it. Capacity is what
+  the tool is sold by and it reads nothing past that: 6 in is 150 mm, 8 in is
+  200 mm, 12 in is 300 mm. State the smallest size that covers the shipped
+  value, in inches, since that is the size printed on the tool — `— 6 in
+  caliper`, `— 12 in caliper`. A value sitting within about 5 mm of a capacity
+  calls for the next size up, because the jaws run out before the scale does.
+  This is a sanity check as much as a shopping list: a parameter whose value
+  needs a bigger caliper than the reader owns was measured some other way, and
+  a measurement taken some other way is how the wrong dimension gets entered.
 - Keep measured inputs, tuning knobs, and derived values in separate labelled
   blocks, in that order.
 - Guard derived geometry with `assert()` for interferences and overhangs, and
