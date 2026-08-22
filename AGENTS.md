@@ -88,6 +88,66 @@ because a slicer may initially place it in an inconvenient orientation. Document
 an orientation when it is useful, but treat rotating the finished model for
 printing as a slicer concern.
 
+## Overhangs
+
+Everything here prints without supports, and that is a design constraint rather
+than a slicer setting. Supports on a part this size cost more in scarred surfaces
+and cleanup than the feature that needed them is usually worth. Design the
+overhang out; do not print it and support it.
+
+Consider overhangs on every geometry change, not only on new parts. Adding a
+chamfer, deepening a recess, or changing the value of an existing knob can all
+introduce a face that hangs.
+
+**The limit is 45° from vertical.** A vertical wall is 0°, a flat ceiling is 90°,
+and anything past 45° wants support. Design sloped faces at 45° or shallower.
+
+**Fix the angle by construction, not by the value of a knob.** Write a chamfer so
+its horizontal run and vertical rise are the same expression, and a conical
+lead-in or countersink so its radial change equals its height:
+
+```
+[r - chamfer, 0], [r, chamfer]                              // Rim, always 45 deg
+cylinder(d1 = bore_d, d2 = bore_d + 2 * lead_in, h = lead_in) // Funnel, always 45 deg
+```
+
+Written that way the knob changes the size of the feature and never its angle,
+so no value a reader picks can turn it into an overhang. A chamfer given an
+independent width and height is a knob that can be tuned into a support
+requirement, and it will be.
+
+**Prefer removing the overhang to tolerating it.** A blind bore modelled opening
+upward has no roof to bridge; the same bore modelled the other way up bridges its
+full width. Reach for the arrangement with nothing hanging before reaching for
+the one that merely gets away with it. Prefer a chamfer to a fillet at a bottom
+rim for the same reason — the fillet leaves the plate tangent to horizontal,
+which is the worst overhang in the part, while the chamfer that replaces it is
+45° all the way.
+
+**This does not conflict with leaving orientation to the slicer.** Which way up a
+part is authored is a source decision, and it should be the way it is meant to
+print; where it lands on the plate and how it is arranged there is the slicer's.
+Model the part in its intended print orientation, choose that orientation to be
+the one needing no supports, and say so in the print notes. Then leave placement
+alone.
+
+**Verify against the mesh, not by eye.** After a geometry change, check the
+exported STL:
+
+```sh
+python3 scripts/overhangs.py part/part.stl
+```
+
+It groups the downward-facing facets by angle and height, ignores the first layer
+on the plate, and exits non-zero if anything is past 45°. A surface you reasoned
+was self-supporting and a surface that actually is are two different claims, and
+this settles which one is in the file.
+
+**Assert what a knob can break.** If a parameter can drive a feature past the
+limit, or a large value can eat the bed adhesion out from under a tall part,
+`assert()` it so the render fails instead of the print. Note the worst overhang
+in the print notes whenever anything in the part comes near the limit.
+
 ## Documentation
 
 The OpenSCAD source is canonical. Documentation follows the behavior and
@@ -119,6 +179,9 @@ to follow the new code.
 - Guard derived geometry with `assert()` for interferences and overhangs, and
   `echo()` the derived values so they can be sanity-checked against the physical
   part before printing.
+- Sloped faces stay at or under 45° from vertical so the part prints without
+  supports, and the angle is fixed by how the geometry is written rather than by
+  the value of a knob. See **Overhangs** above.
 
 ## Git
 
