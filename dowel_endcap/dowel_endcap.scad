@@ -38,18 +38,18 @@
 // Take it in two or three places and around a couple of rotations: wooden
 // dowel is rarely round and rarely the size on the label. Use the largest
 // reading, since that is the one that has to fit
-dowel_d = 10;
+dowel_d = 9;
 
 // ===== DECIDE THESE =====
 // Choices, not measurements — the cap is whatever these make it
 
 // How far the dowel goes into the cap (mm). Deeper grips better and resists
 // being levered off sideways; about 1.5 dowel diameters is plenty
-penetration_depth = 10;
+penetration_depth = 12;
 
 // Thickness of material around the dowel (mm). Sets the outside diameter and
 // the thickness capping the end, both at once
-wall_meat = 5;
+wall_meat = 6;
 
 // ===== TUNE THESE =====
 dowel_clearance = 0.3; // Added to the bored diameter for a glue or friction fit (mm) — raise if it will not seat, drop toward 0 for a tighter press
