@@ -32,9 +32,9 @@ def read_facets(path):
         raise MeshError(f"{path}: not a binary STL, or truncated")
     for i in range(count):
         offset = 84 + 50 * i
-        normal = struct.unpack("<3f", data[offset:offset + 12])
+        normal = struct.unpack("<3f", data[offset : offset + 12])
         vertices = [
-            struct.unpack("<3f", data[offset + 12 + 12 * j:offset + 24 + 12 * j])
+            struct.unpack("<3f", data[offset + 12 + 12 * j : offset + 24 + 12 * j])
             for j in range(3)
         ]
         yield normal, vertices
@@ -58,9 +58,13 @@ def scan(path):
             continue
         angle = math.degrees(math.asin(min(1.0, abs(nz))))
         key = (round(angle, 1), round(min(heights), 2), round(max(heights), 2))
-        groups[key] = groups.get(key, 0) + 1
+        count, worst_angle = groups.get(key, (0, angle))
+        groups[key] = (count + 1, max(worst_angle, angle))
 
-    return total, [(*key, count) for key, count in sorted(groups.items())]
+    return total, [
+        (worst_angle, z_min, z_max, count)
+        for (_, z_min, z_max), (count, worst_angle) in sorted(groups.items())
+    ]
 
 
 def past_limit(groups):
@@ -69,7 +73,13 @@ def past_limit(groups):
 
 def describe(group):
     angle, z_min, z_max, count = group
-    return f"{angle}° from vertical, z {z_min} – {z_max} mm, {count} facets"
+    return (
+        f"{format_angle(angle)}° from vertical, z {z_min} – {z_max} mm, {count} facets"
+    )
+
+
+def format_angle(angle):
+    return f"{angle:.2f}".rstrip("0").rstrip(".")
 
 
 def report(path):
@@ -83,13 +93,15 @@ def report(path):
     print(f"  {'from vertical':>13}  {'z span (mm)':>16}  facets")
     for angle, z_min, z_max, count in groups:
         flag = "  <-- past the limit" if angle > LIMIT + TOLERANCE else ""
-        print(f"  {angle:>12}°  {z_min:>7} – {z_max:<7}  {count}{flag}")
+        print(f"  {format_angle(angle):>12}°  {z_min:>7} – {z_max:<7}  {count}{flag}")
 
     worst = max(group[0] for group in groups)
     if worst > LIMIT + TOLERANCE:
-        print(f"\n  worst is {worst}°, past the {LIMIT}° limit — redesign the feature")
+        print(
+            f"\n  worst is {format_angle(worst)}°, past the {LIMIT}° limit — redesign the feature"
+        )
         return 1
-    print(f"\n  worst is {worst}°, within the {LIMIT}° limit")
+    print(f"\n  worst is {format_angle(worst)}°, within the {LIMIT}° limit")
     return 0
 
 
