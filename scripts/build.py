@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 MACOS_OPENSCAD = Path("/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD")
 PREVIEW_SIZE = "1200,900"
 PREVIEW_CAMERA = "0,0,0,55,0,25,0"
-PREVIEW_COLORSCHEME = "Tomorrow"
+PREVIEW_COLORSCHEME = "Tomorrow Night"
 
 # OpenSCAD reports both on success; matched as one phrase so an unrelated
 # "NoError" elsewhere in the output can't stand in for the status line
