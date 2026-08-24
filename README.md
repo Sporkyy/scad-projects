@@ -494,7 +494,8 @@ printed one at a time they will not, quite.
 
 A block with a cradle down its top, to park a pencil on the desk instead of
 letting it roll off. Every edge is chamfered and one cylindrical trough runs the
-length of the top face; the pencil lies in the trough.
+length of the top face; the pencil lies in the trough, and a round punch through
+the middle is what makes it possible to pick up again.
 
 **The cradle is not a choice.** Its radius is the pencil plus a clearance, it is
 cut to exactly half a cylinder, and the block is then made as tall as that cut
@@ -510,6 +511,24 @@ in, only threaded in from one end, and the roof of the undercut would be an
 overhang. Half is the deepest a cradle can be and still open upward, and it also
 leaves the pencil standing half proud, which is what makes it easy to pick up
 again. The render echoes how far it stands.
+
+**The punch is not a hole through the part.** It takes the rim away on both
+sides at once, so a finger and thumb close on the pencil's whole diameter
+instead of pinching at whatever stands proud of the top face. Neither of its
+limits is a number to get right:
+
+- It cannot reach the sides. Its diameter is the width less the flat, the ease
+  and the chamfer either side, so the material outside it is whatever
+  `punch_wall` says and no value of anything can eat into it.
+- It cannot go deeper than the trough. Its floor is written as the trough's own
+  deepest point rather than as a depth of its own, so the two are one plane and
+  the punch can never be the feature that breaks the bottom.
+
+That floor lands exactly level with the underside of the pencil, which is not a
+coincidence worth tuning: a round pencil beds at the bottom of a round trough, so
+its lowest point and the trough's are the same point whatever the clearance. A
+finger does not get under the pencil, and it does not need to — the render echoes
+that the punch exposes the pencil's full diameter.
 
 **Measuring.** One measurement, on the pencil:
 
@@ -530,13 +549,23 @@ either side of the trough, which is asserted and echoed.
 `pencil_clearance` opens the cradle so the pencil drops in and lifts out instead
 of being pressed into a socket. `floor_meat` is the material under the deepest
 point, and raising it makes the block taller rather than the trough shallower.
-`chamfer` breaks every edge of the block and `cradle_ease` breaks both rims of
-the trough — the edge a pencil is rolled over on its way in. Both eat into the
-flat rim, and the render echoes what is left of it.
+`chamfer` breaks every edge of the block, `cradle_ease` breaks both rims of the
+trough — the edge a pencil is rolled over on its way in — and `punch_ease` breaks
+the rim of the punch, which is the edge a fingertip drags over. All of them eat
+into the flat top face, and the render echoes what is left of it.
+
+`punch_wall` is the flat left between the punch and the outer chamfer, and it is
+the knob that sizes the punch: the punch is whatever is left over once that flat,
+the ease and the chamfer are taken off both sides. So it grows with `block_w` on
+its own, and a wider block gets a bigger finger hole without anything being
+re-entered. It is asserted against being narrower than the cradle, which is the
+point below which it stops opening anything a finger did not already have.
 
 **Printing.** PLA or PETG, no supports. Print as modelled, base down. Nothing
-bridges: the cradle opens upward so its whole surface faces up, and the only
-downward faces in the part are the chamfers along the base, at 45°. Print it
+bridges: the cradle opens upward so its whole surface faces up, and so does the
+punch — flat floor, vertical wall, and an ease at the rim that is a 45° cone
+opening up. The only downward faces in the part are the chamfers along the base,
+at 45°. Print it
 solid or near it — it is a small block, and the only thing it has to do is stay
 put, which is a question of mass and of the friction of the bottom face.
 

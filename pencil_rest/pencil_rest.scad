@@ -32,11 +32,35 @@
 // need end walls, and end walls in a scoop this shallow are
 // the one place a support would be wanted.
 //
+// A round punch through the middle is what makes the pencil
+// possible to pick up. It takes the rim away on both sides at
+// once, so a finger and thumb close on the pencil's whole
+// diameter instead of pinching at whatever stands proud of the
+// top face. Neither of its limits is a number to get right:
+//
+// - It cannot reach the sides. Its diameter is the width less
+//   the flat, the ease and the chamfer either side, so the
+//   material outside it is what punch_wall says it is and no
+//   value of anything can eat it.
+// - It cannot go deeper than the trough. Its floor is written
+//   as the trough's own deepest point, not as a depth of its
+//   own, so the two are one plane and the punch can never be
+//   the feature that breaks the bottom.
+//
+// That floor also lands exactly level with the underside of
+// the pencil, which is not a coincidence to be tuned: a round
+// pencil beds at the bottom of a round trough, so its lowest
+// point and the trough's are the same point whatever the
+// clearance. A finger does not get under the pencil, and it
+// does not need to.
+//
 // PRINT NOTES:
 // - PLA or PETG, no supports needed. Print as modeled, base
 //   down.
 // - Nothing bridges. The cradle opens upward, so its whole
-//   surface faces up; the only downward faces in the part are
+//   surface faces up, and so does the punch: flat floor,
+//   vertical wall, and an ease at the rim that is a 45 deg
+//   cone opening up. The only downward faces in the part are
 //   the chamfers along the base, at 45 deg.
 // - Every chamfer here has its run and its rise in the same
 //   expression, so no value of any knob can turn one into an
@@ -78,6 +102,8 @@ pencil_clearance = 0.5; // Added to the cradle radius (mm) — the pencil drops 
 floor_meat = 3; // Material left under the deepest point of the cradle (mm). This is the number that keeps the trough off the bottom, and the block grows taller to hold it
 chamfer = 1; // Break on every edge of the block (mm)
 cradle_ease = 0.6; // Break along both rims of the cradle (mm) — the edge a pencil is rolled over on its way in
+punch_wall = 2; // Flat left on the top face between the punch and the outer chamfer (mm). This is the knob that sets how big the punch comes out, and it is the material that keeps it off the sides
+punch_ease = 0.6; // Break around the rim of the punch (mm) — the edge a fingertip drags over
 
 $fn = 120;
 
@@ -110,6 +136,25 @@ pencil_proud = pencil_d / 2 - pencil_clearance;
 // at, so the chamfer runs into the trough wall instead of leaving a step in it
 ease_foot = sqrt(cradle_r * cradle_r - cradle_ease * cradle_ease);
 
+// The punch. Its floor is the trough's deepest point written out again rather
+// than a depth of its own, so the two are the same plane and no arithmetic
+// stands between the punch and the floor it must not break
+punch_floor = block_h - cradle_depth;
+punch_depth = block_h - punch_floor;
+
+// Diameter of the punch. What is left over once the outer chamfer, the flat and
+// the punch's own ease have been taken off both sides, so the material outside
+// it is punch_wall by construction and the sides are safe from any value
+punch_d = block_w - 2 * (chamfer + punch_wall + punch_ease);
+punch_mouth = punch_d + 2 * punch_ease;
+
+// Material left between the punch's mouth and each end of the block
+punch_end_meat = (block_l - punch_mouth) / 2 - chamfer;
+
+// How much of the pencil's side a finger can close on at the punch. The floor
+// of the punch is level with the underside of the pencil, so it is all of it
+punch_grip = pencil_d;
+
 overshoot = 1; // Run past both ends, so the trough cuts through cleanly
 
 echo(str("block = ", block_w, " x ", block_l, " x ", block_h, " mm"));
@@ -117,6 +162,10 @@ echo(str("cradle = ", mouth_w, " mm across, ", cradle_depth, " mm deep"));
 echo(str("floor under the cradle = ", floor_meat, " mm"));
 echo(str("flat rim either side = ", rim, " mm"));
 echo(str("pencil stands proud of the top face by = ", pencil_proud, " mm"));
+echo(str("punch = ", punch_d, " mm across, ", punch_mouth, " mm at the mouth, ", punch_depth, " mm deep"));
+echo(str("punch floor is level with the trough, on the same ", floor_meat, " mm of floor"));
+echo(str("punch leaves ", punch_wall, " mm of flat either side and ", punch_end_meat, " mm at each end"));
+echo(str("pencil exposed at the punch = ", punch_grip, " mm, its full diameter"));
 
 assert(pencil_d > 0, "pencil_d has to be positive");
 assert(cradle_r > 0, "pencil_clearance has closed the cradle — it cannot be more negative than the pencil is thick");
@@ -124,6 +173,9 @@ assert(floor_meat > 0, "floor_meat has to be positive — it is the whole floor 
 assert(rim > 0, "the cradle has eaten the top face — widen block_w, or reduce chamfer or cradle_ease");
 assert(pencil_proud > 0, "the clearance has sunk the pencil below the top face — reduce pencil_clearance");
 assert(cradle_ease < cradle_r, "the cradle's ease is wider than the cradle — reduce cradle_ease");
+assert(punch_d > mouth_w, "the punch is no wider than the cradle, so it opens nothing a finger did not already have — widen block_w, or take it out of punch_wall");
+assert(punch_end_meat > 0, "the punch has run out through the ends of the block — lengthen block_l, or widen punch_wall to narrow the punch");
+assert(punch_ease < punch_depth, "the punch's ease is deeper than the punch — reduce punch_ease");
 assert(2 * chamfer < block_w, "the width chamfers have met — reduce chamfer or widen block_w");
 assert(2 * chamfer < block_l, "the length chamfers have met — reduce chamfer or lengthen block_l");
 assert(2 * chamfer < block_h, "the height chamfers have met — reduce chamfer, or add floor_meat to make the block taller");
@@ -204,6 +256,16 @@ module pencil_rest() {
     along_length(1)
       translate([0, block_h])
         cradle_2d();
+
+    // The punch, from the trough's own floor up and out through the top
+    translate([0, 0, punch_floor])
+      cylinder(d = punch_d, h = punch_depth + overshoot);
+
+    // Its rim, broken by a cone that opens upward. The cone's radial change
+    // and its height are one expression, so it is 45 deg whatever punch_ease
+    // is set to, and it can no more hang than the chamfers can
+    translate([0, 0, block_h - punch_ease])
+      cylinder(d1 = punch_d, d2 = punch_d + 2 * (punch_ease + overshoot), h = punch_ease + overshoot);
   }
 }
 
