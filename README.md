@@ -2,8 +2,10 @@
 
 Parametric OpenSCAD models for 3D-printed parts, mostly one-off fixes for
 things around the house. Each project has its own directory, holding a
-self-contained `.scad` source with its `.stl` and preview image beside it.
-Measured dimensions are variables at the top of the source.
+self-contained `.scad` source per part with its `.stl` and preview image beside
+it — one source where the project is one part, and one each where parts are
+printed and used together. Measured dimensions are variables at the top of the
+source.
 
 Every model is written to be measured with **calipers**. Parameters are always
 things a caliper can physically reach — outside diameters, clear gaps,
@@ -345,6 +347,66 @@ the flats.
 The source emits one block; print four. Thread the tail through all four before
 feeding it into the head — the head does not fit through the channel and is not
 meant to, and it sits on a flat between two blocks.
+
+#### The TPU sleeve
+
+[![Zip tie corner block sleeve preview](zip_tie_corner_blocks/zip_tie_corner_block_sleeves.png)](zip_tie_corner_blocks/zip_tie_corner_block_sleeves.stl)
+
+[View or download STL](zip_tie_corner_blocks/zip_tie_corner_block_sleeves.stl) · [OpenSCAD source](zip_tie_corner_blocks/zip_tie_corner_block_sleeves.scad)
+
+A soft liner that goes between one leg of a block and the flat it bears on. The
+block is rigid and everything it presses against is painted, powder-coated or
+anodized, so the sleeve is the layer that grips, that spreads the tie's load over
+a surface which is never quite flat, and that takes the scuffing instead of the
+finish underneath. It is optional — the blocks work bare.
+
+It has three sides. The wide one is the pad, and it is the whole working surface:
+it lies on the block's inner face and bears on the object. The other two are lips
+that fold over the block's top and bottom faces.
+
+The lips are not the fastening — glue is. What they do is stop the sleeve sliding
+while the glue is wet and square it up on the face by themselves, so there is
+nothing to line up by eye. The channel is printed a shade narrow across and
+snapped onto the block, and the glue cures with everything already where it
+belongs.
+
+**One leg, one sleeve.** A block has two inner faces, so it takes two, and a set
+of four blocks takes eight. They are all the same part: the channel is symmetric
+top to bottom and uniform end to end, so it has no handedness and no right way
+up.
+
+**Matching the block.** The sleeve has to come out the same size as the block it
+wraps, and every source here is self-contained, so it carries its own copies of
+the block's `tie_clearance`, `deck`, `leg_length`, `corner_relief_d`,
+`bend_radius`, `corner_web`, `outer_wall` and `foot_chamfer`, plus the same two
+tie measurements. None of them is a free choice — change one and change it in
+both files. Both sources echo the block height and the leg thickness, so the
+quickest check that they are in step is to render the two and compare.
+
+**Deciding.** `pad_thickness` is all of the cushion and all of the grip, and it
+is also how far the block ends up standing off the flat, so the tie rides that
+much higher — the sleeve echoes the standoff the assembled joint actually has. It
+has to stay under the corner relief radius, or the two sleeves on one block meet
+at the corner. `lip_reach` and `lip_thickness` size the lips: far enough over the
+face to hold the sleeve square, not so far as to reach past the back of the leg,
+and thin enough to spring over the block without tearing off it.
+
+`block_pinch` is subtracted from the block height, so the channel is narrow by
+that much and holds itself on before it is glued. `lip_lead_in` tapers the lip
+tips so the sleeve can start out of square and still snap on.
+
+**Printing.** TPU, no supports. Print as modelled, pad down. Nothing in this part
+hangs at all — every face is vertical, on the plate, or facing up, the two
+lead-in bevels included, since they taper the tips at 45° and so point upward
+rather than down. Pad down also puts the plate's finish on the face that bears on
+the object and leaves the printed top surface as the glue face, which is the way
+round that suits both.
+
+Three perimeters; at this size the lips are perimeters the whole way through,
+which is what makes them springy rather than crumbly. Cyanoacrylate or contact
+cement — TPU takes both, and the rigid filament under it is what decides. The
+block's foot chamfer leaves a groove along one edge between the pad and the
+block; that is a glue reservoir, not a gap to close.
 
 ### Foot with post
 

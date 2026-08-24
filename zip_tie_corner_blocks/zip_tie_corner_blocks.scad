@@ -47,6 +47,15 @@
 //
 // This source emits ONE block. Print four.
 //
+// A TPU sleeve for the inner faces sits beside this file. It
+// is optional — the block works bare — and it adds grip and
+// keeps the block's edges off the finish. Fitted, it stands
+// the block off each flat by its own pad thickness, so the tie
+// rides that much higher than the offset echoed here. Its
+// source carries copies of the parameters below that decide
+// how big it has to be, so change one of those and change it
+// in both files.
+//
 // PRINT NOTES:
 // - PETG, PLA or ASA, no supports needed.
 // - Print as modeled, flat face down, corner edge vertical.
