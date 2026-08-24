@@ -76,6 +76,21 @@ The build must report `manifold` and `Status: NoError` before replacing tracked
 artifacts. It exports binary STL files and consistent fixed-view catalog
 previews. A failed build must leave the last known-good artifacts intact.
 
+That status line only appears when OpenSCAD has an actual boolean to compute.
+A part that is one primitive, one `rotate_extrude`, or one `linear_extrude`
+exports as a `PolySet` and prints no `manifold` line at all, so the build
+rejects it — the mesh is fine, but the gate has nothing to read. Wrapping the
+lone child in `union()` or `render()` does not help; the operation has to have
+something to do. Two or more operands do it, including the implicit union of two
+top-level objects, and so does `hull()` on a single child.
+
+This is not a reason to bolt a dummy operation onto a part. A model made of two
+stacked or intersecting solids should be written as the `union()` it already is
+rather than flattened into one profile, which is what the foot with post needed.
+A part that is genuinely one revolved silhouette — the dowel end cap, had it no
+bore — has no honest boolean to add, and that is worth raising rather than
+papering over.
+
 The `.3mf` is a Bambu Studio project rather than a mesh export and remains
 gitignored. The models are single-material prints, so these files hold only seam
 and infill preferences — taste that reasonable people disagree about, not a
