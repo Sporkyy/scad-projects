@@ -8,24 +8,36 @@
 // over a surface that is never quite flat, and it is the part
 // that takes the scuffing instead of the finish underneath.
 //
-// It is a channel with three sides. The wide one is the pad,
-// and it is the whole working surface — it lies on the block's
-// inner face and bears on the object. The other two are lips
-// that fold over the block's top and bottom faces and hold the
-// sleeve there.
+// It is a shallow tray. The floor is the pad, and it is the
+// whole working surface — it lies on the block's inner face
+// and bears on the object. Three lips stand off it, and they
+// cover the three faces next to that one: the block's top, its
+// bottom, and the end face at the tip of the leg. The fourth
+// edge is not a face at all. It is where the corner relief
+// cuts the block away and the other leg's sleeve sits, so
+// there is nothing there to wrap.
 //
 // The lips are not the fastening. Glue is. What they do is
-// stop the sleeve sliding around while the glue is wet, and
-// square it up on the face by themselves so there is nothing
-// to line up by eye — TPU is printed a shade narrow across the
-// channel and snaps onto the block, and the glue cures with
-// everything already where it belongs.
+// hold the sleeve still while the glue is wet, and each pair
+// does it in a different direction: the side lips square the
+// sleeve up across the face, and the end lip is a stop that
+// locates it along the leg. Pushed on until it meets the leg
+// tip, the sleeve is placed in every direction at once, with
+// nothing to line up by eye. TPU is printed a shade narrow
+// across the channel and snaps onto the block, and the glue
+// cures with everything already where it belongs.
+//
+// The end lip has to stay clear of the mouth of the block's
+// channel, which opens in that same end face. It is asserted
+// below, and it is the constraint that decides how far any of
+// the lips can reach.
 //
 // ONE LEG, ONE SLEEVE. A block has two inner faces, so it
 // takes two of these, and a set of four blocks takes eight.
-// They are all the same part: the channel is symmetric top to
-// bottom and uniform end to end, so it has no handedness and
-// no right way up.
+// They are all the same part, and it is symmetric top to
+// bottom, so there is no handedness and no right way up. There
+// is a right way round: the end lip goes to the tip of the
+// leg, and the open end to the corner.
 //
 // The sleeve stands the block off the flats by its own pad
 // thickness, which lifts the tie the same amount. Nothing in
@@ -35,8 +47,8 @@
 //
 // THE PARAMETERS UP TO THE SECOND BLOCK BELOW ARE COPIES.
 // They have to hold the same values as the block's, or the
-// channel will not fit the block it was cut for. Change one
-// and change it in both files.
+// tray will not fit the block it was cut for. Change one and
+// change it in both files.
 //
 // Modeled in its print orientation: pad flat on the plate,
 // lips pointing up.
@@ -45,8 +57,11 @@
 // - TPU, no supports needed. Print as modeled, pad down.
 // - Nothing in the part hangs, at all. Every face is vertical,
 //   on the plate, or facing up — including the two lead-in
-//   bevels at the lips, which taper the tips at 45 deg and so
-//   point upward rather than down.
+//   bevels at the side lips, which taper the tips at 45 deg
+//   and so point upward rather than down.
+// - Only the side lips are tapered. They are the pair that has
+//   to snap over the block; the end lip is slid up to rather
+//   than pushed over, so it stays square.
 // - Pad down puts the plate's finish on the face that bears on
 //   the object and leaves the printed top surface as the glue
 //   face, which is the way round that suits both.
@@ -99,18 +114,19 @@ foot_chamfer = 0.6; // The block's foot chamfer — the groove it leaves is the 
 // the corner
 pad_thickness = 1.6;
 
-// How far each lip folds over the block's top and bottom faces (mm). Enough to
-// hold the sleeve square while the glue goes off; it does not have to reach
-// far, and it must not reach past the back of the leg
+// How far every lip folds over the face behind it (mm). Enough to hold the
+// sleeve square and stop it while the glue goes off; it does not have to reach
+// far, and the end lip is the one that runs out of room first, since the
+// block's channel opens in the face it lies on
 lip_reach = 3;
 
-// Thickness of each lip (mm). Thin enough to spring over the block, thick
-// enough not to tear off it
+// Thickness of each lip (mm). Thin enough for the side pair to spring over the
+// block, thick enough not to tear off it
 lip_thickness = 1.2;
 
 // ===== TUNE THESE =====
 block_pinch = 0.2; // SUBTRACTED from the block height (mm) — the channel is printed narrow and stretched on, so it holds itself in place before it is glued
-lip_lead_in = 0.6; // Taper at the mouth of each lip (mm) — how far out of square the sleeve can start and still snap on
+lip_lead_in = 0.6; // Taper at the mouth of each side lip (mm) — how far out of square the sleeve can start and still snap on
 
 // ===== DERIVED =====
 slot_w = tie_thickness + tie_clearance;
@@ -123,21 +139,26 @@ relief_r = corner_relief_d / 2;
 // block's own echo
 block_h = 2 * deck + slot_h + gable;
 
-// The block's leg thickness, rebuilt the same way. The lips fold over this
-// face, so it is the room they have
+// The block's leg thickness, and how far its channel stands off the inner
+// face, both rebuilt the same way. The side lips fold over a face that is
+// leg_thickness deep; the end lip folds over one that is only clear as far as
+// face_offset, because the channel's mouth is what comes next
 tie_offset = ((sqrt(2) - 1) * bend_radius + slot_w / 2 + relief_r + corner_web) / sqrt(2);
 face_offset = tie_offset - slot_w / 2;
 leg_thickness = face_offset + slot_w + outer_wall;
 
 // Length of the block's inner face, from where the corner relief lets go of it
-// to the end of the leg. The sleeve covers all of it and no more
+// to the end of the leg. The pad covers all of it and no more
 sleeve_length = leg_length - relief_r;
 
 // Clear width of the channel. Narrower than the block by the pinch, which is
-// what the lips have to stretch over
+// what the side lips have to stretch over
 gap = block_h - block_pinch;
 
+// Outside of the tray. Each dimension is the block's own plus the lips that
+// stand outside it — one lip at the end, two across
 sleeve_width = gap + 2 * lip_thickness;
+sleeve_overall = sleeve_length + lip_thickness;
 sleeve_height = pad_thickness + lip_reach;
 
 // Where the tie ends up once the sleeves are on: the block's own standoff plus
@@ -145,14 +166,20 @@ sleeve_height = pad_thickness + lip_reach;
 // runs between blocks
 sleeved_face_offset = face_offset + pad_thickness;
 
-// What is left of the block's top and bottom faces outside each lip. The lip
-// folds over the face, not around the back of it
+// What is left of the block's top and bottom faces outside the side lips. They
+// fold over the face, not around the back of it
 lip_clearance = leg_thickness - lip_reach;
 
-echo(str("sleeve = ", sleeve_width, " x ", sleeve_length, " x ", sleeve_height, " mm"));
+// What is left of the end face between the end lip and the mouth of the
+// block's channel. The tie comes out there, so this is the one that has to
+// stay positive
+mouth_clearance = face_offset - lip_reach;
+
+echo(str("sleeve = ", sleeve_width, " x ", sleeve_overall, " x ", sleeve_height, " mm"));
 echo(str("channel = ", gap, " mm clear, onto a ", block_h, " mm block"));
 echo(str("pad covers ", sleeve_length, " mm of face, ", pad_thickness, " mm thick"));
-echo(str("lip folds ", lip_reach, " mm over a ", leg_thickness, " mm leg, leaving ", lip_clearance, " mm"));
+echo(str("side lips fold ", lip_reach, " mm over a ", leg_thickness, " mm leg, leaving ", lip_clearance, " mm"));
+echo(str("end lip stops ", mouth_clearance, " mm short of the channel mouth"));
 echo(str("glue groove along the chamfered edge = ", foot_chamfer, " mm"));
 echo(str("tie stands off each flat by = ", sleeved_face_offset, " mm once sleeved"));
 echo("print eight for a set of four blocks");
@@ -161,27 +188,27 @@ assert(pad_thickness > 0, "pad_thickness has to be positive — the pad is the w
 assert(pad_thickness < relief_r, "the two sleeves on one block would meet at the corner — thin the pad, or open corner_relief_d in both files");
 assert(lip_thickness > 0, "lip_thickness has to be positive");
 assert(lip_reach > 0, "lip_reach has to be positive — without the lips this is a shim, and it will not stay put");
-assert(lip_clearance > 0, "the lips reach past the back of the leg — reduce lip_reach");
+assert(mouth_clearance > 0, "the end lip has reached the mouth of the block's channel and would cap the tie's exit — reduce lip_reach, or raise bend_radius in both files to stand the channel further off the flats");
 assert(gap > 0, "block_pinch has closed the channel — it cannot be more negative than the block is tall");
-assert(block_pinch >= 0, "a negative block_pinch is slack, and slack is what the lips are there to remove — leave it at 0 for a slip fit");
+assert(block_pinch >= 0, "a negative block_pinch is slack, and slack is what the side lips are there to remove — leave it at 0 for a slip fit");
 assert(sleeve_length > 0, "the corner relief has eaten the whole inner face — lengthen leg_length or reduce corner_relief_d, in both files");
-assert(lip_lead_in < lip_thickness, "the lead-in has tapered the lip to nothing — reduce lip_lead_in");
-assert(lip_lead_in < lip_reach, "the lead-in is deeper than the lip is long — reduce lip_lead_in");
+assert(lip_lead_in < lip_thickness, "the lead-in has tapered the side lips to nothing — reduce lip_lead_in");
+assert(lip_lead_in < lip_reach, "the lead-in is deeper than the lips are long — reduce lip_lead_in");
 
 // The pad, in cross section: x is across the block's height, y is up out of
-// the plate. It runs the full width so the lips land on it rather than beside
-// it
+// the plate. It runs the full width so the side lips land on it rather than
+// beside it
 module pad_2d() {
   translate([-sleeve_width / 2, 0])
     square([sleeve_width, pad_thickness]);
 }
 
-// One lip, in the same cross section. It starts at the plate and overlaps the
-// pad rather than sitting on top of it, so the two meet in material. The
+// One side lip, in the same cross section. It starts at the plate and overlaps
+// the pad rather than sitting on top of it, so the two meet in material. The
 // lead-in takes the inner corner off the tip: it moves out and up by the same
 // amount, so it is 45 deg whatever lip_lead_in is set to, and it funnels the
 // mouth rather than closing it
-module lip_2d() {
+module side_lip_2d() {
   inner = gap / 2;
   outer = gap / 2 + lip_thickness;
   polygon([
@@ -193,26 +220,36 @@ module lip_2d() {
   ]);
 }
 
-// Everything here is one cross section run the length of the block's inner
-// face
+// The pad and the side lips are one cross section run the length of the
+// block's inner face, and then far enough past it for the end lip to stand on
 module along_leg() {
-  translate([0, sleeve_length, 0])
+  translate([0, sleeve_overall, 0])
     rotate([90, 0, 0])
-      linear_extrude(sleeve_length)
+      linear_extrude(sleeve_overall)
         children();
 }
 
-// Three sides: the pad, and a lip either side of it. The second lip is the
-// first mirrored, so the channel cannot come out lopsided
+// The end lip, standing across the far end of the pad. It is square rather
+// than tapered: nothing snaps over it, the leg is slid up to it, and a taper
+// here would only shorten the stop
+module end_lip_3d() {
+  translate([-sleeve_width / 2, sleeve_length, 0])
+    cube([sleeve_width, lip_thickness, sleeve_height]);
+}
+
+// Four sides: the pad, a lip either side of it, and a lip across the end. The
+// second side lip is the first mirrored, so the channel cannot come out
+// lopsided
 module zip_tie_corner_block_sleeve() {
   union() {
     along_leg()
       pad_2d();
     along_leg()
-      lip_2d();
+      side_lip_2d();
     mirror([1, 0, 0])
       along_leg()
-        lip_2d();
+        side_lip_2d();
+    end_lip_3d();
   }
 }
 

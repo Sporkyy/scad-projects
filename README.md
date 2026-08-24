@@ -360,20 +360,31 @@ anodized, so the sleeve is the layer that grips, that spreads the tie's load ove
 a surface which is never quite flat, and that takes the scuffing instead of the
 finish underneath. It is optional — the blocks work bare.
 
-It has three sides. The wide one is the pad, and it is the whole working surface:
-it lies on the block's inner face and bears on the object. The other two are lips
-that fold over the block's top and bottom faces.
+It is a shallow tray. The floor is the pad, and it is the whole working surface:
+it lies on the block's inner face and bears on the object. Three lips stand off
+it, covering the three faces next to that one — the block's top, its bottom, and
+the end face at the tip of the leg. The fourth edge is not a face at all, but the
+place where the corner relief cuts the block away and the other leg's sleeve
+sits, so there is nothing there to wrap.
 
-The lips are not the fastening — glue is. What they do is stop the sleeve sliding
-while the glue is wet and square it up on the face by themselves, so there is
-nothing to line up by eye. The channel is printed a shade narrow across and
-snapped onto the block, and the glue cures with everything already where it
-belongs.
+The lips are not the fastening — glue is. What they do is hold the sleeve still
+while the glue is wet, and each does it in a different direction: the side lips
+square it up across the face, and the end lip is a stop that locates it along the
+leg. Pushed on until it meets the leg tip, the sleeve is placed in every
+direction at once, with nothing to line up by eye. The channel is printed a shade
+narrow across and snapped onto the block, and the glue cures with everything
+already where it belongs.
+
+The end lip lies on the same face the block's channel opens in, so it has to stop
+short of that mouth or it would cap the tie's exit. That is the constraint which
+decides how far any of the lips can reach, and it is asserted and echoed rather
+than left to be discovered on a print — at the shipped numbers the lip stops
+2.8 mm short of it.
 
 **One leg, one sleeve.** A block has two inner faces, so it takes two, and a set
-of four blocks takes eight. They are all the same part: the channel is symmetric
-top to bottom and uniform end to end, so it has no handedness and no right way
-up.
+of four blocks takes eight. They are all the same part, symmetric top to bottom,
+so there is no handedness and no right way up. There is a right way round: the
+end lip goes to the tip of the leg, and the open end to the corner.
 
 **Matching the block.** The sleeve has to come out the same size as the block it
 wraps, and every source here is self-contained, so it carries its own copies of
@@ -388,8 +399,9 @@ is also how far the block ends up standing off the flat, so the tie rides that
 much higher — the sleeve echoes the standoff the assembled joint actually has. It
 has to stay under the corner relief radius, or the two sleeves on one block meet
 at the corner. `lip_reach` and `lip_thickness` size the lips: far enough over the
-face to hold the sleeve square, not so far as to reach past the back of the leg,
-and thin enough to spring over the block without tearing off it.
+faces to hold the sleeve square and stop it, not so far that the end lip reaches
+the channel mouth, and thin enough for the side pair to spring over the block
+without tearing off it.
 
 `block_pinch` is subtracted from the block height, so the channel is narrow by
 that much and holds itself on before it is glued. `lip_lead_in` tapers the lip
@@ -398,7 +410,9 @@ tips so the sleeve can start out of square and still snap on.
 **Printing.** TPU, no supports. Print as modelled, pad down. Nothing in this part
 hangs at all — every face is vertical, on the plate, or facing up, the two
 lead-in bevels included, since they taper the tips at 45° and so point upward
-rather than down. Pad down also puts the plate's finish on the face that bears on
+rather than down. Only the side lips are tapered: they are the pair that has to
+snap over the block, while the end lip is slid up to rather than pushed over, and
+a taper there would only shorten the stop. Pad down also puts the plate's finish on the face that bears on
 the object and leaves the printed top surface as the glue face, which is the way
 round that suits both.
 
