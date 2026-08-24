@@ -486,6 +486,60 @@ is what the foot is for. Three perimeters either way, so the post has walls in i
 rather than infill. Print the set together and they come out the same height;
 printed one at a time they will not, quite.
 
+### Pencil rest
+
+[![Pencil rest preview](pencil_rest/pencil_rest.png)](pencil_rest/pencil_rest.stl)
+
+[View or download STL](pencil_rest/pencil_rest.stl) · [OpenSCAD source](pencil_rest/pencil_rest.scad)
+
+A block with a cradle down its top, to park a pencil on the desk instead of
+letting it roll off. Every edge is chamfered and one cylindrical trough runs the
+length of the top face; the pencil lies in the trough.
+
+**The cradle is not a choice.** Its radius is the pencil plus a clearance, it is
+cut to exactly half a cylinder, and the block is then made as tall as that cut
+plus the floor left under it. The height falls out of the cradle rather than the
+cradle being fitted into a height, and that is what makes it impossible for the
+trough to reach the bottom: `floor_meat` is what is left under the deepest point,
+always, whatever pencil the block is cut for and however wide or long it is made.
+
+Cutting exactly half the cylinder is fixed the same way. The depth of the cut and
+the radius of the cut are one expression, so the trough walls arrive at the top
+face vertical. A deeper cut would undercut the pencil — it could not be dropped
+in, only threaded in from one end, and the roof of the undercut would be an
+overhang. Half is the deepest a cradle can be and still open upward, and it also
+leaves the pencil standing half proud, which is what makes it easy to pick up
+again. The render echoes how far it stands.
+
+**Measuring.** One measurement, on the pencil:
+
+| Parameter | Measure | Caliper |
+| --- | --- | --- |
+| `pencil_d` | Outside jaws on the barrel | 6 in |
+
+A hexagonal pencil is not round. Take it across the corners rather than across
+the flats and use the largest reading, since the corners are what the cradle has
+to clear, and measure the barrel rather than the ferrule.
+
+**Deciding.** `block_l` is how much of the pencil is carried — a long one is a
+tray for several, a short one is a bridge under one. `block_w` is how much desk
+it stands on, and so how hard it is to knock over. Neither can reach the cradle
+or change its shape; the only way they fail is a width too narrow to leave a rim
+either side of the trough, which is asserted and echoed.
+
+`pencil_clearance` opens the cradle so the pencil drops in and lifts out instead
+of being pressed into a socket. `floor_meat` is the material under the deepest
+point, and raising it makes the block taller rather than the trough shallower.
+`chamfer` breaks every edge of the block and `cradle_ease` breaks both rims of
+the trough — the edge a pencil is rolled over on its way in. Both eat into the
+flat rim, and the render echoes what is left of it.
+
+**Printing.** PLA or PETG, no supports. Print as modelled, base down. Nothing
+bridges: the cradle opens upward so its whole surface faces up, and the only
+downward faces in the part are the chamfers along the base, at 45°. Print it
+solid or near it — it is a small block, and the only thing it has to do is stay
+put, which is a question of mass and of the friction of the bottom face.
+
 ## Working with these
 
 Regenerate every tracked STL and preview image:
