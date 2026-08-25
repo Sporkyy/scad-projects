@@ -85,14 +85,14 @@
 // 6 in caliper. Measure the plain strap well away from the head, and away from
 // the ratchet teeth if they stand proud. This is the tall dimension of the
 // channel, since the tie wraps the corner on its flat
-tie_width = 4.8;
+tie_width = 3.5;
 
 // Thickness of the tie's strap (mm) — outside jaws on the edge of the strap,
 // 6 in caliper. Take it over the ratchet teeth, not between them: the teeth
 // are what has to clear the channel. Nominal 4.8 mm ties run anywhere from
 // 1.1 to 1.6 mm depending on how heavy the tie is, so measure the tie you
 // actually have rather than trusting the packet
-tie_thickness = 1.4;
+tie_thickness = 1.3;
 
 // ===== DECIDE THESE =====
 // Choices, not measurements — the block is whatever these make it
@@ -107,7 +107,7 @@ bend_radius = 10;
 // This is the load-spreading dimension — everything past the corner relief is
 // bearing surface. It also sets the shortest object the blocks fit on, since
 // two of them have to sit on one flat without meeting
-leg_length = 14;
+leg_length = 10;
 
 // Diameter of the relief knocked out of the inner corner (mm). It has to
 // swallow the printed fillet in the block's own internal corner plus whatever
