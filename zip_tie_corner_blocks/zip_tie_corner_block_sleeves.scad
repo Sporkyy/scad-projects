@@ -85,11 +85,11 @@
 
 // Width of the tie's strap (mm) — outside jaws across the flat of the strap,
 // 6 in caliper. Measure the plain strap well away from the head
-tie_width = 4.8;
+tie_width = 3.5;
 
 // Thickness of the tie's strap (mm) — outside jaws on the edge of the strap,
 // over the ratchet teeth rather than between them, 6 in caliper
-tie_thickness = 1.4;
+tie_thickness = 1.3;
 
 // ===== THESE MUST MATCH THE BLOCK =====
 // Copies of the block's knobs, carried here because the sleeve has to come out
@@ -98,7 +98,7 @@ tie_thickness = 1.4;
 
 tie_clearance = 0.6; // The block's channel clearance — feeds the block height
 deck = 1.6; // The block's top and bottom skins — feeds the block height
-leg_length = 14; // How far the block reaches along each flat
+leg_length = 10; // How far the block reaches along each flat
 corner_relief_d = 4; // The block's corner relief — where its inner face starts
 bend_radius = 10; // The block's bend radius — feeds the leg thickness
 corner_web = 2.5; // The block's corner web — feeds the leg thickness
