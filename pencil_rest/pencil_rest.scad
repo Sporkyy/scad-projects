@@ -110,7 +110,7 @@ block_w = 30;
 
 // ===== TUNE THESE =====
 pencil_clearance = 0.5; // Added to the cradle radius (mm) — the pencil drops in and lifts out rather than being pressed into a socket
-floor_meat = 3; // Material left under the deepest point of the cradle (mm). This is the number that keeps the trough off the bottom, and the block grows taller to hold it
+floor_meat = 5; // Material left under the deepest point of the cradle (mm). This is the number that keeps the trough off the bottom, and the block grows taller to hold it
 chamfer = 1; // Break on every edge of the block (mm)
 cradle_ease = 0.6; // Break along both rims of the cradle (mm) — the edge a pencil is rolled over on its way in
 notch_l = 24; // Clear opening of the finger notch along the block (mm). This is the room a finger and thumb get, measured between its walls, and it is paid for out of the trough at each end
