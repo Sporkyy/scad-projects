@@ -622,11 +622,12 @@ its lowest point and the trough's are the same point whatever the clearance. A
 finger does not have to get under the pencil — it comes in beside it, and the
 render echoes that the notch exposes the full diameter from either side.
 
-**What the notch costs.** Nothing off the bottom face: the block stands on the
-same footprint it always did, so it holds the desk by the same mass and the same
-friction. What it costs is trough. The cradle carries the pencil either side of
-the notch rather than along the whole length, and the render echoes how much is
-left at each end — 36.4 mm apiece at the shipped sizes, against a 24 mm opening.
+**What the notch costs.** Nothing off the bottom face: the block keeps its full
+footprint on the desk. It does lose some mass as well as trough, so printing it
+solid or nearly solid helps recover the weight and friction that keep a rest this
+small in place. The cradle carries the pencil either side of the notch rather
+than along the whole length, and the render echoes how much is left at each end —
+36.4 mm apiece at the shipped sizes, against a 24 mm opening.
 `notch_l` is asserted against leaving less than the pencil is thick at either
 end, which is the point where a cradle has become a lip.
 
