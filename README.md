@@ -187,6 +187,78 @@ sits on top of the front's and the finished plate is one thickness throughout.
 `bed_size` and the per-edge `bed_margin` reject a half that cannot fit. One
 dogbone makes a pair of units rigid, whatever the stack height.
 
+### Shelf tube wall anchor
+
+[![Shelf tube wall anchor preview](shelf_tube_anchor/shelf_tube_anchor.png)](shelf_tube_anchor/shelf_tube_anchor.stl)
+
+[View or download STL](shelf_tube_anchor/shelf_tube_anchor.stl) · [OpenSCAD source](shelf_tube_anchor/shelf_tube_anchor.scad)
+
+A plain collar that slips over one vertical tube post and carries a lug with a
+zip tie tunnel through it, so the tie that holds the post back to the wall never
+has to go around the post.
+
+A tie run straight from the wall around a 30 mm post spends about 95 mm of its
+length on the post before it has anchored anything, which is why doing this
+without the part means reaching for a long tie. Here the ring takes care of
+staying on the post and the tie only has to reach the wall and come back, so a
+much shorter tie does the job and the loop that used to be strangling the post
+is a neat bar on one side instead.
+
+**The tunnel runs along the ring, not out towards the wall.** That looks
+backwards until you remember a tie has to come back on itself to close. Threaded
+through, it wraps the web of material between the tunnel and the lug's outer face
+and closes around whatever is on the wall — an eye screw, a hook, a bracket, a
+tie already around a pipe. The web is the whole load path: the tie pulls it
+straight out towards the wall, and the decks above and below the tunnel are what
+hold it on.
+
+**Measuring.** Three measurements, all reachable from outside:
+
+| Parameter | Measure | Caliper |
+| --- | --- | --- |
+| `tube_od` | Outside jaws on a vertical tube post | 6 in |
+| `tie_width` | Outside jaws across the flat of the strap | 6 in |
+| `tie_thickness` | Outside jaws on the edge of the strap, over the teeth | 6 in |
+
+The two tie measurements are the same ones the corner blocks want, and they are
+taken the same way — the plain strap well away from the head, and the thickness
+across the ratchet teeth rather than between them.
+
+The wall is never measured. Nothing in the part knows how far away it is or what
+is screwed into it; the render echoes the loop the tie needs just to wrap the
+web, and the reach out to the fixture and back is added on top of that.
+
+**Deciding.** `collar_height` is the one that matters. The tie's pull is a radial
+tug at a single point on a round post, which is a tipping load, and collar height
+is the only thing resisting it — so this collar is taller than a coupler on
+purpose. It cannot go below the echoed `min_collar_height`, which is what the
+tunnel and its two decks need. `lug_width` is how far the bump reaches along the
+ring and so how long the tunnel is: longer spreads the pull over more web and
+holds the tie's two legs further apart, shorter is a smaller bump and a shorter
+loop.
+
+`tie_web` is the material between the tunnel and the outer face and is not a
+skin. `lug_corner` rounds the lug's two outboard corners, and it is a radius
+rather than a decoration — the tie bends over those corners on its way to the
+wall. `tie_clearance` opens both tunnel dimensions together and ships loose, at
+0.6 mm, because the tie is threaded through by hand.
+
+**Printing.** PETG, PLA or ASA, no supports. Print as modelled, collar axis
+vertical: the bore then comes out round and slides onto the post, and the layers
+run across the lug so the tie's pull sits in the layer plane instead of across
+the layer lines. Three or four perimeters and 30% infill or more — the decks are
+what hold the web on, and they are only `deck` thick.
+
+The tunnel's roof is a gable rising the full width of the slot against half that
+in run, so both faces sit at 26.6° from vertical and no value of `tie_thickness`
+can turn it into a bridge. That is the worst overhang in the part; everything
+else is vertical, on the plate, or facing up.
+
+The collar slips over the post from the end, so the shelf above has to come off
+to fit one, and it rests on the shelf below. Thread the tie through the tunnel,
+around the wall fixture, and back into its own head — the head does not fit
+through the tunnel and is not meant to.
+
 ### Dowel end cap
 
 [![Dowel end cap preview](dowel_endcap/dowel_endcap.png)](dowel_endcap/dowel_endcap.stl)
