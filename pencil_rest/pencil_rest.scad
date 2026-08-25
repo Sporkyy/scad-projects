@@ -82,7 +82,7 @@
 // caliper. A hexagonal pencil is not round: take it across the corners rather
 // than across the flats, and use the largest reading, since the corners are
 // what the cradle has to clear. Measure the barrel, not the ferrule
-pencil_d = 7.5;
+pencil_d = 10;
 
 // ===== DECIDE THESE =====
 // The footprint. Neither one can reach the cradle, and neither one can change
@@ -90,12 +90,12 @@ pencil_d = 7.5;
 
 // Length of the block (mm), along the pencil. How much of the pencil is
 // carried; a long one is a tray for several, a short one is a bridge under one
-block_l = 60;
+block_l = 100;
 
 // Width of the block (mm), across the pencil. How much desk it stands on, and
 // so how hard it is to knock over. It has to be wider than the cradle plus a
 // rim either side, which is asserted below
-block_w = 20;
+block_w = 30;
 
 // ===== TUNE THESE =====
 pencil_clearance = 0.5; // Added to the cradle radius (mm) — the pencil drops in and lifts out rather than being pressed into a socket
