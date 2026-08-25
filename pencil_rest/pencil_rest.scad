@@ -32,42 +32,53 @@
 // need end walls, and end walls in a scoop this shallow are
 // the one place a support would be wanted.
 //
-// A round punch through the middle is what makes the pencil
-// possible to pick up. It takes the rim away on both sides at
-// once, so a finger and thumb close on the pencil's whole
-// diameter instead of pinching at whatever stands proud of the
-// top face. Neither of its limits is a number to get right:
+// A notch across the middle is what makes the pencil possible
+// to pick up. It runs clear out through both sides, so a
+// finger and thumb come in from the sides and close on the
+// pencil's whole diameter rather than reaching down a hole
+// after it. Neither of its limits is a number to get right:
 //
-// - It cannot reach the sides. Its diameter is the width less
-//   the flat, the ease and the chamfer either side, so the
-//   material outside it is what punch_wall says it is and no
-//   value of anything can eat it.
 // - It cannot go deeper than the trough. Its floor is written
 //   as the trough's own deepest point, not as a depth of its
-//   own, so the two are one plane and the punch can never be
+//   own, so the two are one plane and the notch can never be
 //   the feature that breaks the bottom.
+// - It cannot reach the base. What is left under it is
+//   floor_meat — the same floor the trough stands on, and,
+//   with the notch open at both sides, also the whole tie
+//   between the two halves of the block.
 //
-// That floor also lands exactly level with the underside of
-// the pencil, which is not a coincidence to be tuned: a round
+// That floor lands exactly level with the underside of the
+// pencil, which is not a coincidence to be tuned: a round
 // pencil beds at the bottom of a round trough, so its lowest
 // point and the trough's are the same point whatever the
-// clearance. A finger does not get under the pencil, and it
-// does not need to.
+// clearance. A finger comes in beside the pencil, level with
+// its underside, and closes on all of it.
+//
+// The notch takes nothing off the bottom face. The block
+// stands on the footprint it always did and holds the desk the
+// same way; what the notch costs is trough. The cradle carries
+// the pencil either side of it rather than along the whole
+// length, which is why notch_l is asserted against leaving
+// less trough at each end than the pencil is thick.
 //
 // PRINT NOTES:
 // - PLA or PETG, no supports needed. Print as modeled, base
 //   down.
 // - Nothing bridges. The cradle opens upward, so its whole
-//   surface faces up, and so does the punch: flat floor,
-//   vertical wall, and an ease at the rim that is a 45 deg
-//   cone opening up. The only downward faces in the part are
-//   the chamfers along the base, at 45 deg.
+//   surface faces up, and so does the notch: flat floor,
+//   walls straight up off it, open sky out both sides, and a
+//   break at the mouth that flares outward as it rises, so
+//   even that faces up. The only downward faces in the part
+//   are the chamfers along the base, at 45 deg.
 // - Every chamfer here has its run and its rise in the same
 //   expression, so no value of any knob can turn one into an
 //   overhang.
 // - Print it solid, or near it. It is a small block and the
 //   only thing it has to do is stay put, which is a question
-//   of mass and of the friction of the bottom face.
+//   of mass and of the friction of the bottom face. The floor
+//   under the notch is the one place the block would break if
+//   it were picked up by an end and swung, and solid infill is
+//   what makes that a non-question.
 // - The bottom face is the one that shows least and the top
 //   face is the one a pencil rolls on, so this way up also
 //   puts the plate's finish where it does no harm.
@@ -102,8 +113,8 @@ pencil_clearance = 0.5; // Added to the cradle radius (mm) — the pencil drops 
 floor_meat = 3; // Material left under the deepest point of the cradle (mm). This is the number that keeps the trough off the bottom, and the block grows taller to hold it
 chamfer = 1; // Break on every edge of the block (mm)
 cradle_ease = 0.6; // Break along both rims of the cradle (mm) — the edge a pencil is rolled over on its way in
-punch_wall = 2; // Flat left on the top face between the punch and the outer chamfer (mm). This is the knob that sets how big the punch comes out, and it is the material that keeps it off the sides
-punch_ease = 0.6; // Break around the rim of the punch (mm) — the edge a fingertip drags over
+notch_l = 24; // Clear opening of the finger notch along the block (mm). This is the room a finger and thumb get, measured between its walls, and it is paid for out of the trough at each end
+notch_ease = 0.6; // Break along both walls of the notch at the top face (mm) — the edge a fingertip drags over
 
 $fn = 120;
 
@@ -129,31 +140,31 @@ rim = (block_w - mouth_w) / 2 - chamfer - cradle_ease;
 
 // How far the pencil stands above the top face, resting on the arc. Half of it
 // less whatever the clearance lets it settle, and it is what there is to pinch
-// hold of
+// hold of from above
 pencil_proud = pencil_d / 2 - pencil_clearance;
 
 // Where the cradle's ease meets the arc. Held on the circle rather than guessed
 // at, so the chamfer runs into the trough wall instead of leaving a step in it
 ease_foot = sqrt(cradle_r * cradle_r - cradle_ease * cradle_ease);
 
-// The punch. Its floor is the trough's deepest point written out again rather
+// The notch. Its floor is the trough's deepest point written out again rather
 // than a depth of its own, so the two are the same plane and no arithmetic
-// stands between the punch and the floor it must not break
-punch_floor = block_h - cradle_depth;
-punch_depth = block_h - punch_floor;
+// stands between the notch and the floor it must not break
+notch_floor = block_h - cradle_depth;
+notch_depth = block_h - notch_floor;
 
-// Diameter of the punch. What is left over once the outer chamfer, the flat and
-// the punch's own ease have been taken off both sides, so the material outside
-// it is punch_wall by construction and the sides are safe from any value
-punch_d = block_w - 2 * (chamfer + punch_wall + punch_ease);
-punch_mouth = punch_d + 2 * punch_ease;
+// What the notch opens in the top face, once its own ease has been taken off
+// both walls
+notch_mouth = notch_l + 2 * notch_ease;
 
-// Material left between the punch's mouth and each end of the block
-punch_end_meat = (block_l - punch_mouth) / 2 - chamfer;
+// Trough left at each end of the block, outside the notch and inside the end
+// chamfer. With the middle open, this is what carries the pencil
+cradle_run = (block_l - notch_mouth) / 2 - chamfer;
 
-// How much of the pencil's side a finger can close on at the punch. The floor
-// of the punch is level with the underside of the pencil, so it is all of it
-punch_grip = pencil_d;
+// How much of the pencil's side a finger can close on at the notch. The floor
+// of the notch is level with the underside of the pencil and the cut runs out
+// through both sides, so it is all of it, from either hand
+notch_grip = pencil_d;
 
 overshoot = 1; // Run past both ends, so the trough cuts through cleanly
 
@@ -162,20 +173,20 @@ echo(str("cradle = ", mouth_w, " mm across, ", cradle_depth, " mm deep"));
 echo(str("floor under the cradle = ", floor_meat, " mm"));
 echo(str("flat rim either side = ", rim, " mm"));
 echo(str("pencil stands proud of the top face by = ", pencil_proud, " mm"));
-echo(str("punch = ", punch_d, " mm across, ", punch_mouth, " mm at the mouth, ", punch_depth, " mm deep"));
-echo(str("punch floor is level with the trough, on the same ", floor_meat, " mm of floor"));
-echo(str("punch leaves ", punch_wall, " mm of flat either side and ", punch_end_meat, " mm at each end"));
-echo(str("pencil exposed at the punch = ", punch_grip, " mm, its full diameter"));
+echo(str("notch = ", notch_l, " mm along the block, ", notch_mouth, " mm at the mouth, ", notch_depth, " mm deep, open out both sides"));
+echo(str("notch floor is level with the trough, on the same ", floor_meat, " mm of floor"));
+echo(str("trough left carrying the pencil = ", cradle_run, " mm at each end"));
+echo(str("pencil exposed at the notch = ", notch_grip, " mm, its full diameter, from either side"));
 
 assert(pencil_d > 0, "pencil_d has to be positive");
 assert(cradle_r > 0, "pencil_clearance has closed the cradle — it cannot be more negative than the pencil is thick");
-assert(floor_meat > 0, "floor_meat has to be positive — it is the whole floor under the cradle");
+assert(floor_meat > 0, "floor_meat has to be positive — it is the whole floor under the cradle, and the only tie between the two halves of the block once the notch is cut");
 assert(rim > 0, "the cradle has eaten the top face — widen block_w, or reduce chamfer or cradle_ease");
 assert(pencil_proud > 0, "the clearance has sunk the pencil below the top face — reduce pencil_clearance");
 assert(cradle_ease < cradle_r, "the cradle's ease is wider than the cradle — reduce cradle_ease");
-assert(punch_d > mouth_w, "the punch is no wider than the cradle, so it opens nothing a finger did not already have — widen block_w, or take it out of punch_wall");
-assert(punch_end_meat > 0, "the punch has run out through the ends of the block — lengthen block_l, or widen punch_wall to narrow the punch");
-assert(punch_ease < punch_depth, "the punch's ease is deeper than the punch — reduce punch_ease");
+assert(notch_l > 0, "notch_l has to be positive — it is the whole finger opening");
+assert(cradle_run >= pencil_d, "the notch has left less trough at each end than the pencil is thick, which is a lip rather than a cradle — shorten notch_l, or lengthen block_l");
+assert(notch_ease < notch_depth, "the notch's ease is deeper than the notch — reduce notch_ease");
 assert(2 * chamfer < block_w, "the width chamfers have met — reduce chamfer or widen block_w");
 assert(2 * chamfer < block_l, "the length chamfers have met — reduce chamfer or lengthen block_l");
 assert(2 * chamfer < block_h, "the height chamfers have met — reduce chamfer, or add floor_meat to make the block taller");
@@ -212,6 +223,24 @@ module cradle_2d() {
       [cradle_r + cradle_ease, cradle_ease],
       [-cradle_r - cradle_ease, cradle_ease],
     ]);
+}
+
+// The finger notch, in cross section: x is up from the base, y is along the
+// length of the block, which is the order across_width extrudes in. A flat
+// floor on the trough's own deepest point, walls straight up off it, and a
+// break at the mouth whose run and its rise are one expression, so it is 45
+// deg whatever notch_ease is set to. It flares outward as it rises, the way a
+// countersink does, so it faces up like everything else in the cut — the notch
+// contributes no downward face at all
+module notch_2d() {
+  polygon([
+    [notch_floor, -notch_l / 2],
+    [notch_floor, notch_l / 2],
+    [block_h - notch_ease, notch_l / 2],
+    [block_h + overshoot, notch_l / 2 + notch_ease + overshoot],
+    [block_h + overshoot, -notch_l / 2 - notch_ease - overshoot],
+    [block_h - notch_ease, -notch_l / 2],
+  ]);
 }
 
 // Run a cross section the length of the block, clear of both ends
@@ -257,15 +286,9 @@ module pencil_rest() {
       translate([0, block_h])
         cradle_2d();
 
-    // The punch, from the trough's own floor up and out through the top
-    translate([0, 0, punch_floor])
-      cylinder(d = punch_d, h = punch_depth + overshoot);
-
-    // Its rim, broken by a cone that opens upward. The cone's radial change
-    // and its height are one expression, so it is 45 deg whatever punch_ease
-    // is set to, and it can no more hang than the chamfers can
-    translate([0, 0, block_h - punch_ease])
-      cylinder(d1 = punch_d, d2 = punch_d + 2 * (punch_ease + overshoot), h = punch_ease + overshoot);
+    // The notch, cut clear through both sides
+    across_width(1)
+      notch_2d();
   }
 }
 
