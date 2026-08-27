@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: CC-BY-4.0
+// SPDX-FileCopyrightText: 2026 Todd Sayre
 // ============================================================
 // Turn-N-Tube shelf dogbone — two-piece four-hole plate
 // Makes a pair of adjacent shelf units rigid in one part,

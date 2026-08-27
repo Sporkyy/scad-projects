@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: CC-BY-4.0
+// SPDX-FileCopyrightText: 2026 Todd Sayre
 // ============================================================
 // Dowel end cap — a blind socket that closes off a dowel end
 //

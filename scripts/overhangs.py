@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: 2026 Todd Sayre
 """Report the downward-facing surfaces of an exported STL.
 
 Overhang angle is measured from vertical: a vertical wall is 0 deg, a flat

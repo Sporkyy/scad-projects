@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: CC-BY-4.0
+// SPDX-FileCopyrightText: 2026 Todd Sayre
 // ============================================================
 // Foot with post — a TPU foot that plugs into a socket in the
 // bottom of whatever it is holding up

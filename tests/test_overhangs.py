@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: 2026 Todd Sayre
+
 import math
 import sys
 import unittest

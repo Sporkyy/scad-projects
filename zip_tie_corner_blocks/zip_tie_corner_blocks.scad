@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: CC-BY-4.0
+// SPDX-FileCopyrightText: 2026 Todd Sayre
 // ============================================================
 // Zip tie corner blocks — a corner shoe that carries a zip
 // tie around a square object without letting it grab the

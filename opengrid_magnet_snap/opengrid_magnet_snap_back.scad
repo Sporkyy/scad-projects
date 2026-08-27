@@ -1,3 +1,7 @@
+// SPDX-License-Identifier: CC-BY-4.0
+// SPDX-FileCopyrightText: 2026 Todd Sayre
+// SPDX-FileCopyrightText: openGrid snap profile — David D, CC BY 4.0,
+// via mitufy/opengrid-projects, CC BY 4.0. See the header below.
 // ============================================================
 // openGrid magnet snap, back face — a full-thickness snap
 // carrying a disc magnet in a blind bore.

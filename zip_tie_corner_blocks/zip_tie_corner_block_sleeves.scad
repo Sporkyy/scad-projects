@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: CC-BY-4.0
+// SPDX-FileCopyrightText: 2026 Todd Sayre
 // ============================================================
 // Zip tie corner block sleeve — a TPU liner that goes between
 // one leg of a corner block and the flat it bears on

@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: CC-BY-4.0
+// SPDX-FileCopyrightText: 2026 Todd Sayre
 // ============================================================
 // Turn-N-Tube shelf wall anchor — collar with a zip tie bail
 // Ties a vertical tube post back to the wall without the zip

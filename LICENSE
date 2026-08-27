@@ -1,39 +1,45 @@
-MIT License
-
 Copyright (c) 2026 Todd Sayre
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This repository is two kinds of work and carries two licences, one suited to
+each. Which applies is decided by the file, not by where you got it.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+  Designs and documentation                      CC BY 4.0
+    Every .scad source, its generated .stl and   LICENSES/CC-BY-4.0.txt
+    .png, every README.md, OPENGRID.md, and
+    AGENTS.md.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+  Software                                       MIT
+    Everything under scripts/ and tests/.        LICENSES/MIT.txt
 
+Every source file carries an SPDX-License-Identifier line saying which it is.
+Where a file cannot carry one — .stl and .png — it takes the licence of the
+.scad it was generated from, which is CC BY 4.0.
 
----
+Why two.
 
-Scope note.
+Creative Commons advises against applying CC licences to software: they have no
+source-versus-binary provisions, no requirement to supply source, and CC 4.0
+expressly declines to license patent rights (section 2(b)(1)), where MIT is
+merely silent on them. So the Python does not belong under CC BY.
 
-The openGrid snap profile reproduced in opengrid_magnet_snap/ is not original
-to this repository. It derives from openGrid by David D
-(https://www.opengrid.world), licensed CC BY 4.0, by way of mitufy's openGrid
-projects (https://github.com/mitufy/opengrid-projects), also CC BY 4.0.
+The reverse is just as true. MIT grants permission "to deal in the Software",
+which is the wrong noun for an STL, and its attribution requirement is thinner
+than these designs' upstream demands. So the designs do not belong under MIT.
 
-Those portions remain subject to CC BY 4.0. CC BY 4.0 carries no ShareAlike
-term, so the work here may be and is offered under the MIT terms above — but
-the attribution and the statement of modification carried in each affected
-file's header must travel with the profile, and nothing in the MIT grant above
-removes any right CC BY 4.0 gives you in the upstream material.
+Putting the designs under CC BY 4.0 also makes them the same licence as what
+they build on, which removes a step of reasoning rather than adding one.
 
-Everything else in this repository is MIT as above.
+Upstream attribution.
+
+The openGrid snap profile reproduced in opengrid_magnet_snap/ is not original to
+this repository. It derives from openGrid by David D
+(https://www.opengrid.world), CC BY 4.0, by way of mitufy's openGrid projects
+(https://github.com/mitufy/opengrid-projects), also CC BY 4.0. Those files are
+CC BY 4.0 in and CC BY 4.0 out. The attribution and the statement of
+modification carried in each affected file's header are licence conditions, not
+courtesies, and must travel with the profile.
+
+Nothing here is derived from QuackWorks (https://github.com/AndyLevesque/
+QuackWorks), which is CC BY-NC-SA 4.0. Parts here are designed to sit alongside
+its Underware cable channels, which is use rather than derivation. See
+OPENGRID.md for why that distinction is worth keeping.

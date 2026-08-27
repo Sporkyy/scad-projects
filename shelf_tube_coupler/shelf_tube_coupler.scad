@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: CC-BY-4.0
+// SPDX-FileCopyrightText: 2026 Todd Sayre
 // ============================================================
 // Turn-N-Tube shelf coupler — rigid lozenge collar
 // Connects two adjacent shelf units at one tube height.

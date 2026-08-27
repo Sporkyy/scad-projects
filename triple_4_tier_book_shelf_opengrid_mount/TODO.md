@@ -4,6 +4,11 @@ Mount openGrid tiles to the outer sides of an industrial-style triple 4-tier
 bookshelf: black square steel tube frame, wood shelves. Not yet modelled — this
 file holds the design decision and the measurements needed to start.
 
+System-level openGrid facts — tile and snap thicknesses, the snap profile, print
+orientation rules, and licensing across the ecosystem — are in
+[OPENGRID.md](../OPENGRID.md). Read that before modelling anything that has to
+mate with a tile.
+
 ## The approach
 
 The side of each tower is not a panel, it is a ladder: front post, rear post,

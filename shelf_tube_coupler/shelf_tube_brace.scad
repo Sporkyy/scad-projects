@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: CC-BY-4.0
+// SPDX-FileCopyrightText: 2026 Todd Sayre
 // ============================================================
 // Turn-N-Tube shelf brace — diagonal triangulating link
 // The third link that makes two adjacent shelf units rigid.

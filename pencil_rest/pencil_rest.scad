@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: CC-BY-4.0
+// SPDX-FileCopyrightText: 2026 Todd Sayre
 // ============================================================
 // Pencil rest — a block with a cradle down its top, to park a
 // pencil on the desk instead of letting it roll off

@@ -196,14 +196,22 @@ belongs at is how long it outlives the thing it describes.
   goes here.
 - **A `README.md` beside the part** carries the full treatment — measuring table,
   tuning guidance, print notes — and GitHub renders it when you browse into the
-  directory. Add one when a directory holds more than one part, or when the
-  explanation outgrows its card. A single simple part is fine with the card
-  alone; do not add an empty file for symmetry. When a part has one, its card
-  links to it and stops repeating it.
+  directory. Every project directory has one, because every explanation here ran
+  past what a card can hold; a genuinely trivial part could still live on its
+  card alone, so do not add an empty file for symmetry. A card links to the
+  README and stops repeating it. Where a directory holds several parts, one
+  README covers them as the system they are.
 - **A top-level subject file** holds knowledge that spans parts and outlives any
   of them — an external system's dimensions, its licence, the conventions for
   building against it. `OPENGRID.md` is the first. Put facts there once and link
   to them rather than restating them in each part that uses them.
+
+Two licences apply, split by what a file is rather than where it sits: designs
+and documentation (`.scad`, `.stl`, `.png`, `README.md`) are CC BY 4.0, and
+software (`scripts/`, `tests/`) is MIT. Every new source file gets an
+`SPDX-License-Identifier` line as its first line, or the line after a shebang.
+`LICENSE` explains the boundary; do not paper over it by relicensing one side to
+match the other.
 
 Record the corrections, not just the conclusions. A subject file should say which
 plausible assumptions turned out to be wrong and what the right answer was, since
