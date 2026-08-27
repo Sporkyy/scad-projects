@@ -670,11 +670,11 @@ is a small block, the only thing it has to do is stay put, and the floor under
 the notch is the one place it would break if it were picked up by an end and
 swung.
 
-### openGrid magnet snap, head face
+### openGrid magnet snap, back face
 
-[![openGrid magnet snap head face preview](opengrid_magnet_snap/opengrid_magnet_snap_head.png)](opengrid_magnet_snap/opengrid_magnet_snap_head.stl)
+[![openGrid magnet snap back face preview](opengrid_magnet_snap/opengrid_magnet_snap_back.png)](opengrid_magnet_snap/opengrid_magnet_snap_back.stl)
 
-[View or download STL](opengrid_magnet_snap/opengrid_magnet_snap_head.stl) · [OpenSCAD source](opengrid_magnet_snap/opengrid_magnet_snap_head.scad)
+[View or download STL](opengrid_magnet_snap/opengrid_magnet_snap_back.stl) · [OpenSCAD source](opengrid_magnet_snap/opengrid_magnet_snap_back.scad)
 
 A full-thickness openGrid snap that carries a disc magnet instead of a
 connector. Drop one into any cell of a Heavy (6.8 mm) board and that cell
@@ -686,23 +686,29 @@ where the tile carries an Underware cable channel on its other face. The cells
 not doing cable duty become magnets and the tile holds itself up.
 
 **There are two of these, and they differ only in which face the magnet is on.**
-This one puts it on the head face — the face opposite the corner ears, where a
-connector head would normally sit. The [ear face variant](#opengrid-magnet-snap-ear-face)
-below puts it on the same face as the ears. Since the ears always end up on the
-far side of the board from wherever you pushed the snap in, the rule is: fit the
-snap from the side you want the magnet on and you want this one.
+This one puts it on the back. The [front face variant](#opengrid-magnet-snap-front-face)
+below puts it on the front. This is the one that sticks a tile to steel, because
+its magnet is on the face the steel is against.
 
-They are deliberately not called front and back. A board has a front and so does
-the thing it is stuck to, and those face opposite ways, so the words swap meaning
-depending on who is holding it. The ears do not move.
+**Front and back, on a snap, mean the wide end and the narrow end.** A full snap
+is 6.8 mm of two halves: 3.4 mm of business end carrying the corner ears and the
+face nubs, and 3.4 mm of plain shank behind it. The shank is what goes into the
+tile, so the wide end stays on the side you pushed from and faces you — the
+front — and the narrow end runs away from you toward whatever the tile is
+mounted on — the back. Measured on the mesh, the front reaches 15.4 mm from the
+axis at the ears and the shank only 14.53 mm.
+
+That split is also why a Heavy tile has two fronts and no back. 3.4 plus 3.4 is
+6.8, so a Heavy cell takes either one full snap or two Lite snaps pushed in from
+opposite faces, and either way every ear ends up facing outward.
 
 **The through hole is optional and does three jobs.** It vents the bore, so
 cyanoacrylate cannot hydraulic-lock against the magnet and push it back out
 while it cures. It pushes a magnet out again if one has to come apart. And it
 passes a fastener, so the magnet can be a bolted pot magnet rather than a plain
-disc — though a bolt head landing on the far face stands proud of a board the
-snap is flush in, so countersink it or pick a magnet that does not need a head
-there. Set `through_hole = false` when the magnet is going on with an adhesive
+disc — though the hole comes out the opposite face from the bore, so a bolt head
+lands there proud of a board the snap is flush in. Countersink it, or pick a
+magnet that does not need a head on that side. Set `through_hole = false` when the magnet is going on with an adhesive
 dot instead: a dot needs no vent, and the unbroken face is tidier. A dot holds
 very little, but for a cable channel that is carrying nothing vertically it is
 enough.
@@ -743,10 +749,10 @@ uses. The change is entirely inboard of the face plane — the groove's mouth is
 still 0.4 mm tall by 0.8 mm deep, so a board cannot tell the difference — and it
 takes about 2 mm³ out of each arm root, in a pocket that exists to be empty.
 
-**Printing.** PETG, PLA or ASA, no supports. Print as modelled, ear face down
+**Printing.** PETG, PLA or ASA, no supports. Print as modelled, front face down
 and bore facing up. This variant gets its orientation for free: the bore has to
 open upward because a 10.2 mm circular ceiling is not something to bridge, and
-the relief slots that free the four arms open out of the head face, so both want
+the relief slots that free the four arms open out of the back face, so both want
 the same way up. Nothing in the part is left hanging — worst overhang is 45° at
 the groove gable, with the nub faces behind it at 35°. Four perimeters and 30%
 infill or more, since the arms are what the snap fit lives in and they are thin.
@@ -755,23 +761,25 @@ the first layer is properly squished or they will lift. Drop the magnet in after
 printing, bore side up, and wick a little thin CA down the through hole from the
 other side rather than puddling it in the bore.
 
-### openGrid magnet snap, ear face
+### openGrid magnet snap, front face
 
-[![openGrid magnet snap ear face preview](opengrid_magnet_snap/opengrid_magnet_snap_ear.png)](opengrid_magnet_snap/opengrid_magnet_snap_ear.stl)
+[![openGrid magnet snap front face preview](opengrid_magnet_snap/opengrid_magnet_snap_front.png)](opengrid_magnet_snap/opengrid_magnet_snap_front.stl)
 
-[View or download STL](opengrid_magnet_snap/opengrid_magnet_snap_ear.stl) · [OpenSCAD source](opengrid_magnet_snap/opengrid_magnet_snap_ear.scad)
+[View or download STL](opengrid_magnet_snap/opengrid_magnet_snap_front.stl) · [OpenSCAD source](opengrid_magnet_snap/opengrid_magnet_snap_front.scad)
 
-The same snap with the magnet on the ear face instead — the face that ends up on
-the far side of the board from wherever you pushed the snap in. Everything above
-about magnets, clearances, the through hole and the openGrid profile applies
-unchanged; mirrored into the same orientation the two parts are geometrically
-identical, which is checked the same way.
+The same snap with the magnet on the front instead — the wide end carrying the
+ears, which stays on the side you pushed from and faces you. Reach for this one
+when the magnet has to present outward, to catch something steel laid onto the
+tile, rather than to hold the tile up. Everything above about magnets,
+clearances, the through hole and the openGrid profile applies unchanged;
+mirrored into the same orientation the two parts are geometrically identical,
+which is checked the same way.
 
 **This one pays for its orientation.** The bore still has to open upward, and
-here the bore is on the ear face, so the ear face goes up and the head face goes
-on the plate — the reverse of the head variant. That inverts the relief slots:
-instead of opening out of the head face they run up from the plate and stop
-0.6 mm short of the ear face, leaving their closed ends as four flat roofs.
+here the bore is on the front face, so the front goes up and the back goes on
+the plate — the reverse of the back variant. That inverts the relief slots:
+instead of opening out of the back face they run up from the plate and stop
+0.6 mm short of the front face, leaving their closed ends as four flat roofs.
 
 **Those roofs are left flat deliberately, and the build says so on every run.**
 Each spans the slot's 0.6 mm width, not its 12.4 mm length — a gap no support
@@ -779,18 +787,18 @@ material could be placed in and no printer struggles to cross. Every way of
 angling one is taken out of the 0.6 mm of material above the slot, and that
 material is the root the arm hinges on: a 45° gable halves it to 0.3 mm, under a
 single 0.42 mm perimeter, and a ramp across the slot consumes it outright and
-opens a slit to the ear face. The snap fit lives in that hinge and a 0.6 mm
+opens a slit to the front face. The snap fit lives in that hinge and a 0.6 mm
 bridge does not, so the hinge wins. This is the one part in this repository that
 trips the overhang check on purpose, and `scripts/build.py` will keep naming it.
 
-**If either variant would do the job, print the head one.** It has no flat roof
+**If either variant would do the job, print the back one.** It has no flat roof
 anywhere.
 
-**Printing.** As above, but head face down and bore facing up. Do not let the
+**Printing.** As above, but back face down and bore facing up. Do not let the
 slicer turn it over: that puts a 10.2 mm ceiling over the magnet bore, which is
 a real bridge rather than the 0.6 mm ones this orientation accepts. Behind those
 roofs it is 45° at the groove gable and 35° at the nub faces. First layer
-adhesion is easier here than on the head variant, since the whole head face
+adhesion is easier here than on the back variant, since the whole back face
 lands on the plate rather than just four ears.
 
 ## Working with these

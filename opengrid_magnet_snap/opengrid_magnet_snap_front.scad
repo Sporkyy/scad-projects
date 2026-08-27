@@ -1,21 +1,34 @@
 // ============================================================
-// openGrid magnet snap, ear face — a full-thickness snap
+// openGrid magnet snap, front face — a full-thickness snap
 // carrying a disc magnet in a blind bore.
 //
-// THIS IS THE VARIANT WHOSE MAGNET IS ON THE EAR FACE: the same
-// face the four corner ears sit flush with, which is the face
-// that ends up on the far side of the board from wherever you
-// pushed the snap in. Its sibling opengrid_magnet_snap_head.scad
-// puts the magnet on the other face. Fit the snap from the side
-// you want the magnet on and you want the head one; fit it from
-// the side you want the magnet away from and you want this.
+// THIS IS THE VARIANT WHOSE MAGNET IS ON THE FRONT FACE: the
+// wide end carrying the corner ears, which stays on the side
+// you pushed the snap in from and faces you. Its sibling
+// opengrid_magnet_snap_back.scad puts the magnet on the narrow
+// end instead, where it comes to rest against whatever the tile
+// is mounted on.
 //
-// The two are deliberately not called front and back. A board
-// has a front and so does the thing it is stuck to, and they
-// face opposite ways, so the words swap meaning depending on
-// who is holding it. The ears do not move.
+// Use this one when the magnet has to present outward — to
+// catch something steel laid onto the tile — rather than to
+// hold the tile up. To stick a tile to steel, use the back one.
 //
-// openGrid snaps normally present a connector on their working
+// FRONT AND BACK, ON A SNAP, MEAN THE WIDE END AND THE NARROW
+// END. A full snap is 6.8 mm of two halves: 3.4 mm of business
+// end carrying the corner ears and the face nubs, and 3.4 mm of
+// plain shank behind it. The shank is what goes into the tile,
+// so the wide end stays on the side you pushed from and faces
+// you — the front — and the narrow end runs away from you
+// toward whatever the tile is mounted on — the back. Measured
+// on the mesh, the front reaches 15.4 mm from the axis at the
+// ears and the shank only 14.53 mm.
+//
+// That split is also why a Heavy tile has two fronts and no
+// back. 3.4 plus 3.4 is 6.8, so a Heavy cell takes either one
+// full snap or two Lite snaps pushed in from opposite faces,
+// and either way every ear ends up facing outward.
+//
+// openGrid snaps normally present a connector on their front
 // face: threads, an openConnect head, a zip tie bail. This one
 // presents a magnet instead. Drop it into any cell of a Heavy
 // (6.8 mm) board and that cell becomes a magnetic pad, so the
@@ -29,12 +42,12 @@
 //
 // THIS VARIANT'S BORE AND SLOTS WANT OPPOSITE ENDS UP. The bore
 // has to open upward, because a 10.2 mm circular ceiling is not
-// something to bridge, and here the bore is on the ear face. So
-// the ear face goes up and the head face goes on the plate,
-// which is the reverse of the head variant. That inverts the
-// relief slots: instead of opening out of the head face they
-// now run up from the plate and stop 0.6 mm short of the ear
-// face, leaving their closed ends as flat roofs.
+// something to bridge, and here the bore is on the front face.
+// So the front face goes up and the back face goes on the
+// plate, which is the reverse of the back variant. That inverts
+// the relief slots: instead of opening out of the back face
+// they now run up from the plate and stop 0.6 mm short of the
+// front face, leaving their closed ends as flat roofs.
 //
 // THOSE FOUR ROOFS ARE LEFT FLAT ON PURPOSE. Each spans the
 // slot's 0.6 mm width, not its 12.4 mm length — a gap no
@@ -43,17 +56,17 @@
 // 0.6 mm of material above the slot, and that material is the
 // root the arm hinges on. A 45 deg gable halves the root to
 // 0.3 mm, under a single 0.42 mm perimeter. A ramp across the
-// slot consumes it outright and opens a slit to the ear face.
+// slot consumes it outright and opens a slit to the front face.
 // The snap fit lives in that hinge and a 0.6 mm bridge does
 // not, so the hinge wins. scripts/overhangs.py reports these on
 // every build, and the report is correct — they are a decision,
 // not an oversight.
 //
-// If either variant would do the job, print the head one. It
+// If either variant would do the job, print the back one. It
 // has no flat roof anywhere.
 //
 // An optional hole runs from the floor of the bore out through
-// the ear face. It vents the bore, so cyanoacrylate cannot
+// the back face. It vents the bore, so cyanoacrylate cannot
 // hydraulic-lock against the magnet and push it back out while
 // it cures; it pushes a magnet out again if one has to come
 // apart; and it passes a fastener, so the magnet can be a
@@ -85,7 +98,7 @@
 //
 // PRINT NOTES:
 // - PETG, PLA or ASA, no supports needed.
-// - Print as modeled, head face down and bore facing up. Do not
+// - Print as modeled, back face down and bore facing up. Do not
 //   let the slicer turn it over: that puts a 10.2 mm ceiling
 //   over the magnet bore, which is a real bridge rather than
 //   the 0.6 mm ones this orientation accepts.
@@ -95,8 +108,8 @@
 //   turning them on would only scar the faces.
 // - 4 perimeters, 30% infill or more. The four arms are what
 //   the snap fit lives in and they are thin.
-// - The whole head face lands on the plate, so first layer
-//   adhesion is easier here than on the head variant, where
+// - The whole back face lands on the plate, so first layer
+//   adhesion is easier here than on the back variant, where
 //   only the four ears touch.
 // - Drop the magnet in after printing, bore side up. With the
 //   through hole on, wick a little thin CA down it from the ear
@@ -128,14 +141,14 @@ magnet_h = 3;
 // disc chips the plating and the chip is what breaks the bond later
 magnet_fit = 0.2;
 
-// How far the magnet sits below the working face (mm). Zero puts its face
+// How far the magnet sits below the face it opens on (mm). Zero puts it
 // flush, which is what lets it touch the steel directly. Going negative
 // stands it proud, which grips harder but leaves the magnet to take the
 // scuffing instead of the snap
 magnet_recess = 0;
 
 // Whether to run a hole all the way through, from the floor of the bore out
-// the ear face. It does three jobs: it vents the bore, so cyanoacrylate cannot
+// the front face. It does three jobs: it vents the bore, so cyanoacrylate cannot
 // hydraulic-lock against the magnet and push it back out while it cures; it
 // lets a magnet be pushed back out if one ever has to come apart; and it
 // passes a fastener, so the magnet can be a bolted pot magnet rather than a
@@ -143,9 +156,10 @@ magnet_recess = 0;
 // a dot needs no vent, and the unbroken face is tidier
 through_hole = true;
 
-// Diameter of that hole (mm). 3 mm clears an M3 with room to spare. A bolt
-// head sitting on the ear face stands proud of a board the snap is flush in,
-// so countersink it or use a magnet whose fastener does not need a head there
+// Diameter of that hole (mm). 3 mm clears an M3 with room to spare. The bore
+// is on the front here, so the hole comes out the back and a bolt head lands
+// there — proud of a board the snap is flush in, so countersink it or use a
+// magnet whose fastener does not need a head on that side
 through_hole_d = 3;
 
 // ===== openGrid INTERFACE — THE STANDARD, NOT KNOBS =====
@@ -167,17 +181,17 @@ nub_base_width = 10.8; // Nub width where it leaves the face
 nub_tip_width = 6.8; // Nub width at full reach, before the tip rounding
 nub_tip_radius = 15; // Rounding blending the nub tip into its sides
 nub_face_angle = 35; // Nub top and bottom faces, degrees from vertical
-nub_offset_to_ears = 1.4; // Gap between the nub and the ear face
+nub_offset_to_front = 1.4; // Gap between the nub and the front face
 
 slot_length = 12.4; // Length of the relief slot that frees each arm
 slot_width = 0.6; // Radial width of the relief slot
 slot_wall = 0.7; // Material left outboard of the slot — this is the arm
-slot_offset_to_ears = 0.6; // How far the slot stops short of the ear face
+slot_offset_to_front = 0.6; // How far the slot stops short of the front face
 
 groove_length = 12.4; // Length of the shallow groove above each slot
 groove_depth = 0.8; // How far the groove cuts into the face
 groove_height = 0.4; // Height of the groove
-groove_offset_to_ears = 0.8; // How far the groove sits from the ear face
+groove_offset_to_front = 0.8; // How far the groove sits from the front face
 
 // ===== DERIVED =====
 
@@ -206,16 +220,16 @@ nub_arc_reach = nub_reach - nub_tip_radius;
 nub_arc_x = nub_base_width / 2 - nub_side_slope * nub_arc_reach - nub_tip_radius * sqrt(1 + nub_side_slope * nub_side_slope);
 nub_arc_sweep = atan2(1, nub_side_slope); // Where the arc leaves the side
 
-// The ear face is the datum every openGrid feature is measured from, and on
+// The front face is the datum every openGrid feature is measured from, and on
 // this variant it is the top face rather than the one on the plate, so all of
 // those offsets run downward from it
-ear_face = snap_thickness;
-nub_top = ear_face - nub_offset_to_ears;
+front_face = snap_thickness;
+nub_top = front_face - nub_offset_to_front;
 nub_centre_z = nub_top - nub_height / 2;
 
-slot_roof = ear_face - slot_offset_to_ears; // Closed end of the relief slot
-groove_bottom = ear_face - groove_offset_to_ears - groove_height;
-groove_top = ear_face - groove_offset_to_ears;
+slot_roof = front_face - slot_offset_to_front; // Closed end of the relief slot
+groove_bottom = front_face - groove_offset_to_front - groove_height;
+groove_top = front_face - groove_offset_to_front;
 
 bore_d = magnet_d + magnet_fit;
 bore_depth = magnet_h + magnet_recess;
@@ -250,7 +264,7 @@ echo(str("Floor under the magnet: ", bore_floor, " mm"));
 echo(str("Through hole: ", through_hole ? str(through_hole_d, " mm dia") : "none, magnet goes on with adhesive"));
 
 // ===== GEOMETRY =====
-// Modeled in its print orientation: head face on the plate at z = 0, ear face
+// Modeled in its print orientation: back face on the plate at z = 0, front face
 // and its magnet bore facing up
 
 module body() {
@@ -268,15 +282,15 @@ module body() {
 }
 
 // One corner ear, standing off the +y chamfer face. Here the ears are at the
-// top, so unlike on the head variant their undersides are what hang: each
+// top, so unlike on the back variant their undersides are what hang: each
 // reaches ear_reach outward while rising ear_taper, and the assertion above
 // holds those two equal, so the underside is 45 deg and no ear dimension can
 // tip it past
 module corner_ear() {
   hull() {
-    translate([-ear_base_width / 2, chamfer_face - eps, ear_face - ear_height])
+    translate([-ear_base_width / 2, chamfer_face - eps, front_face - ear_height])
       cube([ear_base_width, eps, ear_height]);
-    translate([-ear_tip_width / 2, chamfer_face + ear_reach - eps, ear_face - ear_tip_height])
+    translate([-ear_tip_width / 2, chamfer_face + ear_reach - eps, front_face - ear_tip_height])
       cube([ear_tip_width, eps, ear_tip_height]);
   }
 }
@@ -313,8 +327,8 @@ module nub() {
   }
 }
 
-// The slot that frees one arm to flex. It opens out of the head face on the
-// plate and stops slot_offset_to_ears short of the ear face, so its closed end
+// The slot that frees one arm to flex. It opens out of the back face on the
+// plate and stops slot_offset_to_front short of the front face, so its closed end
 // is a roof. That roof is deliberately left flat — see the note at the top of
 // the file. It spans slot_width, and the alternative comes out of the hinge
 module relief_slot() {
