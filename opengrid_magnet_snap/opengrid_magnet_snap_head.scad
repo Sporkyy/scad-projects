@@ -1,6 +1,19 @@
 // ============================================================
-// openGrid magnet snap — a full-thickness snap carrying a disc
-// magnet in a blind bore in its working face.
+// openGrid magnet snap, head face — a full-thickness snap
+// carrying a disc magnet in a blind bore.
+//
+// THIS IS THE VARIANT WHOSE MAGNET IS ON THE HEAD FACE: the
+// face opposite the corner ears, where a connector head would
+// normally sit. Its sibling opengrid_magnet_snap_ear.scad puts
+// the magnet on the ear face instead. Which one you want is
+// decided by which side of the board you fit the snap from,
+// since the ears always end up on the far side: fit from the
+// side you want the magnet on and you want this one.
+//
+// The two are deliberately not called front and back. A board
+// has a front and so does the thing it is stuck to, and they
+// face opposite ways, so the words swap meaning depending on
+// who is holding it. The ears do not move.
 //
 // openGrid snaps normally present a connector on their working
 // face: threads, an openConnect head, a zip tie bail. This one
@@ -14,21 +27,27 @@
 // cable channel. The cells that are not doing cable duty become
 // magnets, and the tile holds itself up.
 //
-// THE BORE OPENS TOWARD THE WORKING FACE, WHICH IS ALSO THE WAY
-// UP ON THE PLATE. An openGrid snap has to print with its
-// corner-ear face down: the relief slots that let the arms flex
-// are cut downward from the ear face, so any other orientation
-// bridges them across their full width. That puts the working
-// face up, and a bore sunk into the working face therefore
-// opens upward and has no roof at all. The one orientation the
-// snap already had to print in is the one the magnet pocket
-// wanted anyway.
+// THIS VARIANT GETS ITS PRINT ORIENTATION FOR FREE. The bore
+// has to open upward, because a 10.2 mm circular ceiling is not
+// something to bridge. The bore is on the head face, so the
+// head face goes up — and that is the same way up the snap
+// wanted anyway, because the relief slots that free the four
+// arms open out of the head face and so have no roof at all
+// this way round. Nothing in the part is left hanging.
 //
-// A vent runs from the floor of the bore out through the ear
-// face. Cyanoacrylate in a blind bore hydraulic-locks against
-// the magnet and pushes it back out while it cures; the vent
-// gives the displaced air and glue somewhere to go. It doubles
-// as a push-out hole if a magnet ever has to come back apart.
+// The ear-face variant gets no such luck. Its bore and its
+// slots want opposite ends up, and it ships four flat 0.6 mm
+// roofs as a result. If either variant would do the job, use
+// this one.
+//
+// An optional hole runs from the floor of the bore out through
+// the ear face. It vents the bore, so cyanoacrylate cannot
+// hydraulic-lock against the magnet and push it back out while
+// it cures; it pushes a magnet out again if one has to come
+// apart; and it passes a fastener, so the magnet can be a
+// bolted pot magnet rather than a plain disc. Set through_hole
+// false when the magnet is going on with an adhesive dot, which
+// needs no vent and leaves a tidier face.
 //
 // Polarity does not matter. These stick to steel, not to each
 // other, so a snap fitted the other way round holds exactly as
@@ -64,9 +83,11 @@
 // - No brim needed, but the ears are the only thing touching
 //   the plate at full width — make sure the first layer is
 //   properly squished or they will lift.
-// - Drop the magnet in after printing, bore side up, and wick a
-//   little thin CA down the vent from the other side rather
-//   than puddling it in the bore.
+// - Drop the magnet in after printing, bore side up. With the
+//   through hole on, wick a little thin CA down it from the ear
+//   side rather than puddling glue in the bore. With it off,
+//   use an adhesive dot: a blind bore has nowhere to vent, and
+//   a slug of CA under a disc will lift it back out.
 // - Fit the snap to the board from the working-face side, the
 //   same way any openGrid snap goes in. The ears pass the cell
 //   and spring out behind it.
@@ -98,7 +119,19 @@ magnet_fit = 0.2;
 // scuffing instead of the snap
 magnet_recess = 0;
 
-vent_d = 3; // Diameter of the glue vent and push-out hole through the floor (mm)
+// Whether to run a hole all the way through, from the floor of the bore out
+// the ear face. It does three jobs: it vents the bore, so cyanoacrylate cannot
+// hydraulic-lock against the magnet and push it back out while it cures; it
+// lets a magnet be pushed back out if one ever has to come apart; and it
+// passes a fastener, so the magnet can be a bolted pot magnet rather than a
+// plain disc. Turn it off when the magnet is going on with an adhesive dot —
+// a dot needs no vent, and the unbroken face is tidier
+through_hole = true;
+
+// Diameter of that hole (mm). 3 mm clears an M3 with room to spare. A bolt
+// head sitting on the ear face stands proud of a board the snap is flush in,
+// so countersink it or use a magnet whose fastener does not need a head there
+through_hole_d = 3;
 
 // ===== openGrid INTERFACE — THE STANDARD, NOT KNOBS =====
 // Reproduced from mitufy's generator. A board is 28 mm pitch and a Heavy
@@ -173,7 +206,7 @@ eps = 0.01;
 
 assert(bore_floor >= 1.2, "Magnet bore leaves too little floor — use a thinner magnet");
 assert(bore_d / 2 < half_flat - slot_wall - slot_width, "Magnet bore breaks into the relief slots — use a smaller magnet");
-assert(vent_d < bore_d, "Vent is wider than the magnet bore");
+assert(!through_hole || through_hole_d < bore_d, "Through hole is wider than the magnet bore");
 
 // magnet_recess going negative stands the magnet proud, which is a legitimate
 // thing to want, but the bore still has to hold it. Half the disc buried is
@@ -191,6 +224,7 @@ echo(str("Ear reach past the chamfer face at radius ", chamfer_face, ": ", ear_r
 echo(str("Nub tip: ", nub_tip_height, " mm tall at ", nub_reach, " mm reach"));
 echo(str("Magnet bore: ", bore_d, " mm dia x ", bore_depth, " mm deep"));
 echo(str("Floor under the magnet: ", bore_floor, " mm"));
+echo(str("Through hole: ", through_hole ? str(through_hole_d, " mm dia") : "none, magnet goes on with adhesive"));
 
 // ===== GEOMETRY =====
 // Modeled in its print orientation: ear face on the plate at z = 0, working
@@ -309,8 +343,9 @@ module magnet_snap() {
       }
     translate([0, 0, bore_floor])
       cylinder(d = bore_d, h = bore_depth + eps);
-    translate([0, 0, -eps])
-      cylinder(d = vent_d, h = snap_thickness + 2 * eps);
+    if (through_hole)
+      translate([0, 0, -eps])
+        cylinder(d = through_hole_d, h = snap_thickness + 2 * eps);
   }
 }
 
