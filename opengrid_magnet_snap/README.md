@@ -129,8 +129,9 @@ angling one is taken out of the 0.6 mm of material above the slot, and that
 material is the root the arm hinges on: a 45° gable halves it to 0.3 mm, under a
 single 0.42 mm perimeter, and a ramp across the slot consumes it outright and
 opens a slit to the front face. The snap fit lives in that hinge and a 0.6 mm
-bridge does not, so the hinge wins. This is the one part in this repository that
-trips the overhang check on purpose, and `scripts/build.py` will keep naming it.
+bridge does not, so the hinge wins. It is one of two parts here that trip the
+overhang check on purpose — the [sailor hat](../sailor_hat/README.md)'s letter
+pockets are the other — and `scripts/build.py` will keep naming both.
 
 **If either variant would do the job, print the back one.** It has no flat roof
 anywhere.

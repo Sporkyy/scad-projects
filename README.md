@@ -136,6 +136,19 @@ The snap profile is not original work — it is the openGrid standard, rebuilt f
 mitufy's generator under CC BY 4.0 and checked against it by boolean difference.
 See [OPENGRID.md](OPENGRID.md) for the system as a whole.
 
+### Sailor hat
+
+[![Sailor hat preview](sailor_hat/sailor_hat.png)](sailor_hat/sailor_hat.stl)
+
+[Documentation](sailor_hat/README.md) · [STL](sailor_hat/sailor_hat.stl) · [source](sailor_hat/sailor_hat.scad)
+
+A wearable US Navy Dixie cup with two initials set into the band, as worn by a
+certain retro bear mascot. One printed shell plus two letter tiles that drop into
+pockets cut for them, so the lettering comes out a different colour with no
+filament swap and no purge waste. Sized from a tape measurement around the head —
+the one part here whose measurement a caliper cannot reach, and the reason why is
+written down rather than glossed.
+
 ### openGrid mount for a triple 4-tier bookshelf
 
 [Design notes and measurements needed](triple_4_tier_book_shelf_opengrid_mount/TODO.md)
