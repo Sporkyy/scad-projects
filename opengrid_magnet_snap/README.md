@@ -113,8 +113,8 @@ ears, which stays on the side you pushed from and faces you. Reach for this one
 when the magnet has to present outward, to catch something steel laid onto the
 tile, rather than to hold the tile up. Everything above about magnets,
 clearances, the through hole and the openGrid profile applies unchanged;
-mirrored into the same orientation the two parts are geometrically identical,
-which is checked the same way.
+the variants use the same profile, bore dimensions, parameters and checks, but
+put the bore on opposite faces and reverse the authored print orientation.
 
 **This one pays for its orientation.** The bore still has to open upward, and
 here the bore is on the front face, so the front goes up and the back goes on
