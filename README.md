@@ -677,9 +677,9 @@ swung.
 [View or download STL](opengrid_magnet_snap/opengrid_magnet_snap_back.stl) · [OpenSCAD source](opengrid_magnet_snap/opengrid_magnet_snap_back.scad)
 
 A full-thickness openGrid snap that carries a disc magnet instead of a
-connector. Drop one into any cell of a Heavy (6.8 mm) board and that cell
-becomes a magnetic pad, so the board hangs off steel with no fastener and no
-adhesive.
+connector. Drop one into any cell of a regular 6.8 mm board, or either face of
+a 13.6 mm Heavy one, and that cell becomes a magnetic pad, so the board hangs
+off steel with no fastener and no adhesive.
 
 It exists to hang an openGrid tile under the top plate of a steel speaker stand,
 where the tile carries an Underware cable channel on its other face. The cells
@@ -690,17 +690,18 @@ This one puts it on the back. The [front face variant](#opengrid-magnet-snap-fro
 below puts it on the front. This is the one that sticks a tile to steel, because
 its magnet is on the face the steel is against.
 
-**Front and back, on a snap, mean the wide end and the narrow end.** A full snap
-is 6.8 mm of two halves: 3.4 mm of business end carrying the corner ears and the
-face nubs, and 3.4 mm of plain shank behind it. The shank is what goes into the
-tile, so the wide end stays on the side you pushed from and faces you — the
-front — and the narrow end runs away from you toward whatever the tile is
-mounted on — the back. Measured on the mesh, the front reaches 15.4 mm from the
-axis at the ears and the shank only 14.53 mm.
+**Front and back, on a snap, mean the wide end and the narrow end.** Every
+feature a full snap has sits in its first 3.4 mm — the corner ears at the face
+itself, the nubs just behind them — and the remaining 3.4 mm is plain shank. The
+shank is what goes into the tile, so the wide end stays on the side you pushed
+from and faces you (the front) while the narrow end runs away from you toward
+whatever the tile is mounted on (the back). Measured on the mesh, the front
+reaches 15.4 mm from the axis at the ears and the shank only 14.53 mm.
 
-That split is also why a Heavy tile has two fronts and no back. 3.4 plus 3.4 is
-6.8, so a Heavy cell takes either one full snap or two Lite snaps pushed in from
-opposite faces, and either way every ear ends up facing outward.
+A **Heavy** tile is 13.6 mm, twice a regular one, and is built to take a full
+6.8 mm snap in each face. That is why it has two fronts and no back: both snaps
+present their ears outward and their shanks meet in the middle. A Heavy cell
+fitted from one side only is still half empty from the other.
 
 **The through hole is optional and does three jobs.** It vents the bore, so
 cyanoacrylate cannot hydraulic-lock against the magnet and push it back out

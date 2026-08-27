@@ -14,26 +14,27 @@
 // hold the tile up. To stick a tile to steel, use the back one.
 //
 // FRONT AND BACK, ON A SNAP, MEAN THE WIDE END AND THE NARROW
-// END. A full snap is 6.8 mm of two halves: 3.4 mm of business
-// end carrying the corner ears and the face nubs, and 3.4 mm of
-// plain shank behind it. The shank is what goes into the tile,
-// so the wide end stays on the side you pushed from and faces
-// you — the front — and the narrow end runs away from you
-// toward whatever the tile is mounted on — the back. Measured
-// on the mesh, the front reaches 15.4 mm from the axis at the
-// ears and the shank only 14.53 mm.
+// END. Every feature a full snap has sits in its first 3.4 mm:
+// the corner ears at the face itself, the nubs just behind
+// them. The remaining 3.4 mm is plain shank. The shank is what
+// goes into the tile, so the wide end stays on the side you
+// pushed from and faces you — the front — while the narrow end
+// runs away from you toward whatever the tile is mounted on —
+// the back. Measured on the mesh, the front reaches 15.4 mm
+// from the axis at the ears and the shank only 14.53 mm.
 //
-// That split is also why a Heavy tile has two fronts and no
-// back. 3.4 plus 3.4 is 6.8, so a Heavy cell takes either one
-// full snap or two Lite snaps pushed in from opposite faces,
-// and either way every ear ends up facing outward.
+// A Heavy tile is 13.6 mm, twice a regular one, and is built to
+// take a full 6.8 mm snap in each face. That is why it has two
+// fronts and no back: both snaps present their ears outward and
+// their shanks meet in the middle. Cells fitted from one side
+// only are still half empty from the other.
 //
 // openGrid snaps normally present a connector on their front
 // face: threads, an openConnect head, a zip tie bail. This one
-// presents a magnet instead. Drop it into any cell of a Heavy
-// (6.8 mm) board and that cell becomes a magnetic pad, so the
-// board can hang off any steel surface with no fastener and no
-// adhesive.
+// presents a magnet instead. Drop it into any cell of a regular
+// 6.8 mm board, or either face of a 13.6 mm Heavy one, and that
+// cell becomes a magnetic pad, so the board can hang off any
+// steel surface with no fastener and no adhesive.
 //
 // It exists to hang an openGrid tile under the top plate of a
 // steel speaker stand, where the tile carries an Underware
@@ -163,11 +164,12 @@ through_hole = true;
 through_hole_d = 3;
 
 // ===== openGrid INTERFACE — THE STANDARD, NOT KNOBS =====
-// Reproduced from mitufy's generator. A board is 28 mm pitch and a Heavy
-// board is 6.8 mm thick, and every number here follows from that. Change one
-// and the snap stops fitting a board
+// Reproduced from mitufy's generator. A board is 28 mm pitch, and a full snap
+// is 6.8 mm thick — the whole thickness of a regular board, and half of a
+// 13.6 mm Heavy one, which takes a full snap in each face. Every number here
+// follows from that. Change one and the snap stops fitting a board
 
-snap_thickness = 6.8; // Heavy / Standard board thickness
+snap_thickness = 6.8; // Full snap: a regular board's thickness, half a Heavy one's
 snap_across_flats = 24.8; // Body width across its flat faces
 snap_corner_chamfer = 2.7 * sqrt(2) + 1; // Leg of the 45 deg corner chamfer
 
