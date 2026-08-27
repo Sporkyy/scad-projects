@@ -110,6 +110,39 @@ mistake the profile for original MIT work.
 
 Attribution is a condition, not a courtesy.
 
+### The ecosystem is mixed-licence
+
+**openGrid being CC BY 4.0 says nothing about the licence of a given openGrid
+part.** CC BY has no ShareAlike term, so an implementation of the standard is
+free to be more restrictive than the standard, and some are. Check the `LICENSE`
+file of anything you intend to derive from, every time — a search result will not
+tell you, and the restrictive projects look exactly like the permissive ones.
+
+The one most likely to catch you out here:
+
+- **QuackWorks** by Andy Levesque (BlackjackDuck) —
+  [GitHub](https://github.com/AndyLevesque/QuackWorks) — is
+  **CC BY-NC-SA 4.0**, confirmed from the `LICENSE` file rather than a summary.
+  NonCommercial *and* ShareAlike, which is closer to Multiboard's terms than to
+  openGrid's.
+
+That matters twice over. **Underware is a QuackWorks project**, so the cable
+channels these magnet snaps were built to work alongside come from a NC-SA
+codebase — fine to print and use, but nothing here may be *derived* from it.
+ShareAlike would force CC BY-NC-SA 4.0 onto any file that did, incompatible with
+this repository's MIT terms and viral into whatever touched it.
+
+And QuackWorks contains `openGrid/opengrid-snap.scad`. Reaching for that as the
+reference when rebuilding the snap profile — an entirely reasonable-looking
+thing to do — would have made the parts in this repository NC-SA, and by
+ShareAlike anything reproducing them too. The chain actually used is the clean
+one:
+
+    David D's openGrid (CC BY 4.0)
+      → mitufy's recreation (CC BY 4.0, credits BlackjackDuck as inspiration
+        rather than source, which is what lets it be CC BY at all)
+      → the files here
+
 ## Printing openGrid snaps
 
 Three rules, in priority order:
@@ -179,6 +212,13 @@ Recorded because each one cost a rebuild, and each is easy to re-derive wrongly.
 - **The official snap is not overhang-clean.** Its face grooves have flat 90°
   roofs whichever way up it prints. Do not assume a published, widely printed
   part passes a 45° check.
+- **"openGrid is CC BY, so openGrid parts are CC BY" does not follow.** The
+  standard is permissive; individual implementations of it need not be, and CC
+  BY lets them be more restrictive. QuackWorks — which is where Underware lives,
+  and which ships its own `openGrid/opengrid-snap.scad` — is CC BY-NC-SA 4.0.
+  Picking that as the reference profile instead of mitufy's would have made
+  everything here NonCommercial and ShareAlike. Open the `LICENSE` file before
+  deriving, not after.
 - **The licence is in the download pack, not on the web.** opengrid.world
   renders client-side and says nothing about licensing in its HTML; the
   `openGrid-3D` GitHub repos carry no `LICENSE` file and no SPDX metadata; the
