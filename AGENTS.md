@@ -157,6 +157,14 @@ reason to withhold a correct export, so the artifacts are still written and the
 build still exits zero. Nothing will stop you committing a part that needs
 supports except reading the output.
 
+**Temporary exception — front-face openGrid magnet snap.** Its four relief-slot
+roofs are flat at 90° but span only the 0.6 mm slot width. The exception is
+approved while slicer orientations and physical prints are evaluated; it does
+not relax the 45° rule for any other face or part. Keep the warning visible in
+normal builds, keep the exception documented beside the part, and revisit the
+geometry and print notes when the tests establish whether printing as modelled,
+using supports, or tilting the part 45° gives the best result.
+
 To check a mesh on its own, or to see the shallow faces the build stays quiet
 about:
 
