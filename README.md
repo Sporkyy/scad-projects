@@ -24,6 +24,22 @@ instead was probably not the dimension being asked for. `post_clear_gap` on the
 brace is a gap between the posts rather than a span across them for exactly that
 reason — the span is unreachable, so the number that came back was a gap.
 
+## Where the documentation lives
+
+Each entry below is a catalogue card: what the part is, and links to its mesh and
+source. Anything longer than a card — measuring tables, tuning guidance, print
+notes — lives in a `README.md` beside the part, which GitHub renders when you
+browse into the directory. Not every part needs one; the ones that have one are
+linked from their card.
+
+Knowledge that spans parts gets its own top-level file rather than being spread
+across them. There is one so far:
+
+- **[OPENGRID.md](OPENGRID.md)** — the openGrid system: tile and snap
+  thicknesses, the full snap profile as a table, print-orientation rules,
+  licensing, how to verify a reimplementation against the reference generator,
+  and the assumptions that looked right and were not.
+
 ## Projects
 
 ### Shelf tube coupler
@@ -670,137 +686,28 @@ is a small block, the only thing it has to do is stay put, and the floor under
 the notch is the one place it would break if it were picked up by an end and
 swung.
 
-### openGrid magnet snap, back face
+### openGrid magnet snaps
 
 [![openGrid magnet snap back face preview](opengrid_magnet_snap/opengrid_magnet_snap_back.png)](opengrid_magnet_snap/opengrid_magnet_snap_back.stl)
 
-[View or download STL](opengrid_magnet_snap/opengrid_magnet_snap_back.stl) · [OpenSCAD source](opengrid_magnet_snap/opengrid_magnet_snap_back.scad)
+[Full documentation](opengrid_magnet_snap/README.md) · back face
+[STL](opengrid_magnet_snap/opengrid_magnet_snap_back.stl) ·
+[source](opengrid_magnet_snap/opengrid_magnet_snap_back.scad) · front face
+[STL](opengrid_magnet_snap/opengrid_magnet_snap_front.stl) ·
+[source](opengrid_magnet_snap/opengrid_magnet_snap_front.scad)
 
-A full-thickness openGrid snap that carries a disc magnet instead of a
-connector. Drop one into any cell of a regular 6.8 mm board, or either face of
-a 13.6 mm Heavy one, and that cell becomes a magnetic pad, so the board hangs
-off steel with no fastener and no adhesive.
+Two full-thickness openGrid snaps carrying a disc magnet instead of a connector,
+differing only in which face the magnet is on. Drop one into a cell and that cell
+becomes a magnetic pad, so a board hangs off steel with no fastener and no
+adhesive. The back face variant is the one that sticks a tile to steel; the front
+face variant presents its magnet outward instead.
 
-It exists to hang an openGrid tile under the top plate of a steel speaker stand,
-where the tile carries an Underware cable channel on its other face. The cells
-not doing cable duty become magnets and the tile holds itself up.
+The snap profile is not original work — it is the openGrid standard, rebuilt from
+mitufy's generator under CC BY 4.0 and checked against it by boolean difference.
+See [OPENGRID.md](OPENGRID.md) for the system as a whole and
+[the part's own README](opengrid_magnet_snap/README.md) for measuring, tuning and
+print notes.
 
-**There are two of these, and they differ only in which face the magnet is on.**
-This one puts it on the back. The [front face variant](#opengrid-magnet-snap-front-face)
-below puts it on the front. This is the one that sticks a tile to steel, because
-its magnet is on the face the steel is against.
-
-**Front and back, on a snap, mean the wide end and the narrow end.** Every
-feature a full snap has sits in its first 3.4 mm — the corner ears at the face
-itself, the nubs just behind them — and the remaining 3.4 mm is plain shank. The
-shank is what goes into the tile, so the wide end stays on the side you pushed
-from and faces you (the front) while the narrow end runs away from you toward
-whatever the tile is mounted on (the back). Measured on the mesh, the front
-reaches 15.4 mm from the axis at the ears and the shank only 14.53 mm.
-
-A **Heavy** tile is 13.6 mm, twice a regular one, and is built to take a full
-6.8 mm snap in each face. That is why it has two fronts and no back: both snaps
-present their ears outward and their shanks meet in the middle. A Heavy cell
-fitted from one side only is still half empty from the other.
-
-**The through hole is optional and does three jobs.** It vents the bore, so
-cyanoacrylate cannot hydraulic-lock against the magnet and push it back out
-while it cures. It pushes a magnet out again if one has to come apart. And it
-passes a fastener, so the magnet can be a bolted pot magnet rather than a plain
-disc — though the hole comes out the opposite face from the bore, so a bolt head
-lands there proud of a board the snap is flush in. Countersink it, or pick a
-magnet that does not need a head on that side. Set `through_hole = false` when the magnet is going on with an adhesive
-dot instead: a dot needs no vent, and the unbroken face is tidier. A dot holds
-very little, but for a cable channel that is carrying nothing vertically it is
-enough.
-
-**Measuring.** Two measurements, both on the magnet:
-
-| Parameter | Measure | Caliper |
-| --- | --- | --- |
-| `magnet_d` | Outside jaws across the disc | 6 in |
-| `magnet_h` | Outside jaws on the plain edge of the disc | 6 in |
-
-Plated magnets vary by a couple of tenths between nominally identical discs, so
-measure the ones in your hand rather than trusting the listing.
-
-**Deciding.** `magnet_fit` is the clearance added to the bore diameter. The
-magnet wants to drop in rather than be pressed: a press fit on a brittle plated
-disc chips the plating, and the chip is what breaks the bond a year later.
-`magnet_recess` sets how far below the face the magnet sits — zero is flush,
-which is what lets it touch the steel directly, and a negative value stands it
-proud for a harder grip at the cost of the magnet taking the scuffing instead of
-the snap. Oversized discs are asserted against the relief slots and against the
-floor left under the bore, so a magnet too fat or too thick fails the render
-rather than the print.
-
-**The snap profile is not original work.** It is the openGrid standard snap,
-reproduced from [mitufy's parametric snap
-generator](https://github.com/mitufy/opengrid-projects) so that these files can
-stand alone the way every source here does. The dimensions in the openGrid
-interface block are that standard, not tuning knobs, and changing one makes a
-snap that no longer fits a board. The reconstruction was checked by boolean
-difference against a mesh from the generator: they agree to 0.02% by volume, and
-every remaining discrepancy is the generator's own 0.005 mm modelling epsilon.
-
-One thing departs from the standard, and it is hidden. The official snap's
-relief groove has a flat roof, which is a 90° ceiling whichever way up the snap
-is printed. Here it is a gable, the same trick the wall anchor's tie channel
-uses. The change is entirely inboard of the face plane — the groove's mouth is
-still 0.4 mm tall by 0.8 mm deep, so a board cannot tell the difference — and it
-takes about 2 mm³ out of each arm root, in a pocket that exists to be empty.
-
-**Printing.** PETG, PLA or ASA, no supports. Print as modelled, front face down
-and bore facing up. This variant gets its orientation for free: the bore has to
-open upward because a 10.2 mm circular ceiling is not something to bridge, and
-the relief slots that free the four arms open out of the back face, so both want
-the same way up. Nothing in the part is left hanging — worst overhang is 45° at
-the groove gable, with the nub faces behind it at 35°. Four perimeters and 30%
-infill or more, since the arms are what the snap fit lives in and they are thin.
-The four ears are the only thing touching the plate at full width, so make sure
-the first layer is properly squished or they will lift. Drop the magnet in after
-printing, bore side up, and wick a little thin CA down the through hole from the
-other side rather than puddling it in the bore.
-
-### openGrid magnet snap, front face
-
-[![openGrid magnet snap front face preview](opengrid_magnet_snap/opengrid_magnet_snap_front.png)](opengrid_magnet_snap/opengrid_magnet_snap_front.stl)
-
-[View or download STL](opengrid_magnet_snap/opengrid_magnet_snap_front.stl) · [OpenSCAD source](opengrid_magnet_snap/opengrid_magnet_snap_front.scad)
-
-The same snap with the magnet on the front instead — the wide end carrying the
-ears, which stays on the side you pushed from and faces you. Reach for this one
-when the magnet has to present outward, to catch something steel laid onto the
-tile, rather than to hold the tile up. Everything above about magnets,
-clearances, the through hole and the openGrid profile applies unchanged;
-mirrored into the same orientation the two parts are geometrically identical,
-which is checked the same way.
-
-**This one pays for its orientation.** The bore still has to open upward, and
-here the bore is on the front face, so the front goes up and the back goes on
-the plate — the reverse of the back variant. That inverts the relief slots:
-instead of opening out of the back face they run up from the plate and stop
-0.6 mm short of the front face, leaving their closed ends as four flat roofs.
-
-**Those roofs are left flat deliberately, and the build says so on every run.**
-Each spans the slot's 0.6 mm width, not its 12.4 mm length — a gap no support
-material could be placed in and no printer struggles to cross. Every way of
-angling one is taken out of the 0.6 mm of material above the slot, and that
-material is the root the arm hinges on: a 45° gable halves it to 0.3 mm, under a
-single 0.42 mm perimeter, and a ramp across the slot consumes it outright and
-opens a slit to the front face. The snap fit lives in that hinge and a 0.6 mm
-bridge does not, so the hinge wins. This is the one part in this repository that
-trips the overhang check on purpose, and `scripts/build.py` will keep naming it.
-
-**If either variant would do the job, print the back one.** It has no flat roof
-anywhere.
-
-**Printing.** As above, but back face down and bore facing up. Do not let the
-slicer turn it over: that puts a 10.2 mm ceiling over the magnet bore, which is
-a real bridge rather than the 0.6 mm ones this orientation accepts. Behind those
-roofs it is 45° at the groove gable and 35° at the nub faces. First layer
-adhesion is easier here than on the back variant, since the whole back face
-lands on the plate rather than just four ears.
 
 ## Working with these
 
@@ -858,7 +765,7 @@ and are never generated or distributed by this project.
 MIT — see [LICENSE](LICENSE).
 
 The openGrid snap profile reproduced in both
-[opengrid_magnet_snap](opengrid_magnet_snap/) sources derives
-from [mitufy's openGrid projects](https://github.com/mitufy/opengrid-projects),
-used under CC BY 4.0. openGrid itself is by David D — see
-[opengrid.world](https://www.opengrid.world).
+[opengrid_magnet_snap](opengrid_magnet_snap/) sources derives from [mitufy's
+openGrid projects](https://github.com/mitufy/opengrid-projects), used under
+CC BY 4.0. openGrid itself is by David D and its core parts are CC-BY — see
+[opengrid.world](https://www.opengrid.world) and [OPENGRID.md](OPENGRID.md).

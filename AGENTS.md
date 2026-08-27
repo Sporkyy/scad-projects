@@ -187,6 +187,29 @@ source comments, measuring instructions, tuning guidance, derived-value
 descriptions, print notes, generated STL, and preview image for content that needs
 to follow the new code.
 
+Documentation sits at three levels, and the test for which level something
+belongs at is how long it outlives the thing it describes.
+
+- **The top-level `README.md` is a catalogue.** One card per project: preview,
+  links, and a few sentences saying what the part is and when to reach for it.
+  It has to stay scannable as parts accumulate, so nothing longer than a card
+  goes here.
+- **A `README.md` beside the part** carries the full treatment — measuring table,
+  tuning guidance, print notes — and GitHub renders it when you browse into the
+  directory. Add one when a directory holds more than one part, or when the
+  explanation outgrows its card. A single simple part is fine with the card
+  alone; do not add an empty file for symmetry. When a part has one, its card
+  links to it and stops repeating it.
+- **A top-level subject file** holds knowledge that spans parts and outlives any
+  of them — an external system's dimensions, its licence, the conventions for
+  building against it. `OPENGRID.md` is the first. Put facts there once and link
+  to them rather than restating them in each part that uses them.
+
+Record the corrections, not just the conclusions. A subject file should say which
+plausible assumptions turned out to be wrong and what the right answer was, since
+that is the part a reader cannot re-derive from the finished geometry and is the
+part most likely to be got wrong twice.
+
 ## Design conventions
 
 - Measurements come from calipers, so parameters must be things a caliper can
