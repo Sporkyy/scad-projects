@@ -767,5 +767,6 @@ MIT — see [LICENSE](LICENSE).
 The openGrid snap profile reproduced in both
 [opengrid_magnet_snap](opengrid_magnet_snap/) sources derives from [mitufy's
 openGrid projects](https://github.com/mitufy/opengrid-projects), used under
-CC BY 4.0. openGrid itself is by David D and its core parts are CC-BY — see
-[opengrid.world](https://www.opengrid.world) and [OPENGRID.md](OPENGRID.md).
+CC BY 4.0. openGrid itself is by David D and is also CC BY 4.0 — see
+[opengrid.world](https://www.opengrid.world), the scope note in
+[LICENSE](LICENSE), and [OPENGRID.md](OPENGRID.md).

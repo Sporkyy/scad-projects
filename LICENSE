@@ -19,3 +19,21 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+
+---
+
+Scope note.
+
+The openGrid snap profile reproduced in opengrid_magnet_snap/ is not original
+to this repository. It derives from openGrid by David D
+(https://www.opengrid.world), licensed CC BY 4.0, by way of mitufy's openGrid
+projects (https://github.com/mitufy/opengrid-projects), also CC BY 4.0.
+
+Those portions remain subject to CC BY 4.0. CC BY 4.0 carries no ShareAlike
+term, so the work here may be and is offered under the MIT terms above — but
+the attribution and the statement of modification carried in each affected
+file's header must travel with the profile, and nothing in the MIT grant above
+removes any right CC BY 4.0 gives you in the upstream material.
+
+Everything else in this repository is MIT as above.

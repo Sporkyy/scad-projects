@@ -82,20 +82,33 @@ angle independent, so neither distorts the other.
 
 ## Licensing
 
-openGrid's core parts are released **CC-BY**, which is the practical reason to
-prefer it over Multiboard: Multiboard uses a custom non-commercial licence that
-restricts remixes and paid derivatives, while anyone can remix, sell, or build on
-openGrid with attribution. That difference is why the openGrid accessory
-ecosystem has grown faster.
+openGrid is **CC BY 4.0**. The licence page in David D's official download pack
+states it, and the badge there is plain BY — no ShareAlike ring — with remix and
+commercial use both permitted and the work marked as an Approved Free Cultural
+Work meeting the Open Definition, which NonCommercial and NoDerivatives licences
+do not qualify for. Do not take the version from a blog summary; the pack is the
+authority, and the difference between BY and BY-SA decides whether a derivative
+can carry its own licence.
+
+That is the practical reason to prefer openGrid over Multiboard, which uses a
+custom non-commercial licence restricting remixes and paid derivatives.
 
 - openGrid by David D — [opengrid.world](https://www.opengrid.world),
   [Printables](https://www.printables.com/model/1214361-opengrid-walldesk-mounting-framework-and-ecosystem),
-  [GitHub](https://github.com/openGrid-3D)
-- mitufy's snap generator — [GitHub](https://github.com/mitufy/opengrid-projects),
-  CC BY 4.0
+  [GitHub](https://github.com/openGrid-3D). CC BY 4.0.
+- mitufy's snap generator — [GitHub](https://github.com/mitufy/opengrid-projects).
+  CC BY 4.0.
 
-Attribution is a condition, not a courtesy. Any part here that reproduces the
-snap profile names both in its header.
+**CC BY 4.0 has no ShareAlike term**, so a part built from the profile can be
+released under any licence — this repository keeps MIT. What travels regardless
+of the outbound licence is attribution (creator, title, source, licence link),
+a statement that the work was modified, and the bar on imposing terms that would
+restrict a recipient's rights in the upstream material itself. Every part here
+that reproduces the profile carries all of that in its header, and
+[LICENSE](LICENSE) scopes the exception so a reader of that file alone cannot
+mistake the profile for original MIT work.
+
+Attribution is a condition, not a courtesy.
 
 ## Printing openGrid snaps
 
@@ -166,6 +179,13 @@ Recorded because each one cost a rebuild, and each is easy to re-derive wrongly.
 - **The official snap is not overhang-clean.** Its face grooves have flat 90°
   roofs whichever way up it prints. Do not assume a published, widely printed
   part passes a 45° check.
+- **The licence is in the download pack, not on the web.** opengrid.world
+  renders client-side and says nothing about licensing in its HTML; the
+  `openGrid-3D` GitHub repos carry no `LICENSE` file and no SPDX metadata; the
+  Printables page returns 403 to a plain fetch. The authoritative statement is a
+  licence page inside David D's official download pack. Search summaries will
+  cheerfully tell you "CC-BY" without a version, and BY versus BY-SA is exactly
+  the distinction that decides whether your own work can carry its own licence.
 - **`scripts/overhangs.py` calls anything at absolute z ≤ 1e-3 the build plate.**
   A mesh flipped with `rotate([180,0,0])` and not translated back to z = 0 sits
   at negative z, and every downward facet reads as first layer — so the script

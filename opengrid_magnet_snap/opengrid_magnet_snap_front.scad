@@ -79,11 +79,16 @@
 // other, so a snap fitted the other way round holds exactly as
 // well.
 //
-// THE SNAP PROFILE IS NOT ORIGINAL WORK. It is the openGrid
+// THE SNAP PROFILE IS NOT ORIGINAL WORK, AND THIS NOTICE IS A
+// LICENCE CONDITION RATHER THAN A COURTESY. It is the openGrid
 // standard snap, reproduced here from mitufy's parametric
 // generator so that this file can stand alone:
 //   https://github.com/mitufy/opengrid-projects  (CC BY 4.0)
 // openGrid itself is by David D — https://www.opengrid.world
+// (CC BY 4.0). Both licences require that the profile be
+// attributed and that modification be stated, so: the profile
+// as used here IS MODIFIED, in the one way described below.
+// Keep this block with the file.
 // The dimensions in the openGrid interface block below are that
 // standard. They are not tuning knobs and changing one makes a
 // snap that does not fit a board.
