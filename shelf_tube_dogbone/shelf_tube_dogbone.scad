@@ -138,12 +138,14 @@ half_width = across_center_distance + 2 * collar_r;
 // the part stays narrow; past a width of bed_size * (sqrt(2) - 1) it does not
 turned_square = (back_half_length + half_width) / sqrt(2);
 bed_square = min(back_half_length, turned_square);
+bed_angle = turned_square < back_half_length ? 45 : 0;
 
 echo(str("across-the-gap hole spacing = ", across_center_distance, " mm"));
 echo(str("front-to-back hole spacing = ", depth_center_distance, " mm"));
 echo(str("assembled plate = ", assembled_length, " x ", half_width, " x ", plate_thickness, " mm"));
 echo(str("front half = ", front_half_length, " x ", half_width, " mm"));
-echo(str("back half = ", back_half_length, " x ", half_width, " mm, needs a ", bed_square, " mm square"));
+echo(str("back half = ", back_half_length, " x ", half_width, " mm"));
+echo(str("bed placement = ", bed_angle, " deg for the back half, needs a ", bed_square, " mm square"));
 echo(str("post_clear_gap tolerated = ", post_clear_gap - slot_travel / 2, " to ", post_clear_gap + slot_travel / 2, " mm"));
 
 assert(post_clear_gap > 0, "post_clear_gap is the open space between the two posts, not a span across them — measure inner face to inner face");

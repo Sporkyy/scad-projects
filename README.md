@@ -184,8 +184,9 @@ the step down to the lap is a drop in height, not an overhang. The two bodies ar
 exported clear of each other; let the slicer arrange them. Assemble with two M4
 bolts, the front half as printed and **the back half turned over**, so its lap
 sits on top of the front's and the finished plate is one thickness throughout.
-`bed_size` and the per-edge `bed_margin` reject a half that cannot fit. One
-dogbone makes a pair of units rigid, whatever the stack height.
+`bed_size` and the per-edge `bed_margin` reject a half that cannot fit, and the
+echoed bed placement gives the angle the back half needs. One dogbone makes a
+pair of units rigid, whatever the stack height.
 
 ### Shelf tube wall anchor
 
