@@ -203,10 +203,11 @@ boundary and the reasoning, and [LICENSES/](LICENSES/) for the full texts.
 
 | | |
 | --- | --- |
-| Designs and documentation — every `.scad`, `.stl`, `.png` and `README.md` | **CC BY 4.0** |
-| Software — everything under `scripts/` and `tests/` | **MIT** |
+| Printable objects and documentation — `.scad`, `.stl`, `.png`, every Markdown document, and other design artifacts | **CC BY 4.0** |
+| Software and repository tooling — `scripts/`, `tests/`, `.vscode/`, and repository configuration | **MIT** |
 
-Every source file carries an SPDX identifier saying which it is.
+Those examples are inclusive rather than exhaustive. A per-file SPDX identifier
+controls whenever one is present.
 
 The openGrid snap profile in [opengrid_magnet_snap](opengrid_magnet_snap/) is not
 original to this repository. It derives from openGrid by David D

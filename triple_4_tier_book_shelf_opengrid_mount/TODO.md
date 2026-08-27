@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2026 Todd Sayre
+SPDX-License-Identifier: CC-BY-4.0
+-->
+
 # openGrid mount for triple 4-tier bookshelf
 
 Mount openGrid tiles to the outer sides of an industrial-style triple 4-tier

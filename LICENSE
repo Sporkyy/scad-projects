@@ -5,15 +5,22 @@ each. Which applies is decided by the file, not by where you got it.
 
   Designs and documentation                      CC BY 4.0
     Every .scad source, its generated .stl and   LICENSES/CC-BY-4.0.txt
-    .png, every README.md, OPENGRID.md, and
-    AGENTS.md.
+    .png, every Markdown document including
+    READMEs and TODOs, and any other source or
+    generated artifact that describes or builds
+    a printable object.
 
-  Software                                       MIT
-    Everything under scripts/ and tests/.        LICENSES/MIT.txt
+  Software and repository tooling                MIT
+    Everything under scripts/, tests/, and       LICENSES/MIT.txt
+    .vscode/, plus repository configuration such
+    as .gitignore.
 
-Every source file carries an SPDX-License-Identifier line saying which it is.
-Where a file cannot carry one — .stl and .png — it takes the licence of the
-.scad it was generated from, which is CC BY 4.0.
+These lists are inclusive rather than exhaustive: a new file takes the licence
+of the kind of work it contains, not an accidental default based on an extension
+that was not named here. A per-file SPDX-License-Identifier controls whenever
+one is present. Where a generated file cannot carry one — .stl and .png, for
+example — it takes the licence of the source it was generated from, which is
+CC BY 4.0 for the printable objects in this repository.
 
 Why two.
 

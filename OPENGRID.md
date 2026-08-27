@@ -100,13 +100,14 @@ custom non-commercial licence restricting remixes and paid derivatives.
   CC BY 4.0.
 
 **CC BY 4.0 has no ShareAlike term**, so a part built from the profile can be
-released under any licence — this repository keeps MIT. What travels regardless
-of the outbound licence is attribution (creator, title, source, licence link),
-a statement that the work was modified, and the bar on imposing terms that would
-restrict a recipient's rights in the upstream material itself. Every part here
-that reproduces the profile carries all of that in its header, and
-[LICENSE](LICENSE) scopes the exception so a reader of that file alone cannot
-mistake the profile for original MIT work.
+released under another licence. This repository deliberately keeps every
+printable object and its documentation under CC BY 4.0 instead: the same licence
+in and out, with no extra compatibility question to answer. What travels either
+way is attribution (creator, title, source, licence link), a statement that the
+work was modified, and the bar on imposing terms that would restrict a
+recipient's rights in the upstream material itself. Every part here that
+reproduces the profile carries all of that in its header, and [LICENSE](LICENSE)
+records both the upstream attribution and the repository-wide licence boundary.
 
 Attribution is a condition, not a courtesy.
 
@@ -129,8 +130,9 @@ The one most likely to catch you out here:
 That matters twice over. **Underware is a QuackWorks project**, so the cable
 channels these magnet snaps were built to work alongside come from a NC-SA
 codebase — fine to print and use, but nothing here may be *derived* from it.
-ShareAlike would force CC BY-NC-SA 4.0 onto any file that did, incompatible with
-this repository's MIT terms and viral into whatever touched it.
+ShareAlike would require any file that did derive from it to use CC BY-NC-SA
+4.0, contrary to this repository's CC BY 4.0 policy for printable objects, and
+would require that licence to follow adaptations of the derived material.
 
 And QuackWorks contains `openGrid/opengrid-snap.scad`. Reaching for that as the
 reference when rebuilding the snap profile — an entirely reasonable-looking

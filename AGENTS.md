@@ -206,12 +206,15 @@ belongs at is how long it outlives the thing it describes.
   building against it. `OPENGRID.md` is the first. Put facts there once and link
   to them rather than restating them in each part that uses them.
 
-Two licences apply, split by what a file is rather than where it sits: designs
-and documentation (`.scad`, `.stl`, `.png`, `README.md`) are CC BY 4.0, and
-software (`scripts/`, `tests/`) is MIT. Every new source file gets an
-`SPDX-License-Identifier` line as its first line, or the line after a shebang.
-`LICENSE` explains the boundary; do not paper over it by relicensing one side to
-match the other.
+Two licences apply, split by what a file is rather than where it sits. Printable
+objects and their documentation — including `.scad`, `.stl`, `.png`, every
+Markdown document, and other design artifacts — are CC BY 4.0. Software and
+repository tooling — including `scripts/`, `tests/`, `.vscode/`, and repository
+configuration — are MIT. The lists are inclusive, not exhaustive; `LICENSE`
+explains the boundary. Every new editable file gets an
+`SPDX-License-Identifier` line first, or immediately after a shebang. Put it in
+an HTML comment at the top of Markdown. Do not paper over the split by
+relicensing one side to match the other.
 
 Record the corrections, not just the conclusions. A subject file should say which
 plausible assumptions turned out to be wrong and what the right answer was, since
