@@ -1,4 +1,5 @@
 import io
+import sys
 import tempfile
 import unittest
 from contextlib import redirect_stderr
@@ -6,7 +7,10 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 
-import build
+# The scripts are plain files rather than a package, so put them on the path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+
+import build  # noqa: E402
 
 
 class PublishModelsTests(unittest.TestCase):

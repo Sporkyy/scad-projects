@@ -167,6 +167,10 @@ python3 scripts/overhangs.py part/part.stl
 It groups the downward-facing facets by angle and height, ignores the first layer
 on the plate, and exits non-zero if anything is past 45°.
 
+Both scripts have tests in `tests/`, run with
+`python3 -m unittest discover -s tests` from the repository root. The test files
+put `scripts/` on `sys.path` themselves, so no `PYTHONPATH` is needed.
+
 **Assert what a knob can break.** If a parameter can drive a feature past the
 limit, or a large value can eat the bed adhesion out from under a tall part,
 `assert()` it so the render fails instead of the print. Note the worst overhang
