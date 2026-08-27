@@ -158,7 +158,7 @@ magnet_fit = 0.2;
 magnet_recess = 0;
 
 // Whether to run a hole all the way through, from the floor of the bore out
-// the front face. It does three jobs: it vents the bore, so cyanoacrylate cannot
+// the back face. It does three jobs: it vents the bore, so cyanoacrylate cannot
 // hydraulic-lock against the magnet and push it back out while it cures; it
 // lets a magnet be pushed back out if one ever has to come apart; and it
 // passes a fastener, so the magnet can be a bolted pot magnet rather than a
